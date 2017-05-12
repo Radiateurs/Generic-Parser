@@ -1,0 +1,8 @@
+{
+    "main":{
+	"exempleChiant":{
+	    "text":"SomeText",
+	    "tab":["Mais oui","C'est chaint"]
+	}
+    }
+}

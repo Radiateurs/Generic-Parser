@@ -1,0 +1,29 @@
+{
+    "schema": "http",
+    "type": "object",
+    "properties1": {
+        "A1": "1",
+		"A2": "",
+		"A3": ,
+		"":
+    },
+    "patternProperties": {
+        "^(/[^/]+)+$": {}
+    },
+    "required": [ "/", ],
+	"optional": [],
+	"tab_tab": [
+		[ "1", "2", "3" ],
+		false,
+		,
+		[],
+		{	"tab": [
+			["9"],
+			{ "DA1":"VA1", "DA2":"VA2" },
+			{},
+			{ "DC1":"VC1", "DC2":"VC2" }
+			]
+		}
+	]
+}
+
