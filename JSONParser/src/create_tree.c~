@@ -40,62 +40,8 @@ int		is_a_token(const char *fragment, const char *sep)
   return (0);
 }
 
-void		identify_token_type(const char *fragment, tree_parser *info)
-{
-  int		decimal_pos;
-
-  if (fragment[0] == '\"')
-    {
-      (*info).value_type = STRING;
-      (*info).current_state = VALUE;
-      (*info).current_tree_type = ATTRIBUT;
-      return ;
-    }
-  if (strcmp(fragment, "null") == 0)
-    {
-      (*info).value_type = NULLOBJ;
-      (*info).current_state = VALUE;
-      (*info).current_tree_type = ATTRIBUT;
-      return ;
-    }
-  if (strcmp(fragment, "true") == 0 || strcmp(fragment, "false") == 0)
-    {
-      (*info).value_type = BOOL;
-      (*info).current_state = VALUE;
-      (*info).current_tree_type = ATTRIBUT;
-      return ;
-    }
-  if ((decimal_pos = strcis(fragment, '.')) != -1 && str_n_is_num(fragment, decimal_pos) == 0 \
-      && str_is_num(fragment + decimal_pos) == 0)
-    {
-      (*info).value_type = DECIMAL;
-      (*info).current_state = VALUE;
-      (*info).current_tree_type = ATTRIBUT;
-      return ;
-    }
-  if (str_is_num(fragment) == 0)
-    {
-      (*info).value_type = INTEGER;
-      (*info).current_state = VALUE;
-      (*info).current_tree_type = ATTRIBUT;
-      return ;
-    }
-  (*info).value_type = UNKNOW;
-  return ;
-}
-
 void		state_token_fragment(const char *fragment, tree_parser *info)
 {
-  if ((*info).last_state == DECLARATIONB && fragment[0] != '\"')
-    {
-      (*info).current_state = ESNAME;
-      return ;
-    }
-  if ((*info).last_state == TYPETOKENB && fragment[0] != '\"')
-    {
-      (*info).current_state = VALUE;
-      return ;
-    }
   switch (fragment[0]) {
   case ':':
     /* if ((*info).last_state == DECLARATIONE) */
@@ -105,18 +51,6 @@ void		state_token_fragment(const char *fragment, tree_parser *info)
     break ;
   case '\"':
     if ((*info).last_state == DECLARATIONB)
-      {
-	(*info).elem_name = strdup("");
-	(*info).current_state = DECLARATIONE;
-      }
-    if ((*info).last_state == TYPETOKENB)
-      {
-	(*info).content = strdup("");
-	(*info).current_state = TYPETOKENE;
-	(*info).current_tree_type = ATTRIBUT;
-	(*info).value_type = STRING;
-      }
-    if ((*info).last_state == ESNAME)
       (*info).current_state = DECLARATIONE;
     if ((*info).last_state == LISTB || (*info).last_state == LISTE)
       (*info).current_state = DECLARATIONB;
@@ -134,7 +68,7 @@ void		state_token_fragment(const char *fragment, tree_parser *info)
       }
     if ((*info).last_state == ASSIGNEMENT ||(*info).last_state == TABB)
       (*info).current_state = TYPETOKENB;
-    if ((*info).last_state == VALUE)
+    if ((*info).last_state == TYPETOKENB)
       (*info).current_state = TYPETOKENE;
     break ;
   case '[':
@@ -189,6 +123,50 @@ void		state_token_fragment(const char *fragment, tree_parser *info)
       (*info).current_tree_type = ELEMENT;
     break ;
   }
+}
+
+void		identify_token_type(const char *fragment, tree_parser *info)
+{
+  int		decimal_pos;
+
+  if (fragment[0] == '\"')
+    {
+      (*info).value_type = STRING;
+      (*info).current_state = VALUE;
+      (*info).current_tree_type = ATTRIBUT;
+      return ;
+    }
+  if (strcmp(fragment, "null") == 0)
+    {
+      (*info).value_type = NULLOBJ;
+      (*info).current_state = VALUE;
+      (*info).current_tree_type = ATTRIBUT;
+      return ;
+    }
+  if (strcmp(fragment, "true") == 0 || strcmp(fragment, "false") == 0)
+    {
+      (*info).value_type = BOOL;
+      (*info).current_state = VALUE;
+      (*info).current_tree_type = ATTRIBUT;
+      return ;
+    }
+  if ((decimal_pos = strcis(fragment, '.')) != -1 && str_n_is_num(fragment, decimal_pos) == 0 \
+      && str_is_num(fragment + decimal_pos) == 0)
+    {
+      (*info).value_type = DECIMAL;
+      (*info).current_state = VALUE;
+      (*info).current_tree_type = ATTRIBUT;
+      return ;
+    }
+  if (str_is_num(fragment) == 0)
+    {
+      (*info).value_type = INTEGER;
+      (*info).current_state = VALUE;
+      (*info).current_tree_type = ATTRIBUT;
+      return ;
+    }
+  (*info).value_type = UNKNOW;
+  return ;
 }
 
 void		add_segment(tree_parser *info, message **msg)
@@ -280,8 +258,8 @@ tree_parser	init_tree_parser()
   info.content = NULL;
   info.current_state = NONE;
   info.last_state = NONE;
-  info.current_tree_type = NOPE;
-  info.last_tree_type = NOPE;
+  info.current_tree_type = NONE;
+  info.last_tree_type = NONE;
   info.is_in_list = 0;
   info.is_in_tab = 0;
   info.list_in_tab = 0;
@@ -311,23 +289,19 @@ message		*create_tree(char **tokens)
 	}
       if (is_a_token(tokens[i], ",[]{}:\"") == 0)
 	state_token_fragment(tokens[i], &info);
-      if (is_a_token(tokens[i], ",[]{}:\"") != 0 || info.current_state == VALUE || \
-	  info.current_state == ESNAME)
+      else
 	{
-	  if (info.last_state == DECLARATIONB || info.current_state == ESNAME)
+	  if (info.last_state == DECLARATIONB)
 	    info.elem_name = strdup(tokens[i]);
-	  if (info.last_state == ASSIGNEMENT || info.last_state == TYPETOKENB || info.current_state == VALUE)
+	  if (info.last_state == ASSIGNEMENT || info.last_state == TYPETOKENB)
 	    {
 	      identify_token_type(tokens[(info.last_state == TYPETOKENB && i > 0) ? i - 1 : i], &info);
 	      info.content = strdup(tokens[i]);
 	    }
 	}
-      /* printf(("tree_type %i\tlast tree_type %i\t"			\ */
-      /* 	      "state %i\tlast_state %i\ttoken %s\tdepth : %i\n"),	\ */
-      /* 	     info.current_tree_type, info.last_tree_type,		\ */
-      /* 	     info.current_state, info.last_state, tokens[i], info.is_in_list); */
       if (info.current_tree_type != NOPE)
 	add_chunk_to_tree(&info, &ret);
+      printf("state %i\tlast_state %i\ttoken %s\n", info.current_state, info.last_state, tokens[i]);
       i++;
       info.last_state = info.current_state;
     }

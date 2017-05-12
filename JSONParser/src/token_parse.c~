@@ -195,6 +195,8 @@ int		ignore_it(char *segment, const char *ign)
   return (0);
 }
 
+#include	<stdio.h>
+
 char		**add_element(char **ret, char *elem)
 {
   int		i;
@@ -202,6 +204,7 @@ char		**add_element(char **ret, char *elem)
   i = 0;
   while (ret[i] != NULL)
     i++;
+  puts(elem);
   ret[i] = clean(elem,"\t\r\n");
   return (ret);
 }

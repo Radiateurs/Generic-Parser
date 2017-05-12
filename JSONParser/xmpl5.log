@@ -1,0 +1,939 @@
+state 8	last_state 12	token {
+state 0	last_state 8	token "
+state 0	last_state 0	token etablissement
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 1
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token exercice
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 2016
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token estModifiable
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 0
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 3	last_state 0	token [
+state 1	last_state 3	token "
+state 2	last_state 1	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token ]
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token pie[ces
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 10	last_state 2	token [
+state 8	last_state 10	token {
+state 0	last_state 8	token "
+state 0	last_state 0	token referenceSource
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token numero
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 000079
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token objetFacture
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token DOSSIER VAE RENFORCEE DEPLACEMENT REFERENT VAE PENAVAIRE FREDERIQUE CIO BOURGOIN-JALLIEU JANVIER 2016
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token referenceFacture
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token FRAIS MISSION JANVIER 2016
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token tiersCode
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 000901
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token trancheMarche
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token dateReception
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 11/03/2016
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token dateServiceFait
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token dateEcheance
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 10/04/2016
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token dateMiseEnPaiement
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token codeMoyenPaiement
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 01
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token datePiece
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token reference
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token FRAIS MISSION JANVIER 2016
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token objet
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token DOSSIER VAE RENFORCEE DEPLACEMENT REFERENT VAE PENAVAIRE FREDERIQUE CIO BOURGOIN-JALLIEU JANVIER 2016
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token description
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token wfState
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token monnaie
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token lignes[
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 10	last_state 2	token [
+state 8	last_state 10	token {
+state 0	last_state 8	token "
+state 0	last_state 0	token referenceSource
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token codeArticle
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 5CV1
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token designation
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token VIENNE
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token compteCharge
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 6251
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token compteFNP
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token compteContrepartie
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 4011
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 0	last_state 7	token "
+state 0	last_state 0	token montant
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 4	last_state 2	token 18.5
+state 9	last_state 4	token }
+state 7	last_state 9	token ,
+state 8	last_state 7	token {
+state 0	last_state 8	token "
+state 0	last_state 0	token referenceSource
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token codeArticle
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 5CV1
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token designation
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token LA TOUR DU PIN
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteCharge
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 6251
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteFNP
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteContrepartie
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 4011
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token montant
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 4	last_state 2	token 7.3
+state 9	last_state 4	token }
+state 7	last_state 9	token ,
+state 8	last_state 7	token {
+state 0	last_state 8	token "
+state 0	last_state 0	token referenceSource
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token codeArticle
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token PA
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token designation
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token LA TOUR DU PIN
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteCharge
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 6251
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteFNP
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteContrepartie
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 4011
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token montant
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 4	last_state 2	token 2.2
+state 9	last_state 4	token }
+state 7	last_state 9	token ,
+state 8	last_state 7	token {
+state 0	last_state 8	token "
+state 0	last_state 0	token referenceSource
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token codeArticle
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token PA
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token designation
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token VIENNE
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteCharge
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 6251
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteFNP
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteContrepartie
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 4011
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token montant
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 4	last_state 2	token 0
+state 9	last_state 4	token }
+state 7	last_state 9	token ,
+state 8	last_state 7	token {
+state 0	last_state 8	token "
+state 0	last_state 0	token referenceSource
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token codeArticle
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token PK
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token designation
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token LA TOUR DU PIN
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteCharge
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 6251
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteFNP
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteContrepartie
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 4011
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token montant
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 4	last_state 2	token 0
+state 9	last_state 4	token }
+state 7	last_state 9	token ,
+state 8	last_state 7	token {
+state 0	last_state 8	token "
+state 0	last_state 0	token referenceSource
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token codeArticle
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 5CV1
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token designation
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token GRENOBLE
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteCharge
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 6251
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteFNP
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteContrepartie
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 4011
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token montant
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 4	last_state 2	token 32
+state 9	last_state 4	token }
+state 7	last_state 9	token ,
+state 8	last_state 7	token {
+state 0	last_state 8	token "
+state 0	last_state 0	token referenceSource
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token codeArticle
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token PK
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token designation
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token VIENNE
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteCharge
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 6251
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteFNP
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteContrepartie
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 4011
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token montant
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 4	last_state 2	token 2.3
+state 9	last_state 4	token }
+state 7	last_state 9	token ,
+state 8	last_state 7	token {
+state 0	last_state 8	token "
+state 0	last_state 0	token referenceSource
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token codeArticle
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token PA
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token designation
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token GRENOBLE
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteCharge
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 6251
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteFNP
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteContrepartie
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 4011
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token montant
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 4	last_state 2	token 10.4
+state 9	last_state 4	token }
+state 7	last_state 9	token ,
+state 8	last_state 7	token {
+state 0	last_state 8	token "
+state 0	last_state 0	token referenceSource
+state 3	last_state 0	token "
+state 2	last_state 3	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token codeArticle
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token PK
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token designation
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token GRENOBLE
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteCharge
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 6251
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteFNP
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token "
+state 7	last_state 4	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token compteContrepartie
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 5	last_state 2	token "
+state 4	last_state 5	token 4011
+state 6	last_state 4	token "
+state 7	last_state 6	token ,
+state 5	last_state 7	token "
+state 4	last_state 5	token montant
+state 6	last_state 4	token "
+state 2	last_state 6	token :
+state 4	last_state 2	token 0
+state 9	last_state 4	token }
+state 11	last_state 9	token ]
+state 9	last_state 11	token }
+state 11	last_state 9	token ]
+state 9	last_state 11	token }
+Message [id 1]
+Segment Group [group id 1] [name (null)]
+	Element [id 1] [name "]
+		Attribut [id 1] [name (null)] [type 3] [content 1]
+	Element [id 2] [name "]
+		Attribut [id 1] [name (null)] [type 3] [content 2016]
+	Element [id 3] [name "]
+		Attribut [id 1] [name (null)] [type 3] [content 0]
+	Element [id 4] [name []
+		Attribut [id 1] [name (null)] [type 3] [content ]]
+	Tab [group id 2] [name "] [depth 1]
+	List [group id 3] [name (null)] [depth 1]
+		Element [id 1] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content "]
+		Element [id 2] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content 000079]
+		Element [id 3] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content DOSSIER VAE RENFORCEE DEPLACEMENT REFERENT VAE PENAVAIRE FREDERIQUE CIO BOURGOIN-JALLIEU JANVIER 2016]
+		Element [id 4] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content FRAIS MISSION JANVIER 2016]
+		Element [id 5] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content 000901]
+		Element [id 6] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content "]
+		Element [id 7] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content 11/03/2016]
+		Element [id 8] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content "]
+		Element [id 9] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content 10/04/2016]
+		Element [id 10] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content "]
+		Element [id 11] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content 01]
+		Element [id 12] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content "]
+		Element [id 13] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content FRAIS MISSION JANVIER 2016]
+		Element [id 14] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content DOSSIER VAE RENFORCEE DEPLACEMENT REFERENT VAE PENAVAIRE FREDERIQUE CIO BOURGOIN-JALLIEU JANVIER 2016]
+		Element [id 15] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content "]
+		Element [id 16] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content "]
+		Element [id 17] [name "]
+			Attribut [id 1] [name (null)] [type 3] [content "]
+		Tab [group id 4] [name "] [depth 2]
+		List [group id 5] [name (null)] [depth 2]
+			Element [id 1] [name "]
+				Attribut [id 1] [name (null)] [type 3] [content "]
+			Element [id 2] [name "]
+				Attribut [id 1] [name (null)] [type 3] [content 5CV1]
+			Element [id 3] [name "]
+				Attribut [id 1] [name (null)] [type 3] [content VIENNE]
+			Element [id 4] [name "]
+				Attribut [id 1] [name (null)] [type 3] [content 6251]
+			Element [id 5] [name "]
+				Attribut [id 1] [name (null)] [type 3] [content "]
+			Element [id 6] [name "]
+				Attribut [id 1] [name (null)] [type 3] [content 4011]
+			Element [id 7] [name "]
+				Attribut [id 1] [name (null)] [type 5] [content 18.5]
+			List [group id 5] [name (null)] [depth 3]
+				Element [id 1] [name "]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 2] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content codeArticle]
+				Element [id 3] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 5CV1]
+				Element [id 4] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content designation]
+				Element [id 5] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content LA TOUR DU PIN]
+				Element [id 6] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteCharge]
+				Element [id 7] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 6251]
+				Element [id 8] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteFNP]
+				Element [id 9] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 10] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteContrepartie]
+				Element [id 11] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 4011]
+				Element [id 12] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content montant]
+				Element [id 13] [name (null)]
+					Attribut [id 1] [name (null)] [type 5] [content 7.3]
+			List [group id 5] [name (null)] [depth 3]
+				Element [id 1] [name "]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 2] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content codeArticle]
+				Element [id 3] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content PA]
+				Element [id 4] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content designation]
+				Element [id 5] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content LA TOUR DU PIN]
+				Element [id 6] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteCharge]
+				Element [id 7] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 6251]
+				Element [id 8] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteFNP]
+				Element [id 9] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 10] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteContrepartie]
+				Element [id 11] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 4011]
+				Element [id 12] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content montant]
+				Element [id 13] [name (null)]
+					Attribut [id 1] [name (null)] [type 5] [content 2.2]
+			List [group id 5] [name (null)] [depth 3]
+				Element [id 1] [name "]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 2] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content codeArticle]
+				Element [id 3] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content PA]
+				Element [id 4] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content designation]
+				Element [id 5] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content VIENNE]
+				Element [id 6] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteCharge]
+				Element [id 7] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 6251]
+				Element [id 8] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteFNP]
+				Element [id 9] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 10] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteContrepartie]
+				Element [id 11] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 4011]
+				Element [id 12] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content montant]
+				Element [id 13] [name (null)]
+					Attribut [id 1] [name (null)] [type 4] [content 0]
+			List [group id 5] [name (null)] [depth 3]
+				Element [id 1] [name "]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 2] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content codeArticle]
+				Element [id 3] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content PK]
+				Element [id 4] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content designation]
+				Element [id 5] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content LA TOUR DU PIN]
+				Element [id 6] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteCharge]
+				Element [id 7] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 6251]
+				Element [id 8] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteFNP]
+				Element [id 9] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 10] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteContrepartie]
+				Element [id 11] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 4011]
+				Element [id 12] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content montant]
+				Element [id 13] [name (null)]
+					Attribut [id 1] [name (null)] [type 4] [content 0]
+			List [group id 5] [name (null)] [depth 3]
+				Element [id 1] [name "]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 2] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content codeArticle]
+				Element [id 3] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 5CV1]
+				Element [id 4] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content designation]
+				Element [id 5] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content GRENOBLE]
+				Element [id 6] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteCharge]
+				Element [id 7] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 6251]
+				Element [id 8] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteFNP]
+				Element [id 9] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 10] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteContrepartie]
+				Element [id 11] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 4011]
+				Element [id 12] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content montant]
+				Element [id 13] [name (null)]
+					Attribut [id 1] [name (null)] [type 4] [content 32]
+			List [group id 5] [name (null)] [depth 3]
+				Element [id 1] [name "]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 2] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content codeArticle]
+				Element [id 3] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content PK]
+				Element [id 4] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content designation]
+				Element [id 5] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content VIENNE]
+				Element [id 6] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteCharge]
+				Element [id 7] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 6251]
+				Element [id 8] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteFNP]
+				Element [id 9] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 10] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteContrepartie]
+				Element [id 11] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 4011]
+				Element [id 12] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content montant]
+				Element [id 13] [name (null)]
+					Attribut [id 1] [name (null)] [type 5] [content 2.3]
+			List [group id 5] [name (null)] [depth 3]
+				Element [id 1] [name "]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 2] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content codeArticle]
+				Element [id 3] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content PA]
+				Element [id 4] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content designation]
+				Element [id 5] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content GRENOBLE]
+				Element [id 6] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteCharge]
+				Element [id 7] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 6251]
+				Element [id 8] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteFNP]
+				Element [id 9] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 10] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteContrepartie]
+				Element [id 11] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 4011]
+				Element [id 12] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content montant]
+				Element [id 13] [name (null)]
+					Attribut [id 1] [name (null)] [type 5] [content 10.4]
+			List [group id 5] [name (null)] [depth 3]
+				Element [id 1] [name "]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 2] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content codeArticle]
+				Element [id 3] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content PK]
+				Element [id 4] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content designation]
+				Element [id 5] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content GRENOBLE]
+				Element [id 6] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteCharge]
+				Element [id 7] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 6251]
+				Element [id 8] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteFNP]
+				Element [id 9] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content "]
+				Element [id 10] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content compteContrepartie]
+				Element [id 11] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content 4011]
+				Element [id 12] [name (null)]
+					Attribut [id 1] [name (null)] [type 3] [content montant]
+				Element [id 13] [name (null)]
+					Attribut [id 1] [name (null)] [type 4] [content 0]
