@@ -9,7 +9,7 @@ int		newAttribut(attribut **old, const char *name, unsigned int id, \
 {
   attribut	*new;
 
-  if (content == NULL || strlen(content) == 0)
+  if (content == NULL)
     return (0);
   if (!(new = malloc(sizeof(*new))))
     return (0);

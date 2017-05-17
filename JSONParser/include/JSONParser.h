@@ -55,6 +55,7 @@ struct		s_tree_parser
   char		*elem_name;
   char		*attr_name;
   char		*content;
+  char		*error;
 };
 
 /*

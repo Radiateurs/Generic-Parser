@@ -216,10 +216,16 @@ void		dumpSegment(segment *seg)
 	  putchar('\t');
 	  i++;
 	}
-     if (tmp->is_a_group)
-	printf("Segment Group [group id %d] [name %s]\n", tmp->id, tmp->name);
+      if (tmp->type == SSEG)
+	printf("Segment ");
       else
-	printf("Segment container [id %d] [name %s]\n", tmp->id, tmp->name);
+	{
+	  if (tmp->type == SLIST)
+	    printf("List ");
+	  else
+	    printf("Tab ");
+	}
+      printf("[group id %d] [name %s] [depth %i]\n", tmp->id, tmp->name, tmp->depth);
       dumpElement(tmp->element, tmp->depth + 1);
       dumpSegmentChild(tmp->child);
       tmp = tmp->next;
@@ -229,7 +235,7 @@ void		dumpSegment(segment *seg)
 unsigned int	lastGroupID(segment *seg)
 {
   segment	*tmp;
-
+ 
   tmp = seg;
   if (tmp->is_a_group)
     return (tmp->id);
@@ -238,10 +244,45 @@ unsigned int	lastGroupID(segment *seg)
   return (tmp->id);
 }
 
+unsigned int	getNextID(segment *seg)
+{
+  element	*etmp;
+  segment	*stmp;
+  unsigned int	eid = 0;
+  unsigned int	sid = 0;
+
+  if (seg == NULL)
+    return (1);
+  etmp = seg->element;
+  stmp = seg->child;
+  while (etmp != NULL)
+    {
+      if (etmp->id > eid)
+	eid = etmp->id;
+      etmp = etmp->next;
+    }
+  while (stmp != NULL)
+    {
+      if (stmp->id > sid)
+	sid = stmp->id;
+      stmp = stmp->next;
+    }
+  if (sid > eid)
+    return (sid + 1);
+  if (eid > sid)
+    return (eid + 1);
+  return (1);
+}
+
 void		closeGroupSegment(segment **seg)
 {
   if ((*seg)->parent == NULL)
     return ;
   *seg = (*seg)->parent;
   return ;
+}
+
+segment		*getParent(segment *seg)
+{
+  return (seg->parent);
 }

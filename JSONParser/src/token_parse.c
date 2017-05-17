@@ -43,7 +43,7 @@ char		*clean(const char *src, const char *to_ignore)
 	}
       i++;
     }
-  dest[i] = '\0';
+  dest[lenght] = '\0';
   return (dest);
 }
 

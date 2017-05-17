@@ -84,7 +84,7 @@ void		identify_token_type(const char *fragment, tree_parser *info)
   return ;
 }
 
-void		state_token_fragment(const char *fragment, tree_parser *info)
+void		state_token_fragment(const char *fragment, tree_parser *info, message *msg)
 {
   if ((*info).last_state == DECLARATIONB && fragment[0] != '\"')
     {
@@ -98,20 +98,19 @@ void		state_token_fragment(const char *fragment, tree_parser *info)
     }
   switch (fragment[0]) {
   case ':':
-    /* if ((*info).last_state == DECLARATIONE) */
-      (*info).current_state = ASSIGNEMENT;
-    /* else */
-    /*   (*info).current_state = ERROR; */
+    (*info).current_state = ASSIGNEMENT;
     break ;
   case '\"':
     if ((*info).last_state == DECLARATIONB)
       {
-	(*info).elem_name = strdup("");
+	if ((*info).elem_name == NULL)
+	  (*info).elem_name = strdup("");
 	(*info).current_state = DECLARATIONE;
       }
     if ((*info).last_state == TYPETOKENB)
       {
-	(*info).content = strdup("");
+	if ((*info).content == NULL)
+	  (*info).content = strdup("");
 	(*info).current_state = TYPETOKENE;
 	(*info).current_tree_type = ATTRIBUT;
 	(*info).value_type = STRING;
@@ -122,23 +121,19 @@ void		state_token_fragment(const char *fragment, tree_parser *info)
       (*info).current_state = DECLARATIONB;
     if ((*info).last_state == SEPARATOR)
       {
-	if ((*info).is_in_tab > 0)
-	  {
-	    if ((*info).list_in_tab != 0 && (*info).list_in_tab == (*info).is_in_tab)
-	      (*info).current_state = DECLARATIONB;
-	    else
-	      (*info).current_state = TYPETOKENB;
-	  }
+	if (msg->segment != NULL && msg->segment->type == STAB)
+	  (*info).current_state = TYPETOKENB;
 	else
 	  (*info).current_state = DECLARATIONB;
       }
-    if ((*info).last_state == ASSIGNEMENT ||(*info).last_state == TABB)
+    if ((*info).last_state == ASSIGNEMENT || (*info).last_state == TABB)
       (*info).current_state = TYPETOKENB;
     if ((*info).last_state == VALUE)
       (*info).current_state = TYPETOKENE;
     break ;
   case '[':
-    if ((*info).last_state == ASSIGNEMENT)
+    if ((*info).last_state == ASSIGNEMENT || (*info).last_state == TABB || (*info).last_state == NONE || \
+	((*info).last_state == SEPARATOR && msg->segment != NULL && msg->segment->type == STAB))
       {
 	(*info).current_state = TABB;
 	(*info).current_tree_type = TAB;
@@ -147,39 +142,35 @@ void		state_token_fragment(const char *fragment, tree_parser *info)
       (*info).current_state = ERROR;
     break ;
   case ']':
+    if ((*info).last_state == ASSIGNEMENT)
+      (*info).current_state = ERROR;
     (*info).current_state = TABE;
     (*info).current_tree_type = CLOSEGROUP;
     break ;
   case '{':
-    if ((*info).last_state == TABB || ((*info).last_state == SEPARATOR && (*info).is_in_tab != 0))
+    if ((*info).last_state == TABB || ((*info).last_state == SEPARATOR && (*info).is_in_tab != 0) || \
+	(*info).last_state == NONE || (*info).last_state == ASSIGNEMENT || (*info).last_state == SEPARATOR)
       {
 	(*info).current_state = LISTB;
 	(*info).current_tree_type = LIST;
-	(*info).list_in_tab++;
       }
     else
-      {
-	if ((*info).last_state == NONE || (*info).last_state == ASSIGNEMENT || (*info).last_state == SEPARATOR )
-	  {
-	    (*info).current_state = LISTB;
-	    (*info).current_tree_type = LIST;
-	  }
-	else
-	    (*info).current_state = ERROR;
-      }
+      (*info).current_state = ERROR;
     break ;
   case '}':
-    if ((*info).list_in_tab)
-      (*info).list_in_tab--;
+    if ((*info).last_state == ASSIGNEMENT)
+      (*info).current_state = ERROR;
     if ((*info).last_state == VALUE || (*info).last_state == TABE ||	\
-	((*info).last_state == LISTE && (*info).is_in_list > 0)		\
-	|| (*info).last_state == TYPETOKENE)
+	(*info).last_state == LISTE || (*info).last_state == TYPETOKENE || \
+	(*info).last_state == LISTB)
       {
 	(*info).current_state = LISTE;
 	(*info).current_tree_type = CLOSEGROUP;
       }
     break ;
   case ',':
+    if ((*info).last_state == ASSIGNEMENT)
+      (*info).current_state = ERROR;
     if ((*info).last_state == VALUE || (*info).last_state == TYPETOKENE || (*info).last_state == TABE || \
 	(*info).last_state == LISTE ||(*info).last_state == SEPARATOR)
       (*info).current_state = SEPARATOR;
@@ -198,8 +189,9 @@ void		add_segment(tree_parser *info, message **msg)
 
   seg_type = ((*info).current_tree_type == SEGMENT) ? SSEG : ((*info).current_tree_type == LIST) ? SLIST : STAB;
   is_a_group = ((*info).current_tree_type == SEGMENT) ? 0 : 1;
-  newSegment(&((*msg)->segment), (*info).elem_name, lastSegmentID((*msg)->segment) + 1, \
-	     is_a_group, (*info).is_in_list, (*info).is_in_list, seg_type);
+  newSegment(&((*msg)->segment), (*info).elem_name, getNextID((*msg)->segment),	\
+	     is_a_group, (*info).is_in_list + (*info).is_in_tab, (*info).is_in_list + (*info).is_in_tab, \
+	     seg_type);
   if ((*info).elem_name != NULL)
     free((*info).elem_name);
   (*info).elem_name = NULL;
@@ -217,10 +209,10 @@ void		add_chunk_to_tree(tree_parser *info, message **msg)
     {
     case CLOSEGROUP:
       closeGroupSegment(&((*msg)->segment));
-      if ((*info).is_in_tab > 0 && (*info).list_in_tab < (*info).is_in_tab)
-	(*info).is_in_tab--;
-      else
-	(*info).is_in_list--;	
+      if ((*info).last_state == TABE || ((*msg)->segment != NULL && (*msg)->segment->type == STAB))
+      	(*info).is_in_tab--;
+      if ((*info).last_state == LISTE ||((*msg)->segment != NULL && (*msg)->segment->type == SLIST))
+      	(*info).is_in_list--;
       (*info).last_tree_type = (*info).current_tree_type;
       (*info).current_tree_type = NOPE;
       break;
@@ -234,10 +226,10 @@ void		add_chunk_to_tree(tree_parser *info, message **msg)
       add_segment(info, msg);
       break;
     case ELEMENT:
-      newElement(&((*msg)->segment->element), (*info).elem_name, lastElementID(((*msg)->segment->element)));
+      puts("ASKED to add ELEM");
+      newElement(&((*msg)->segment->element), (*info).elem_name, getNextID((*msg)->segment));
       if ((*info).elem_name != NULL)
 	free((*info).elem_name);
-      (*info).seg_name = NULL;
       (*info).last_tree_type = (*info).current_tree_type;
       (*info).current_tree_type = NOPE;
       break;
@@ -245,7 +237,7 @@ void		add_chunk_to_tree(tree_parser *info, message **msg)
       if ((*info).content == NULL)
 	return ;
       if (newElement(&((*msg)->segment->element), (*info).elem_name,	\
-		     lastElementID(((*msg)->segment->element)) + 1) == 0)
+		     getNextID((*msg)->segment)) == 0)
 	{
 	  (*info).current_state = ERROR;
 	  return ;
@@ -310,22 +302,19 @@ message		*create_tree(char **tokens)
 	  return (NULL);
 	}
       if (is_a_token(tokens[i], ",[]{}:\"") == 0)
-	state_token_fragment(tokens[i], &info);
-      if (is_a_token(tokens[i], ",[]{}:\"") != 0 || info.current_state == VALUE || \
-	  info.current_state == ESNAME)
+	state_token_fragment(tokens[i], &info, ret);
+      if (is_a_token(tokens[i], ",[]{}:\"") != 0 || (info.current_state == VALUE || \
+							  info.current_state == ESNAME))
 	{
-	  if (info.last_state == DECLARATIONB || info.current_state == ESNAME)
+	  if (info.current_state == ESNAME || info.last_state == DECLARATIONB)
 	    info.elem_name = strdup(tokens[i]);
-	  if (info.last_state == ASSIGNEMENT || info.last_state == TYPETOKENB || info.current_state == VALUE)
+	  if (info.last_state == ASSIGNEMENT || info.last_state == TYPETOKENB || info.current_state == VALUE || \
+	      (info.last_state == SEPARATOR && ret->segment->type == STAB))
 	    {
-	      identify_token_type(tokens[(info.last_state == TYPETOKENB && i > 0) ? i - 1 : i], &info);
+	      identify_token_type(tokens[i], &info);
 	      info.content = strdup(tokens[i]);
 	    }
 	}
-      /* printf(("tree_type %i\tlast tree_type %i\t"			\ */
-      /* 	      "state %i\tlast_state %i\ttoken %s\tdepth : %i\n"),	\ */
-      /* 	     info.current_tree_type, info.last_tree_type,		\ */
-      /* 	     info.current_state, info.last_state, tokens[i], info.is_in_list); */
       if (info.current_tree_type != NOPE)
 	add_chunk_to_tree(&info, &ret);
       i++;

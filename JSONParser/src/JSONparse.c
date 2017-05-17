@@ -17,3 +17,18 @@ void		JSONparse(char *path)
   delete_tab(tabToken);
   return ;
 }
+
+/*
+** To do once the JSON parse is done and functionnal
+*/
+/* void		JSONserialize(char *path, message *msg) */
+/* { */
+/*   int		fd; */
+
+/*   if (path == NULL) */
+/*     fd = 1; */
+/*   else */
+/*     { */
+      
+/*     } */
+/* } */
