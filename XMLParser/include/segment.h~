@@ -24,7 +24,6 @@ typedef struct	s_seg
 }		segment;
 
 /* Intern functions */
-segment		*copySegment(segment *to_copy);
 void		dumpSegment(segment *seg);
 unsigned int	lastGroupID(segment *seg);
 unsigned int	lastSegmentID(segment *seg);

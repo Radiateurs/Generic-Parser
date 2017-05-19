@@ -6,8 +6,6 @@
 
 int		addChild(segment **old, segment *child)
 {
-  child->parent = *old;
-  child->prev = NULL;
   if ((*old)->child == NULL)
     {
       (*old)->child = child;
@@ -50,9 +48,9 @@ int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group
     {
       if (is_a_child > 0)
 	{
+	  new->parent = *old;
+	  new->prev = NULL;
 	  addChild(old, new);
-	  *old = new;
-	  return (1);
 	}
       else
 	{
@@ -63,24 +61,6 @@ int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group
     }
   *old = new;
   return (1);
-}
-
-segment		*copySegment(segment *to_copy)
-{
-  segment	*copy;
-
-  if (!(copy = malloc(sizeof(*copy))))
-    return (NULL);
-  copy->name = strdup(to_copy->name);
-  copy->next = NULL;
-  copy->prev = NULL;
-  copy->depth = to_copy->depth;
-  copy->type = to_copy->type;
-  copy->id = to_copy->id;
-  copy->is_a_group = to_copy->is_a_group;
-  copy->child = to_copy->child;
-  copy->element = to_copy->element;
-  return (copy);
 }
 
 int		deleteIDSegment(segment **old, unsigned int id)

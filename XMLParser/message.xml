@@ -1,8 +1,15 @@
 <personnes>
   <personne>
-    Dupont
+    <nom>Dupont</nom>
+    <prenom>Michou</prenom>
+    <age>67</age>
   </personne>
-  <personne nom="Dupont" prenom="Michel" age=54/>
+  <personne>
+    Dupont Michonne 62
+  </personne>
+  <personne nom="Dupont" prenom="Michel">
+    54
+  </personne>
   <personne nom="Dupont" prenom="Michelle" age=52/>
   <personne nom="Dupont" prenom="Michael" age=20/>
 </personnes>

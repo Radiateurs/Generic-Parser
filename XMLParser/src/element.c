@@ -94,10 +94,10 @@ int		deleteElements(element **old)
   return (1);
 }
 
-
-void		dumpElement(element *elem)
+void		dumpElement(element *elem, int depth)
 {
   element	*tmp;
+  int		i = 0;
 
   if (elem == NULL)
     return ;
@@ -106,8 +106,14 @@ void		dumpElement(element *elem)
     tmp = tmp->prev;
   while (tmp)
     {
+      i = 0;
+      while (i < depth)
+	{
+	  putchar('\t');
+	  i++;
+	}
       printf("Element [id %d] [name %s]\n", tmp->id, tmp->name);
-      dumpAttribut(tmp->attribut);
+      dumpAttribut(tmp->attribut, depth + 1);
       tmp = tmp->next;
     }
 }

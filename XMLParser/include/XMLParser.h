@@ -11,33 +11,34 @@ typedef	struct	s_tree_parser	tree_parser;
 
 enum            e_state
   {
-    DECLARATIONB,	// The encountered token is the begining of a variable.
-    DECLARATIONE,	// The encountered token is the ending of a variable.
-    ASSIGNEMENT,	// The encountered token means that the foolowing token and fraglents should be the content.
-    VALUE,		// The encountered token means that it's a value with no token.
-    TYPETOKENB,		// The encountered token is a type token begining.
-    TYPETOKENE,		// The encountered token is a type token ending.
-    SEPARATOR,		// The encountered token is a separator.
-    LISTB,		// The encountered token is the begining of a list.
-    LISTE,		// The encountered token is the ending of a list.
-    TABB,		// The encountered token is the begining of a tab.
-    TABE,		// The encountered token is the ending of a tab.
-    NONE,		// The encountered token is not knonw.
-    ERROR		// Supposed that there is a syntax error.
+    DECLARATIONB = 0,	// The encountered token is the begining of a variable.
+    DECLARATIONE = 1,	// The encountered token is the ending of a variable.
+    ASSIGNEMENT = 2,	// The encountered token means that the foolowing token and fraglents should be the content.
+    ESNAME = 3,		// The last token implied that the surrent token is not a token but an alement name.
+    VALUE = 4,		// The encountered token means that it's a value with no token.
+    TYPETOKENB = 5,	// The encountered token is a type token begining.
+    TYPETOKENE = 6,	// The encountered token is a type token ending.
+    SEPARATOR = 7,	// The encountered token is a separator.
+    LISTB = 8,		// The encountered token is the begining of a list.
+    LISTE = 9,		// The encountered token is the ending of a list.
+    TABB = 10,		// The encountered token is the begining of a tab.
+    TABE = 11,		// The encountered token is the ending of a tab.
+    NONE = 12,		// The encountered token is not knonw.
+    ERROR = 13		// Supposed that there is a syntax error.
   };
 
 enum            e_tree_type
   {
-    MESSAGE,	// Should add a message in the tree
-    SEGMENT,	// Should add a segment in the tree
-    CLOSEGROUP, // Should close the current group (list or tab)
-    LIST,	// Should add a list in the tree
-    TAB,	// Should add a tab in the tree
-    ELEMENT,	// Should add an element in the tree
-    ATTRIBUT,	// Should add an attribut (content without name or attribut with a name) in the tree
-    NAME,	// The encountered token means that this is a variable name for the tree
-    CONTENT,	// The encountered token means that this is a variable name for the tree
-    NOPE	// Unknown tree type token. Might be a variable, content type or just something else.
+    MESSAGE = 0,	// Should add a message in the tree
+    SEGMENT = 1,	// Should add a segment in the tree
+    CLOSEGROUP = 2,	// Should close the current group (list or tab)
+    LIST = 3,		// Should add a list in the tree
+    TAB = 4,		// Should add a tab in the tree
+    ELEMENT = 5,	// Should add an element in the tree
+    ATTRIBUT = 6,	// Should add an attribut (content without name or attribut with a name) in the tree
+    NAME = 7,		// The encountered token means that this is a variable name for the tree
+    CONTENT = 8,	// The encountered token means that this is a variable name for the tree
+    NOPE = 9		// Unknown tree type token. Might be a variable, content type or just something else.
   };
 
 struct		s_tree_parser
@@ -53,6 +54,9 @@ struct		s_tree_parser
   char		*elem_name;
   char		*attr_name;
   char		*content;
+  char		*error;
+  char		textChar;
+  char		attrChar;
 };
 
 /*
@@ -60,6 +64,7 @@ struct		s_tree_parser
 */
 
 int		strcis(const char *str, char c);
+char		*mconcat(char *first, char *second);
 
 void		XMLparse(char *path);
 char		**token_parse(char *path);
