@@ -13,11 +13,10 @@ int		addChild(segment **old, segment *child)
       (*old)->child = child;
       return (1);
     }
-  *old = (*old)->child;
-  while ((*old)->next != NULL)
-    *old = (*old)->next;
-  (*old)->next = child;
-  child->prev = *old;
+  while ((*old)->child->next != NULL)
+    (*old)->child = (*old)->child->next;
+  (*old)->child->next = child;
+  child->prev = (*old)->child;
   return (1);
 }
 
@@ -65,6 +64,35 @@ int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group
   return (1);
 }
 
+int		addParent(segment **old_parent, const char *childs_name)
+{
+  segment	*tmp;
+  segment	*new_parent;
+
+  if (!(new_parent = malloc(sizeof(*new_parent))))
+    return (-1);
+  new_parent->name = strdup(childs_name);
+  new_parent->is_a_group = 1;
+  new_parent->type = STAB;
+  new_parent->type = STAB;
+  new_parent->child = NULL;
+  while (*old_parent != NULL && (*old_parent)->child != NULL && (*old_parent)->child->prev != NULL)
+    (*old_parent)->child = (*old_parent)->child->prev;
+  while ((*old_parent)->child->next != NULL)
+    {
+      if (strcmp((*old_parent)->child->name, childs_name) == 0)
+	{
+	  tmp = (*old_parent)->child;
+	  removeIDChild(old_parent, (*old_parent)->child->id);
+	  addChild(&new_parent, tmp);
+	  //Modify Depth + IDs (in old_parent and in new_parent)- To do
+	}
+      (*old_parent)->child = (*old_parent)->child->next;
+    }
+  addChild(old_parent, new_parent);
+  return (0);
+}
+
 segment		*copySegment(segment *to_copy)
 {
   segment	*copy;
@@ -81,6 +109,33 @@ segment		*copySegment(segment *to_copy)
   copy->child = to_copy->child;
   copy->element = to_copy->element;
   return (copy);
+}
+
+void		removeIDChild(segment **old, unsigned int id)
+{
+  segment	*tmp;
+  segment	*tmp2;
+
+  if (*old == NULL || (*old)->child == NULL)
+    return ;
+  tmp = (*old)->child;
+  while (tmp->prev != NULL && tmp->id != id)
+    tmp = tmp->prev;
+  if (tmp->id != id)
+    tmp = (*old)->child;
+  while (tmp->next != NULL && tmp->id != id)
+    tmp = tmp->next;
+  if (tmp->id != id)
+    return ;
+  (*old)->child = tmp;
+  tmp = (*old)->child->prev;
+  tmp2 = (*old)->child->next;
+  if (tmp != NULL)
+    tmp->next = tmp2;
+  if (tmp2 != NULL)
+    tmp2->prev = tmp;
+  (*old)->child = (tmp != NULL) ? tmp : tmp2;
+  return ;
 }
 
 int		deleteIDSegment(segment **old, unsigned int id)
@@ -266,10 +321,10 @@ unsigned int	lastGroupID(segment *seg)
 
 unsigned int	getNextID(segment *seg)
 {
-  element	*etmp;
-  segment	*stmp;
-  unsigned int	eid = 0;
-  unsigned int	sid = 0;
+  element	*etmp; // Element temp
+  segment	*stmp; // Segment temp
+  unsigned int	eid = 0; // Element ID
+  unsigned int	sid = 0; // Segment ID
 
   if (seg == NULL)
     return (1);
@@ -305,4 +360,24 @@ void		closeGroupSegment(segment **seg)
 segment		*getParent(segment *seg)
 {
   return (seg->parent);
+}
+
+int		countSegment(segment *seg)
+{
+  int		i = 0;
+  segment	*tmp;
+
+  tmp = seg;
+  while (tmp != NULL)
+    {
+      i++;
+      tmp = tmp->prev;
+    }
+  tmp = seg->next;
+  while (tmp != NULL)
+    {
+      i++;
+      tmp = tmp->next;
+    }
+  return (i);
 }

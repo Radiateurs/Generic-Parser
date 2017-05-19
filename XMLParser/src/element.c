@@ -4,6 +4,21 @@
 #include	<string.h>
 #include	<stdio.h>
 
+int		addElement(element **old, element *new)
+{
+  while (*old != NULL && (*old)->next != NULL)
+    *old = (*old)->next;
+  if (*old == NULL)
+    new->prev = NULL;
+  else
+    {
+      (*old)->next = new;
+      new->prev = *old;
+    }
+  *old = new;
+  return (1);
+}
+
 int		newElement(element **old, const char *name, unsigned int id)
 {
   element	*new;

@@ -15,6 +15,7 @@ typedef struct	s_elem
 }		element;
 
 /* Intern functions */
+int		addElement(element **old, element *new);
 void		dumpElement(element *elem, int depth);
 int		deleteIDElement(element **old, unsigned int id);
 int		deleteElements(element **old);

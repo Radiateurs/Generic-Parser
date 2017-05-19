@@ -138,7 +138,6 @@ void		add_chunk_to_tree(tree_parser *info, message **msg)
 	  free(tmp);
 	  (*info).seg_name = NULL;
 	}
-      puts((*msg)->segment->name);
       newElement(&((*msg)->segment->element), (*info).elem_name, getNextID((*msg)->segment));
       if ((*info).elem_name != NULL)
 	free((*info).elem_name);
@@ -235,6 +234,48 @@ void		getTextData(int *i, char **tokens, tree_parser *info)
   (*info).current_tree_type = ATTRIBUT;
 }
 
+void		findAndModifyListInTab(segment **seg)
+{
+  segment	*tmp;
+
+  if (countSegment((*seg)->child) > 1)
+    {
+      while ((*seg)->child != NULL && (*seg)->child->prev != NULL)
+	(*seg)->child = (*seg)->child->prev;
+      tmp = (*seg)->child;
+      (*seg)->child = (*seg)->child->next;
+      while ((*seg)->child != NULL && (*seg)->child->next != NULL)
+	{
+	  if (strcmp((*seg)->child->name, tmp->name) == 0)
+	    {
+	      addParent(seg, tmp->name);
+	      while ((*seg)->child != NULL && (*seg)->child->prev != NULL)
+		(*seg)->child = (*seg)->child->prev;
+	      tmp = (*seg)->child;
+	    }
+	  (*seg)->child = (*seg)->child->next;
+	}
+    }
+}
+
+message		*xmlParseTab(message *msg)
+{
+  segment	*tmp;
+
+  tmp = msg->segment;
+  while (tmp != NULL && tmp->child != NULL)
+    {
+      while (tmp->prev != NULL)
+	tmp = tmp->prev;
+      while (tmp->next != NULL)
+	{
+	  findAndModifyListInTab(&tmp->child);
+	  tmp = tmp->next;
+	}
+    }
+  return (msg);
+}
+
 message		*create_tree(char **tokens)
 {
   message	*ret;
@@ -290,5 +331,5 @@ message		*create_tree(char **tokens)
     free(info.seg_name);
   if (info.elem_name != NULL)
     free(info.elem_name);
-  return (ret);
+  return (xmlParseTab(ret));
 }
