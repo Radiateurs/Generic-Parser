@@ -1,7 +1,17 @@
 <personnes>
   <personne>
     <nom>Dupont</nom>
-    <prenom>Michou</prenom>
+    <prenom>
+      <a>
+	Hehe1
+      </a>
+      <a>
+	Hehe2
+      </a>
+      <a>
+	Hehe3
+      </a>
+    </prenom>
     <age>67</age>
   </personne>
   <personne>

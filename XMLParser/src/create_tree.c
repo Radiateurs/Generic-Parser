@@ -238,23 +238,40 @@ void		findAndModifyListInTab(segment **seg)
 {
   segment	*tmp;
 
-  if (countSegment((*seg)->child) > 1)
+  if (seg == NULL || (*seg) == NULL)
+    return ;
+  printf("In findAndModify for %s segment\n", (*seg)->name);
+  while (*seg != NULL && (*seg)->prev != NULL)
+    *seg = (*seg)->prev;
+  while (*seg != NULL)
     {
-      while ((*seg)->child != NULL && (*seg)->child->prev != NULL)
-	(*seg)->child = (*seg)->child->prev;
-      tmp = (*seg)->child;
-      (*seg)->child = (*seg)->child->next;
-      while ((*seg)->child != NULL && (*seg)->child->next != NULL)
+      if ((*seg)->type != STAB)
+	findAndModifyListInTab(&((*seg)->child));
+      if ((*seg)->next == NULL)
+	break;
+      *seg = (*seg)->next;
+    }
+  while (*seg != NULL && (*seg)->prev != NULL)
+    *seg = (*seg)->prev;
+  tmp = *seg;
+  while (tmp != NULL)
+    {
+      printf("Currently pointed segment = %s\n", tmp->name);
+      while (*seg != NULL && (*seg)->next != NULL)
 	{
-	  if (strcmp((*seg)->child->name, tmp->name) == 0)
+	  if (tmp != *seg && (*seg)->type == SLIST && (*seg)->name != NULL && \
+	      strcmp((*seg)->name, tmp->name) == 0)
 	    {
 	      addParent(seg, tmp->name);
-	      while ((*seg)->child != NULL && (*seg)->child->prev != NULL)
-		(*seg)->child = (*seg)->child->prev;
-	      tmp = (*seg)->child;
+	      while (*seg != NULL && (*seg)->prev != NULL)
+		*seg = (*seg)->prev;
+	      tmp = *seg;
 	    }
-	  (*seg)->child = (*seg)->child->next;
+	  *seg = (*seg)->next;
 	}
+      tmp = tmp->next;
+      while (*seg != NULL && (*seg)->prev != NULL)
+	*seg = (*seg)->prev;
     }
 }
 
@@ -262,16 +279,16 @@ message		*xmlParseTab(message *msg)
 {
   segment	*tmp;
 
+  puts("In xmlParseTab");
   tmp = msg->segment;
-  while (tmp != NULL && tmp->child != NULL)
+  while (tmp->parent != NULL)
+    tmp = tmp->parent;
+  while (tmp->prev != NULL)
+    tmp = tmp->prev;
+  while (tmp != NULL)
     {
-      while (tmp->prev != NULL)
-	tmp = tmp->prev;
-      while (tmp->next != NULL)
-	{
-	  findAndModifyListInTab(&tmp->child);
-	  tmp = tmp->next;
-	}
+      findAndModifyListInTab(&tmp);
+      tmp = tmp->next;
     }
   return (msg);
 }
