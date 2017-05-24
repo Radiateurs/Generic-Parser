@@ -4,6 +4,27 @@
 #include	<string.h>
 #include	<stdio.h>
 
+segment		*initSegment(const char *name, unsigned int id, int is_a_group, int depth, int segType)
+{
+  segment	*new;
+
+  if (!(new = malloc(sizeof(*new))))
+    return (0);
+  new->id = id;
+  new->child = NULL;
+  new->depth = depth;
+  new->type = segType;
+  new->is_a_group = is_a_group;
+  if (name != NULL)
+    new->name = strndup(name, 32);
+  else
+    new->name = NULL;
+  new->element = NULL;
+  new->next = NULL;
+  new->prev = NULL;
+  return (new);
+}
+
 /*
 ** Add the segment child as a child in the old segment and keep the old pointer on the same position.
 */
@@ -70,19 +91,7 @@ int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group
 {
   segment	*new;
 
-  if (!(new = malloc(sizeof(*new))))
-    return (0);
-  new->id = id;
-  new->child = NULL;
-  new->depth = depth;
-  new->type = segType;
-  new->is_a_group = is_a_group;
-  if (name != NULL)
-    new->name = strndup(name, 32);
-  else
-    new->name = NULL;
-  new->element = NULL;
-  new->next = NULL;
+  new = initSegment(name, id, is_a_group, depth, segType);
   while (*old != NULL && (*old)->next != NULL)
     *old = (*old)->next;
   if (*old == NULL)
@@ -124,64 +133,6 @@ void		increaseChildDepth(segment **seg)
 	return ;
       tmp->child = tmp->child->next;
     }
-}
-
-int		addParent(segment **old_parent, const char *childs_name)
-{
-  segment	*tmp;
-  segment	*new_parent;
-  int		for_ids;
-  int	        on_off = 0;
-
-  if (!(new_parent = malloc(sizeof(*new_parent))))
-    return (-1);
-  new_parent->name = strdup(childs_name);
-  new_parent->is_a_group = 1;
-  new_parent->type = STAB;
-  new_parent->id = getNextID(*old_parent);
-  new_parent->child = NULL;
-  new_parent->element = NULL;
-  addSegment(old_parent, new_parent, 0);
-  while (*old_parent != NULL && (*old_parent)->prev != NULL)
-    *old_parent = (*old_parent)->prev;
-  while (on_off == 0)
-    {
-      if (*old_parent != NULL && *old_parent != new_parent && (*old_parent)->type != STAB \
-	  && (*old_parent)->name != NULL				\
-	  && strcmp((*old_parent)->name, new_parent->name) == 0)
-	{
-	  (*old_parent)->depth++;
-	  increaseChildDepth(old_parent);
-	  free((*old_parent)->name);
-	  (*old_parent)->name = NULL;
-	  tmp = *old_parent;
-	  removeIDSegment(old_parent, (*old_parent)->id);
-	  tmp->id = getNextID(new_parent);
-	  addChild(&new_parent, tmp);
-	  printf("NB child in new_parent = %i\n", countSegment(new_parent->child));
-	  printf("NB segment in old_parent = %i\n", countSegment(*old_parent));
-	  while (*old_parent != NULL && (*old_parent)->prev != NULL)
-	    *old_parent = (*old_parent)->prev;
-	}
-      else
-	{
-	  if (*old_parent == NULL || (*old_parent)->next == NULL)
-	    on_off = 1;
-	  else
-	    *old_parent = (*old_parent)->next;
-	}
-    }
-  for_ids = countSegment(*old_parent);
-  while (*old_parent != NULL && (*old_parent)->next != NULL)
-    *old_parent = (*old_parent)->next;
-  while (*old_parent != NULL && (*old_parent)->prev != NULL)
-    {
-      (*old_parent)->id = for_ids;
-      (*old_parent) = (*old_parent)->prev;
-      for_ids--;
-    }
-  (*old_parent)->id = 1;
-  return (0);
 }
 
 segment		*copySegment(segment *to_copy)

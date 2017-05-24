@@ -24,9 +24,12 @@ typedef struct	s_seg
 }		segment;
 
 /* Intern functions */
-int		addParent(segment **old_parent, const char *childs_name);
+void		increaseChildDepth(segment **old);
+segment		*initSegment(const char *name, unsigned int id, int is_a_group,	\
+			     int depth, int seg_type);
 segment		*copySegment(segment *to_copy);
 void		dumpSegment(segment *seg);
+void		dumpSegmentChild(segment *seg);
 unsigned int	lastGroupID(segment *seg);
 unsigned int	lastSegmentID(segment *seg);
 unsigned int	getNextID(segment *seg);
