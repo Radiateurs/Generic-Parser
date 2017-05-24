@@ -2,13 +2,16 @@ CC		= gcc
 
 NAME		= test
 
-SRC		= src/main.c		\
-		  src/JSONparse.c	\
-		  src/token_parse.c	\
-		  src/create_tree.c	\
-		  src/attribut.c	\
-		  src/element.c		\
-		  src/segment.c		\
+SRC		= src/main.c			\
+		  src/string_utils.c		\
+		  src/JSONparse.c		\
+		  src/tree_manipulation.c	\
+		  src/state_parser.c		\
+		  src/token_parse.c		\
+		  src/create_tree.c		\
+		  src/attribut.c		\
+		  src/element.c			\
+		  src/segment.c			\
 		  src/message.c
 
 OBJ		= $(SRC:.c=.o)

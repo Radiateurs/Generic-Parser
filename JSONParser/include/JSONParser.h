@@ -5,41 +5,18 @@
 # include	<stdlib.h>
 # include	<string.h>
 
+# include	"string_utils.h"
 # include	"message.h"
 
-typedef	struct	s_tree_parser	tree_parser;
+# ifndef	__TREE_PARSER__
+#  define	__TREE_PARSER__
 
-enum            e_state
-  {
-    DECLARATIONB = 0,	// The encountered token is the begining of a variable.
-    DECLARATIONE = 1,	// The encountered token is the ending of a variable.
-    ASSIGNEMENT = 2,	// The encountered token means that the foolowing token and fraglents should be the content.
-    ESNAME = 3,		// The last token implied that the surrent token is not a token but an alement name.
-    VALUE = 4,		// The encountered token means that it's a value with no token.
-    TYPETOKENB = 5,	// The encountered token is a type token begining.
-    TYPETOKENE = 6,	// The encountered token is a type token ending.
-    SEPARATOR = 7,	// The encountered token is a separator.
-    LISTB = 8,		// The encountered token is the begining of a list.
-    LISTE = 9,		// The encountered token is the ending of a list.
-    TABB = 10,		// The encountered token is the begining of a tab.
-    TABE = 11,		// The encountered token is the ending of a tab.
-    NONE = 12,		// The encountered token is not knonw.
-    ERROR = 13		// Supposed that there is a syntax error.
-  };
+typedef	struct	s_tree_parser	tree_parser; // Need to be first declarated for the following prototypes
 
-enum            e_tree_type
-  {
-    MESSAGE = 0,	// Should add a message in the tree
-    SEGMENT = 1,	// Should add a segment in the tree
-    CLOSEGROUP = 2,	// Should close the current group (list or tab)
-    LIST = 3,		// Should add a list in the tree
-    TAB = 4,		// Should add a tab in the tree
-    ELEMENT = 5,	// Should add an element in the tree
-    ATTRIBUT = 6,	// Should add an attribut (content without name or attribut with a name) in the tree
-    NAME = 7,		// The encountered token means that this is a variable name for the tree
-    CONTENT = 8,	// The encountered token means that this is a variable name for the tree
-    NOPE = 9		// Unknown tree type token. Might be a variable, content type or just something else.
-  };
+# endif		/* __TREE_PARSER__ */
+
+# include	"state.h"
+# include	"tree_type.h"
 
 struct		s_tree_parser
 {
@@ -61,8 +38,6 @@ struct		s_tree_parser
 /*
 ** Prototypes
 */
-
-int		strcis(const char *str, char c);
 
 void		JSONparse(char *path);
 char		**token_parse(char *path);
