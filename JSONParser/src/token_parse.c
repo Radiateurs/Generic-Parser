@@ -144,11 +144,19 @@ char		**token_parse(char *path)
   char		*segment;
   char		*file;
   size_t	file_size;
+  /* size_t	it = 0; */
   
   if (!(file = read_file(path, &file_size)))
     return (NULL);
-  if (!(ret = calloc(count_element(file, "\",{}[]:") + 1, sizeof(*ret))))
+  file_size = count_element(file, "\",{}[]:") + 2;
+  if (!(ret = calloc(file_size, sizeof(*ret))))
     return (NULL);
+  /* while (it < file_size) */
+  /*   { */
+  /*     ret[it] = NULL; */
+  /*     it++; */
+  /*   } */
+  /* //ret = memset(ret, 0, sizeof(*ret) * file_size); */
   while ((segment = return_token_string(file, "\",{}[]:")) != NULL)
     {
       if (ignore_it(segment, " \t\r\n") == -1)

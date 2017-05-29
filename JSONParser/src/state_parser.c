@@ -7,7 +7,7 @@ void		state_non_token_fragment(char **tokens, tree_parser *info, int *i, message
   if ((*info).last_state == ASSIGNEMENT || (*info).last_state == TYPETOKENB || (*info).current_state == VALUE || \
       ((*info).last_state == SEPARATOR && msg->segment->type == STAB))
     {
-      identify_token_type(tokens[*i], info);
+      identify_token_type(tokens[((*info).last_state == TYPETOKENB) ? *i + 1 : *i], info);
       (*info).content = strdup(tokens[*i]);
     }
 }

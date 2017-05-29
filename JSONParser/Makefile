@@ -4,6 +4,7 @@ NAME		= test
 
 SRC		= src/main.c			\
 		  src/string_utils.c		\
+		  src/serialize.c		\
 		  src/JSONparse.c		\
 		  src/tree_manipulation.c	\
 		  src/state_parser.c		\

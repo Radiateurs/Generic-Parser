@@ -4,23 +4,7 @@
 #include	<string.h>
 #include	<stdio.h>
 
-int		addChild(segment **old, segment *child)
-{
-  if ((*old)->child == NULL)
-    {
-      (*old)->child = child;
-      return (1);
-    }
-  *old = (*old)->child;
-  while ((*old)->next != NULL)
-    *old = (*old)->next;
-  (*old)->next = child;
-  child->prev = *old;
-  return (1);
-}
-
-int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group, int is_a_child, \
-			   int depth, int segType)
+segment		*initSegment(const char *name, unsigned int id, int is_a_group, int depth, int segType)
 {
   segment	*new;
 
@@ -37,6 +21,77 @@ int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group
     new->name = NULL;
   new->element = NULL;
   new->next = NULL;
+  new->prev = NULL;
+  return (new);
+}
+
+/*
+** Add the segment child as a child in the old segment and keep the old pointer on the same position.
+*/
+int		addChild(segment **old, segment *child)
+{
+  child->parent = *old;
+  child->prev = NULL;
+  child->next = NULL;
+  // If there isn't child in old, the child segment 
+  // is added as the first and only child for now.
+  if ((*old)->child == NULL)
+    {
+      (*old)->child = child;
+      return (1);
+    }
+  // Else the segment child is added at the end of the child list of old.
+  while ((*old)->child->next != NULL) // Go to the end of list.
+    (*old)->child = (*old)->child->next;
+  (*old)->child->next = child;
+  child->prev = (*old)->child;
+  return (1);
+}
+
+/*
+** Add a segment already allocated as next or as a child. This is specified by 
+** the int is_a_child. If is a child is equal to 1 or more the added segment is a child.
+** If is_a_child is equal to 0 the added segment will be in the same list as old.
+*/
+int		addSegment(segment **old, segment *to_add, int is_a_child)
+{
+  if (is_a_child > 0)
+    {
+      addChild(old, to_add);
+      *old = to_add;
+      return (1);
+    }
+  else
+    {
+      if (*old == NULL)
+	{
+	  to_add->next = NULL;
+	  to_add->prev = NULL;
+	  *old = to_add;
+	}
+      else
+	{
+	  to_add->parent = (*old)->parent;
+	  to_add->depth = (*old)->depth;
+	  (*old)->next = to_add;
+	  to_add->prev = *old;
+	  to_add->next = NULL;
+	}
+    }
+  return (1);
+}
+
+/*
+** Create a new segment in old as next or as a child.
+** The specification is made by is_a_child paramter.
+** All other parameters are essential and used to create the new segment.
+*/
+int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group, int is_a_child, \
+			   int depth, int segType)
+{
+  segment	*new;
+
+  new = initSegment(name, id, is_a_group, depth, segType);
   while (*old != NULL && (*old)->next != NULL)
     *old = (*old)->next;
   if (*old == NULL)
@@ -48,9 +103,9 @@ int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group
     {
       if (is_a_child > 0)
 	{
-	  new->parent = *old;
-	  new->prev = NULL;
 	  addChild(old, new);
+	  *old = new;
+	  return (1);
 	}
       else
 	{
@@ -61,6 +116,95 @@ int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group
     }
   *old = new;
   return (1);
+}
+
+void		increaseChildDepth(segment **seg)
+{
+  segment	*tmp;
+
+  tmp = *seg;
+  while (tmp != NULL && tmp->child != NULL && tmp->child->prev != NULL)
+    tmp->child = tmp->child->prev;
+  while (tmp != NULL && tmp->child != NULL)
+    {
+      tmp->child->depth = tmp->depth + 1;
+      increaseChildDepth(&(tmp->child->child));
+      if (tmp->child->next == NULL)
+	return ;
+      tmp->child = tmp->child->next;
+    }
+}
+
+segment		*copySegment(segment *to_copy)
+{
+  segment	*copy;
+
+  if (!(copy = malloc(sizeof(*copy))))
+    return (NULL);
+  copy->name = strdup(to_copy->name);
+  copy->next = NULL;
+  copy->prev = NULL;
+  copy->depth = to_copy->depth;
+  copy->type = to_copy->type;
+  copy->id = to_copy->id;
+  copy->is_a_group = to_copy->is_a_group;
+  copy->child = to_copy->child;
+  copy->element = to_copy->element;
+  return (copy);
+}
+
+void		removeIDChild(segment **old, unsigned int id)
+{
+  segment	*tmp;
+  segment	*tmp2;
+
+  if (*old == NULL || (*old)->child == NULL)
+    return ;
+  tmp = (*old)->child;
+  while (tmp->prev != NULL && tmp->id != id)
+    tmp = tmp->prev;
+  if (tmp->id != id)
+    tmp = (*old)->child;
+  while (tmp->next != NULL && tmp->id != id)
+    tmp = tmp->next;
+  if (tmp->id != id)
+    return ;
+  (*old)->child = tmp;
+  tmp = (*old)->child->prev;
+  tmp2 = (*old)->child->next;
+  if (tmp != NULL)
+    tmp->next = tmp2;
+  if (tmp2 != NULL)
+    tmp2->prev = tmp;
+  (*old)->child = (tmp != NULL) ? tmp : tmp2;
+  return ;
+}
+
+void		removeIDSegment(segment **old, unsigned int id)
+{
+  segment	*tmp;
+  segment	*tmp2;
+
+  if (*old == NULL)
+    return ;
+  tmp = *old;
+  while (tmp->prev != NULL && tmp->id != id)
+    tmp = tmp->prev;
+  if (tmp->id != id)
+    tmp = *old;
+  while (tmp->next != NULL && tmp->id != id)
+    tmp = tmp->next;
+  if (tmp->id != id)
+    return ;
+  *old = tmp;
+  tmp = (*old)->prev;
+  tmp2 = (*old)->next;
+  if (tmp != NULL)
+    tmp->next = tmp2;
+  if (tmp2 != NULL)
+    tmp2->prev = tmp;
+  *old = (tmp == NULL) ? tmp2 : tmp;
+  return ;
 }
 
 int		deleteIDSegment(segment **old, unsigned int id)
@@ -189,7 +333,7 @@ void		dumpSegmentChild(segment *seg)
 	  else
 	    printf("Tab ");
 	}
-      printf("[group id %d] [name %s] [depth %i]\n", tmp->id, tmp->name, tmp->depth);
+      printf("[group id %d] [name %s] [depth %i]\n", tmp->id, (tmp->name == NULL) ? "NULL" : tmp->name, tmp->depth);
       dumpElement(tmp->element, tmp->depth + 1);
       dumpSegmentChild(tmp->child);
       tmp = tmp->next;
@@ -225,7 +369,7 @@ void		dumpSegment(segment *seg)
 	  else
 	    printf("Tab ");
 	}
-      printf("[group id %d] [name %s] [depth %i]\n", tmp->id, tmp->name, tmp->depth);
+      printf("[group id %d] [name %s] [depth %i]\n", tmp->id, (tmp->name == NULL) ? "NULL" : tmp->name, tmp->depth);
       dumpElement(tmp->element, tmp->depth + 1);
       dumpSegmentChild(tmp->child);
       tmp = tmp->next;
@@ -246,10 +390,10 @@ unsigned int	lastGroupID(segment *seg)
 
 unsigned int	getNextID(segment *seg)
 {
-  element	*etmp;
-  segment	*stmp;
-  unsigned int	eid = 0;
-  unsigned int	sid = 0;
+  element	*etmp; // Element temp
+  segment	*stmp; // Segment temp
+  unsigned int	eid = 0; // Element ID
+  unsigned int	sid = 0; // Segment ID
 
   if (seg == NULL)
     return (1);
@@ -267,11 +411,7 @@ unsigned int	getNextID(segment *seg)
 	sid = stmp->id;
       stmp = stmp->next;
     }
-  if (sid > eid)
-    return (sid + 1);
-  if (eid > sid)
-    return (eid + 1);
-  return (1);
+  return (eid + sid + 1);
 }
 
 void		closeGroupSegment(segment **seg)
@@ -285,4 +425,44 @@ void		closeGroupSegment(segment **seg)
 segment		*getParent(segment *seg)
 {
   return (seg->parent);
+}
+
+int		countSegment(segment *seg)
+{
+  int		i = 0;
+  segment	*tmp;
+
+  tmp = seg;
+  while (tmp != NULL)
+    {
+      i++;
+      tmp = tmp->prev;
+    }
+  if (seg != NULL)
+    tmp = seg->next;
+  while (tmp != NULL)
+    {
+      i++;
+      tmp = tmp->next;
+    }
+  return (i);
+}
+
+segment		*getIDSegment(segment *seg, unsigned int id)
+{
+  segment	*ret;
+
+  if (seg == NULL)
+    return (NULL);
+  ret = seg;
+  while (ret->prev != NULL && ret->id != id)
+    ret = ret->prev;
+  if (ret->id == id)
+    return (ret);
+  ret = seg;
+  while (ret->next != NULL && ret->id != id)
+    ret = ret->next;
+  if (ret->id == id)
+    return (ret);
+  return (NULL);
 }
