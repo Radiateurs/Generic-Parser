@@ -59,3 +59,4 @@ void            XMLserializeMode(const char *path, message *msg, int flags)
       XMLwriting(fd, msg);
     }
 }
+

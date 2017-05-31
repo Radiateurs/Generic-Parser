@@ -5,6 +5,7 @@ NAME		= test
 SRC		= src/main.c			\
 		  src/string_utils.c		\
 		  src/XMLparse.c		\
+		  src/serialize.c		\
 		  src/tree_manipulation.c	\
 		  src/state_parser.c		\
 		  src/token_parse.c		\

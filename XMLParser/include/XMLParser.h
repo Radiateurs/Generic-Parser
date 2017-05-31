@@ -18,6 +18,12 @@ typedef	struct	s_tree_parser	tree_parser; // Need to be first declarated for the
 # include	"state.h"
 # include	"tree_type.h"
 
+/*
+** Global variable declarations
+*/
+int		g_nb_tab;
+int		g_human_readable;
+
 struct		s_tree_parser
 {
   enum e_state	last_state;
@@ -43,9 +49,23 @@ struct		s_tree_parser
 int		strcis(const char *str, char c);
 char		*mconcat(char *first, char *second);
 
-void		XMLparse(char *path);
+message		*XMLparse(char *path);
+void		XMLserialize(const char *path, message *msg);
+void		XMLserializeMode(const char *path, message *msg, int flags);
 char		**token_parse(char *path);
 message		*create_tree(char **tabToken);
 void		delete_tab(char **tab);
+void		XMLinit();
+void		setHumanReadable(int nb_tab);
+
+/*
+** Dump functions prototypes
+*/
+void		XMLwriting(int fd, message *msg);
+void		XMLDumpAllSegment(int fd, segment *seg);
+void		XMLDumpSegment(int fd, segment *seg);
+void		XMLDumpAllElement(int fd, element *elem, int depth);
+void		XMLDumpElement(int fd, element *elem, int depth);
+void		XMLDumpAttribut(int fd, attribut *attr, int depth);
 
 #endif		/*__XMLPARSER_H__ */

@@ -9,6 +9,9 @@ int		main(int ac, char **av)
   JSONinit();
   msg = JSONparse(av[1]);
   setHumanReadable(1);
+  if (msg == NULL)
+    return (-1);
   JSONserialize(av[2], msg);
+  deleteMessages(&msg);
   return (0);
 }

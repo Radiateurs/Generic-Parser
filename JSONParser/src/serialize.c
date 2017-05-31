@@ -157,6 +157,7 @@ void		setHumanReadable(int tab)	// tab is here to specifies the number of
 						// tabulations to put into dependencies
 						// Call it once to set on human readable mode.
 {
-  g_nb_tab = tab;
+  if (tab != 0)
+    g_nb_tab = tab;
   g_human_readable = 1;
 }
