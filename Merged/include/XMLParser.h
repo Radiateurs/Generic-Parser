@@ -5,6 +5,7 @@
 # include	<stdlib.h>
 # include	<string.h>
 
+# include	"generic_parser.h"
 # include	"string_utils.h"
 # include	"message.h"
 
@@ -15,14 +16,15 @@ typedef	struct	s_XMLtree_parser	XMLtree_parser; // Need to be first declarated f
 
 # endif		/* __XMLTREE_PARSER__ */
 
-# include	"state.h"
-# include	"tree_type.h"
+# include	"XMLstate.h"
+# include	"XMLtree_type.h"
 
 /*
-** Global variable declarations
+** Defining string that won't change.
 */
-int		g_nb_tab;
-int		g_human_readable;
+# define	XMLSEPARATOR		("\"<>=")
+# define	XMLTO_IGNORE		(" \t\r\n")
+# define	XMLTO_REMOVE		("\t\r\n")
 
 struct		s_XMLtree_parser
 {
@@ -46,11 +48,9 @@ struct		s_XMLtree_parser
 ** Prototypes
 */
 message		*XMLparse(char *path);
+message		*XMLcreate_tree(char **tabToken);
 void		XMLserialize(const char *path, message *msg);
 void		XMLserializeMode(const char *path, message *msg, int flags);
-char		**token_parse(char *path);
-message		*create_tree(char **tabToken);
-void		delete_tab(char **tab);
 
 /*
 ** Dump functions prototypes

@@ -1,28 +1,16 @@
-#include	"element.h"
+#include	"attribut.h"
 #include	<unistd.h>
 #include	<stdlib.h>
 #include	<string.h>
 #include	<stdio.h>
 
-int		addElement(element **old, element *new)
+int		newAttribut(attribut **old, const char *name, unsigned int id, \
+			    const char *content, enum e_attr_type type)
 {
-  while (*old != NULL && (*old)->next != NULL)
-    *old = (*old)->next;
-  if (*old == NULL)
-    new->prev = NULL;
-  else
-    {
-      (*old)->next = new;
-      new->prev = *old;
-    }
-  *old = new;
-  return (1);
-}
+  attribut	*new;
 
-int		newElement(element **old, const char *name, unsigned int id)
-{
-  element	*new;
-
+  if (content == NULL)
+    return (0);
   if (!(new = malloc(sizeof(*new))))
     return (0);
   new->next = NULL;
@@ -31,7 +19,8 @@ int		newElement(element **old, const char *name, unsigned int id)
     new->name = strndup(name, 32);
   else
     new->name = NULL;
-  new->attribut = NULL;
+  new->content = strdup(content);
+  new->type = type;
   while (*old != NULL && (*old)->next != NULL)
     *old = (*old)->next;
   if (*old == NULL)
@@ -45,17 +34,17 @@ int		newElement(element **old, const char *name, unsigned int id)
   return (1);
 }
 
-int		deleteIDElement(element **old, unsigned int id)
+int		deleteIDAttribut(attribut **old, unsigned int id)
 {
-  element  	*tmp;
-  element	*tmp2;
+  attribut	*tmp;
+  attribut	*tmp2;
 
   if (*old == NULL)
     return (0);
   if ((*old)->id == id)
     {
       tmp = ((*old)->next != NULL) ? (*old)->next : ((*old)->prev != NULL) ? (*old)->prev : NULL;
-      deleteAttributs(&(tmp->attribut));
+      free(tmp->content);
       free(tmp->name);
       free(*old);
       *old = tmp;
@@ -83,15 +72,17 @@ int		deleteIDElement(element **old, unsigned int id)
       if (tmp->prev == NULL && tmp->next != NULL)
 	tmp->next->prev = NULL;
     }
-  deleteAttributs(&(tmp->attribut));
-  free(tmp->name);
+  if (tmp->name)
+    free(tmp->name);
+  if (tmp->content)
+    free(tmp->content);
   free(tmp);
   return (1);
 }
 
-int		deleteElements(element **old)
+int		deleteAttributs(attribut **old)
 {
-  element	*tmp;
+  attribut	*tmp;
 
   if (*old == NULL)
     return (1);
@@ -101,25 +92,23 @@ int		deleteElements(element **old)
     {
       tmp = *old;
       *old = (*old)->next;
-      deleteAttributs(&(tmp->attribut));
-      free(tmp->name);
+      free(tmp->content);
       free(tmp);
     }
-  *old = NULL;
   return (1);
 }
 
-void		dumpElement(element *elem, int depth)
+void		dumpAttribut(attribut *att, int depth)
 {
-  element	*tmp;
+  attribut	*tmp;
   int		i = 0;
 
-  if (elem == NULL)
+  if (att == NULL)
     return ;
-  tmp = elem;
+  tmp = att;
   while (tmp->prev != NULL)
     tmp = tmp->prev;
-  while (tmp)
+  while (tmp != NULL)
     {
       i = 0;
       while (i < depth)
@@ -127,61 +116,22 @@ void		dumpElement(element *elem, int depth)
 	  putchar('\t');
 	  i++;
 	}
-      printf("Element [id %d] [name %s]\n", tmp->id, tmp->name);
-      dumpAttribut(tmp->attribut, depth + 1);
+      if (tmp->name != NULL)
+	printf("Attribut [id %d] [name %s] [type %d] [content %s]\n", tmp->id, tmp->name, tmp->type, tmp->content);
+      else
+	printf("Attribut [id %d] [name (null)] [type %d] [content %s]\n", tmp->id, tmp->type, tmp->content);
       tmp = tmp->next;
     }
 }
 
-unsigned int	lastElementID(element *elem)
+unsigned int	lastAttributID(attribut *attr)
 {
-  element	*tmp;
+  attribut	*tmp;
 
-  if (elem == NULL)
+  if (attr == NULL)
     return (0);
-  tmp = elem;
+  tmp = attr;
   while (tmp->next != NULL)
     tmp = tmp->next;
   return (tmp->id);
-}
-
-element         *getIDElement(element *elem, unsigned int id)
-{
-  element       *ret;
-
-  if (elem == NULL)
-    return (NULL);
-  ret = elem;
-  while (ret->prev != NULL && ret->id != id)
-    ret = ret->prev;
-  if (ret->id == id)
-    return (ret);
-  ret = elem;
-  while (ret->next != NULL && ret->id != id)
-    ret = ret->next;
-  if (ret->id == id)
-    return (ret);
-  return (NULL);
-}
-
-int             countElement(element *elem)
-{
-  element       *tmp;
-  int           total = 1;
-
-  if (elem == NULL)
-    return (0);
-  tmp = elem;
-  while (tmp->prev != NULL)
-    {
-      tmp = tmp->prev;
-      total++;
-    }
-  tmp = elem;
-  while (tmp->next != NULL)
-    {
-      tmp = tmp->next;
-      total++;
-    }
-  return (total);
 }

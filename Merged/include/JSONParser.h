@@ -5,25 +5,27 @@
 # include	<stdlib.h>
 # include	<string.h>
 
+# include	"generic_parser.h"
 # include	"string_utils.h"
 # include	"message.h"
 
-# ifndef	__TREE_PARSER__
-#  define	__TREE_PARSER__
+# ifndef	__JSONTREE_PARSER__
+#  define	__JSONTREE_PARSER__
 
-typedef	struct	s_tree_parser	tree_parser;// Need to be first declarated for the 
+typedef	struct	s_JSONtree_parser	JSONtree_parser;// Need to be first declarated for the 
 							//following prototypes and includes
 
-# endif		/* __TREE_PARSER__ */
-
-# include	"state.h"
-# include	"tree_type.h"
+# endif		/* __JSONTREE_PARSER__ */
 
 /*
-** Global Variable declarations
+** Defining string that won't change.
 */
-int		g_nb_tab;
-int		g_human_readable;
+# define	JSONSEPARATOR		("\",{}[]:")
+# define	JSONTO_IGNORE		(" \t\r\n")
+# define	JSONTO_REMOVE		("\t\r\n")
+
+# include	"JSONstate.h"
+# include	"JSONtree_type.h"
 
 struct		s_JSONtree_parser
 {
@@ -45,14 +47,11 @@ struct		s_JSONtree_parser
 /*
 ** Prototypes
 */
-void		JSONinit();
-void		setHumanReadable(int tab);
+
 message		*JSONparse(char *path);
+message		*JSONcreate_tree(char **tabToken);
 void		JSONserialize(const char *path, message *msg);
 void		JSONserializeMode(const char *path, message *msg, int flags);
-char		**token_parse(char *path);
-message		*create_tree(char **tabToken);
-void		delete_tab(char **tab);
 void	        JSONwriting(int fd, message *msg);
 
 /*
