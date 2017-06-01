@@ -447,22 +447,3 @@ int		countSegment(segment *seg)
     }
   return (i);
 }
-
-segment		*getIDSegment(segment *seg, unsigned int id)
-{
-  segment	*ret;
-
-  if (seg == NULL)
-    return (NULL);
-  ret = seg;
-  while (ret->prev != NULL && ret->id != id)
-    ret = ret->prev;
-  if (ret->id == id)
-    return (ret);
-  ret = seg;
-  while (ret->next != NULL && ret->id != id)
-    ret = ret->next;
-  if (ret->id == id)
-    return (ret);
-  return (NULL);
-}

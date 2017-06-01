@@ -11,8 +11,8 @@
 # ifndef	__TREE_PARSER__
 #  define	__TREE_PARSER__
 
-typedef	struct	s_tree_parser	tree_parser;// Need to be first declarated for the 
-							//following prototypes and includes
+typedef	struct	s_tree_parser	tree_parser;	// Need to be first declarated for the 
+						//following prototypes and includes
 
 # endif		/* __TREE_PARSER__ */
 
@@ -25,7 +25,7 @@ typedef	struct	s_tree_parser	tree_parser;// Need to be first declarated for the
 int		g_nb_tab;
 int		g_human_readable;
 
-struct		s_JSONtree_parser
+struct		s_tree_parser
 {
   enum e_state	last_state;
   enum e_state	current_state;
@@ -45,15 +45,15 @@ struct		s_JSONtree_parser
 /*
 ** Prototypes
 */
-void		JSONinit();
-void		setHumanReadable(int tab);
+
 message		*JSONparse(char *path);
 void		JSONserialize(const char *path, message *msg);
-void		JSONserializeMode(const char *path, message *msg, int flags);
 char		**token_parse(char *path);
 message		*create_tree(char **tabToken);
 void		delete_tab(char **tab);
 void	        JSONwriting(int fd, message *msg);
+void		JSONinit();
+void		setHumanReadable(int nb_tab);
 
 /*
 ** Dump functions

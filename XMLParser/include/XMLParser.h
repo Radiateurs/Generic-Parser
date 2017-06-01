@@ -8,12 +8,12 @@
 # include	"string_utils.h"
 # include	"message.h"
 
-# ifndef	__XMLTREE_PARSER__
-#  define	__XMLTREE_PARSER__
+# ifndef	__TREE_PARSER__
+#  define	__TREE_PARSER__
 
-typedef	struct	s_XMLtree_parser	XMLtree_parser; // Need to be first declarated for the following include
+typedef	struct	s_tree_parser	tree_parser; // Need to be first declarated for the following include
 
-# endif		/* __XMLTREE_PARSER__ */
+# endif		/* __TREE_PARSER__ */
 
 # include	"state.h"
 # include	"tree_type.h"
@@ -24,7 +24,7 @@ typedef	struct	s_XMLtree_parser	XMLtree_parser; // Need to be first declarated f
 int		g_nb_tab;
 int		g_human_readable;
 
-struct		s_XMLtree_parser
+struct		s_tree_parser
 {
   enum e_state	last_state;
   enum e_state	current_state;
@@ -45,12 +45,18 @@ struct		s_XMLtree_parser
 /*
 ** Prototypes
 */
+
+int		strcis(const char *str, char c);
+char		*mconcat(char *first, char *second);
+
 message		*XMLparse(char *path);
 void		XMLserialize(const char *path, message *msg);
 void		XMLserializeMode(const char *path, message *msg, int flags);
 char		**token_parse(char *path);
 message		*create_tree(char **tabToken);
 void		delete_tab(char **tab);
+void		XMLinit();
+void		setHumanReadable(int nb_tab);
 
 /*
 ** Dump functions prototypes
