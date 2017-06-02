@@ -22,7 +22,7 @@ typedef	struct	s_XMLtree_parser	XMLtree_parser; // Need to be first declarated f
 /*
 ** Defining string that won't change.
 */
-# define	XMLSEPARATOR		("\"<>=")
+# define	XMLSEPARATOR		("\'<>/\"= ")
 # define	XMLTO_IGNORE		(" \t\r\n")
 # define	XMLTO_REMOVE		("\t\r\n")
 
@@ -51,6 +51,7 @@ message		*XMLparse(char *path);
 message		*XMLcreate_tree(char **tabToken);
 void		XMLserialize(const char *path, message *msg);
 void		XMLserializeMode(const char *path, message *msg, int flags);
+char		**XMLtoken_parse(char *path, const char *separator, const char *to_ignore, const char *to_remove);
 
 /*
 ** Dump functions prototypes

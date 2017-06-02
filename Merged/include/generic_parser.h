@@ -27,5 +27,9 @@ void		setHumanReadable(char spacer, int nb_tab);
 */
 char		**token_parse(char *path, char *sep, const char *to_ignore, const char *to_remove);
 void		delete_tab(char **ptr);
+unsigned int	count_element(char *file, const char *sep);
+char		*read_file(char *path, size_t *file_size);
+char		**add_element(char **ret, char *elem, const char *to_remove);
+int		ignore_it(char *segment, const char *to_ignore);
 
 #endif		/* __GENERIC_PARSER_H__ */

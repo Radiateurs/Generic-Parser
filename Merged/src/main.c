@@ -16,8 +16,8 @@ int		main(int ac, char **av)
     msg = XMLparse(av[2]);
   if (av[3][1] == 'x' || av[3][1] == 'X')
     XMLserialize(av[4], msg);
-  if (av[3][1] == 'x' || av[3][1] == 'X')
-    XMLserialize(av[4], msg);
+  if (av[3][1] == 'j' || av[3][1] == 'J')
+    JSONserialize(av[4], msg);
   deleteMessages(&msg);
   return (0);
 }

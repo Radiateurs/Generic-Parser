@@ -21,7 +21,7 @@ void		JSONDumpElement(int fd, element *elem, int seg_depth)
       nb_of_tab = 0;
       while (nb_of_tab <  g_nb_spacer)
 	{
-	  dprintf(fd, "\t");
+	  dprintf(fd, "%c", g_spacer);
 	  nb_of_tab++;
 	}
       depth++;
@@ -49,7 +49,7 @@ void		JSONDumpAllElement(int fd, element *elem, int seg_depth)
 	return ;
       dprintf(fd, ",");
       if (g_human_readable == 1)
-	dprintf(fd, "\n");
+	dprintf(fd, "%s", CRLF);
       tmp = tmp->next;
     }
 }
@@ -69,7 +69,7 @@ void		JSONDumpSegment(int fd, segment *seg) // Will dump only the pointed segmen
       nb_of_tab = 0;
       while (nb_of_tab <  g_nb_spacer)
 	{
-	  dprintf(fd, "\t");
+	  dprintf(fd, "%c", g_spacer);
 	  nb_of_tab++;
 	}
       depth++;
@@ -80,19 +80,19 @@ void		JSONDumpSegment(int fd, segment *seg) // Will dump only the pointed segmen
     {
       dprintf(fd, "{");
       if (g_human_readable == 1)
-	dprintf(fd, "\n");
+	dprintf(fd, "%s", CRLF);
       JSONDumpAllElement(fd, seg->element, seg->depth + 1);
-      if (seg->child != NULL)
+      if (seg->child != NULL && seg->element != NULL)
 	dprintf(fd, ",");
-      if (g_human_readable == 1)
-	dprintf(fd, "\n");
+      if (seg->element != NULL && g_human_readable == 1)
+	dprintf(fd, "%s", CRLF);
       JSONDumpAllSegment(fd, seg->child);
     }
   if (seg->type == STAB)
     {
       dprintf(fd, "[");
       if (g_human_readable == 1)
-	dprintf(fd, "\n");
+	dprintf(fd, "%s", CRLF);
       current_id = 1;
       max_id = countSegment(seg) + countElement(seg->element) + 1;
       while (current_id != max_id)
@@ -101,8 +101,6 @@ void		JSONDumpSegment(int fd, segment *seg) // Will dump only the pointed segmen
 	    JSONDumpElement(fd, elem_in_tab, seg->depth + 1);
 	  else if ((seg_in_tab = getIDSegment(seg->child, current_id)) != NULL)
 	    JSONDumpAllSegment(fd, seg_in_tab);
-	  if (g_human_readable == 1)
-	    dprintf(fd, "\n");
 	  current_id++;
 	}
     }
@@ -112,7 +110,7 @@ void		JSONDumpSegment(int fd, segment *seg) // Will dump only the pointed segmen
       nb_of_tab = 0;
       while (nb_of_tab <  g_nb_spacer)
 	{
-	  dprintf(fd, "\t");
+	  dprintf(fd, "%c", g_spacer);
 	  nb_of_tab++;
 	}
       depth++;
@@ -135,12 +133,13 @@ void		JSONDumpAllSegment(int fd, segment *seg) // Will dump all element and chil
       if (tmp->next == NULL)
 	{
 	  if (g_human_readable == 1)
-	    dprintf(fd, "\n");
+	    dprintf(fd, "%s", CRLF);
 	  return ;
 	}
       tmp = tmp->next;
+      dprintf(fd, ",");
       if (g_human_readable == 1)
-	dprintf(fd, ",\n");
+	dprintf(fd, "%s", CRLF);
     }
 }
 

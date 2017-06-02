@@ -13,14 +13,14 @@ void		XMLDumpAttribut(int fd, attribut *attr, int elem_depth)
       nb_tab = 0;
       while (nb_tab < g_nb_spacer)
 	{
-	  dprintf(fd, "\t");
+	  dprintf(fd, "%c", g_spacer);
 	  nb_tab++;
 	}
       depth++;
     }
   dprintf(fd, "%s", attr->content);
   if (g_human_readable == 1)
-    dprintf(fd, "\n");
+    dprintf(fd, "%s", CRLF);
 }
 
 void		XMLDumpOpeningElement(int fd, element *elem, int seg_depth)
@@ -35,7 +35,7 @@ void		XMLDumpOpeningElement(int fd, element *elem, int seg_depth)
       nb_tab = 0;
       while (nb_tab < g_nb_spacer)
 	{
-	  dprintf(fd, "\t");
+	  dprintf(fd, "%c", g_spacer);
 	  nb_tab++;
 	}
       depth++;
@@ -43,7 +43,7 @@ void		XMLDumpOpeningElement(int fd, element *elem, int seg_depth)
   if (elem != NULL && elem->name != NULL)
     dprintf(fd, "<%s>", elem->name);
   if (g_human_readable == 1)
-    dprintf(fd, "\n");
+    dprintf(fd, "%s", CRLF);
 }
 
 void		XMLDumpClosingElement(int fd, element *elem, int seg_depth)
@@ -58,7 +58,7 @@ void		XMLDumpClosingElement(int fd, element *elem, int seg_depth)
       nb_tab = 0;
       while (nb_tab < g_nb_spacer)
 	{
-	  dprintf(fd, "\t");
+	  dprintf(fd, "%c", g_spacer);
 	  nb_tab++;
 	}
       depth++;
@@ -66,7 +66,7 @@ void		XMLDumpClosingElement(int fd, element *elem, int seg_depth)
   if (elem->name != NULL)
     dprintf(fd, "</%s>", elem->name);
   if (g_human_readable == 1)
-    dprintf(fd, "\n");
+    dprintf(fd, "%s", CRLF);
 }
 
 
@@ -107,7 +107,7 @@ void		XMLDumpOpeningSegment(int fd, segment *seg)
       nb_tab = 0;
       while (nb_tab < g_nb_spacer)
 	{
-	  dprintf(fd, "\t");
+	  dprintf(fd, "%c", g_spacer);
 	  nb_tab++;
 	}
       depth++;
@@ -117,7 +117,7 @@ void		XMLDumpOpeningSegment(int fd, segment *seg)
   if (seg->name == NULL && seg->parent != NULL && seg->parent->type == STAB)
     dprintf(fd, "<%s>", seg->parent->name);
   if (g_human_readable == 1)
-    dprintf(fd, "\n");
+    dprintf(fd, "%s", CRLF);
 }
 
 void		XMLDumpClosingSegment(int fd, segment *seg)
@@ -130,7 +130,7 @@ void		XMLDumpClosingSegment(int fd, segment *seg)
       nb_tab = 0;
       while (nb_tab < g_nb_spacer)
 	{
-	  dprintf(fd, "\t");
+	  dprintf(fd, "%c", g_spacer);
 	  nb_tab++;
 	}
       depth++;
@@ -140,7 +140,7 @@ void		XMLDumpClosingSegment(int fd, segment *seg)
   if (seg->name == NULL && seg->parent != NULL && seg->parent->type == STAB)
     dprintf(fd, "</%s>", seg->parent->name);
   if (g_human_readable == 1)
-    dprintf(fd, "\n");
+    dprintf(fd, "%s", CRLF);
 }
 
 void		XMLDumpSegment(int fd, segment *seg)

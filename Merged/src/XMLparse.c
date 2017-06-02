@@ -2,13 +2,15 @@
 #include	<sys/types.h>
 #include	<sys/stat.h>
 #include	<fcntl.h>
+#include	<stdio.h>
 
 message		*XMLparse(char *path)
 {
   char		**tabToken;
   message	*msg;
 
-  tabToken = token_parse(path, XMLSEPARATOR, XMLTO_IGNORE, XMLTO_REMOVE);
+  if (!(tabToken = XMLtoken_parse(path, XMLSEPARATOR, XMLTO_IGNORE, XMLTO_REMOVE)))
+    return (NULL);
   msg = XMLcreate_tree(tabToken);
   delete_tab(tabToken);
   if (msg != NULL)

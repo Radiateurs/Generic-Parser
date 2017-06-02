@@ -16,6 +16,7 @@ JSONSRC		= src/JSON/serialize.c		\
 XMLSRC		= src/XML/serialize.c		\
 		  src/XML/tree_manipulation.c	\
 		  src/XML/state_parser.c	\
+		  src/XML/token_parse.c		\
 		  src/XML/create_tree.c		
 
 SRC		= src/main.c			\
