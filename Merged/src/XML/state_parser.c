@@ -1,5 +1,8 @@
 #include	"XMLParser.h"
 
+/*
+** Get the text between to braces ( <xmpl> DATA GETED BY THIS FUNCTION </xmpl> )
+*/
 void		getTextData(int *i, char **tokens, XMLtree_parser *info)
 { 
   char		*tmp;
@@ -28,7 +31,7 @@ void		getTextData(int *i, char **tokens, XMLtree_parser *info)
     }
   (*i)--;
   (*info).elem_name = malloc(sizeof(char) * 2);
-  (*info).elem_name[0] = (*info).textChar;
+  (*info).elem_name[0] = g_text;
   (*info).elem_name[1] = '\0';
   tmp = mconcat((*info).elem_name, "TEXT");
   free((*info).elem_name);
@@ -38,6 +41,9 @@ void		getTextData(int *i, char **tokens, XMLtree_parser *info)
   (*info).current_tree_type = ATTRIBUT;
 }
 
+/*
+** Analyze fragments that aren't tokens
+*/
 void		XMLstate_non_token_fragment(char **tokens, XMLtree_parser *info, int *i)
 {
   if ((*info).last_state == DECLARATIONE)
@@ -54,13 +60,19 @@ void		XMLstate_non_token_fragment(char **tokens, XMLtree_parser *info, int *i)
       (*info).current_tree_type = LIST;
       (*info).seg_name = strdup(tokens[*i]);
     }
-  if ((*info).last_state == ASSIGNEMENT || (*info).last_state == TYPETOKENB)
+  if ((*info).last_state == TYPETOKENB)
     {
       XMLidentify_token_type(tokens[((*info).last_state == TYPETOKENB && *i > 0) ? *i - 1 : *i], info);
       (*info).content = strdup(tokens[*i]);
+      (*info).current_state = VALUE;
     }
+  if ((*info).last_state == ASSIGNEMENT)
+    (*info).current_state = ERROR;
 }
 
+/*
+** Analyze fragments that are tokens
+*/
 void		XMLstate_token_fragment(const char *fragment, XMLtree_parser *info)
 {
   switch (fragment[0]) {
@@ -70,8 +82,10 @@ void		XMLstate_token_fragment(const char *fragment, XMLtree_parser *info)
   case '\"':
     if ((*info).last_state == VALUE)
       (*info).current_state = TYPETOKENE;
-    else
+    if ((*info).last_state == ASSIGNEMENT)
       (*info).current_state = TYPETOKENB;
+    if ((*info).last_state != VALUE && (*info).last_state != ASSIGNEMENT)
+      (*info).current_state = ERROR;
     break ;
   case '<':
     (*info).current_state = DECLARATIONB;

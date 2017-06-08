@@ -145,6 +145,8 @@ void		JSONDumpAllSegment(int fd, segment *seg) // Will dump all element and chil
 
 void		JSONwriting(int fd, message *msg)
 {
+  if (msg == NULL)
+    return ;
   while (msg != NULL && msg->segment != NULL && msg->segment->parent != NULL)
     msg->segment = msg->segment->parent;
   while (msg != NULL && msg->segment != NULL && msg->segment->prev != NULL)

@@ -40,8 +40,6 @@ struct		s_XMLtree_parser
   char		*attr_name;
   char		*content;
   char		*error;
-  char		textChar;
-  char		attrChar;
 };
 
 /*
@@ -52,6 +50,7 @@ message		*XMLcreate_tree(char **tabToken);
 void		XMLserialize(const char *path, message *msg);
 void		XMLserializeMode(const char *path, message *msg, int flags);
 char		**XMLtoken_parse(char *path, const char *separator, const char *to_ignore, const char *to_remove);
+int		segmentHasNoText(segment *seg);
 
 /*
 ** Dump functions prototypes

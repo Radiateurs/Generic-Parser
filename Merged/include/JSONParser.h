@@ -17,15 +17,15 @@ typedef	struct	s_JSONtree_parser	JSONtree_parser;// Need to be first declarated 
 
 # endif		/* __JSONTREE_PARSER__ */
 
+# include	"JSONstate.h"
+# include	"JSONtree_type.h"
+
 /*
 ** Defining string that won't change.
 */
 # define	JSONSEPARATOR		("\",{}[]:")
 # define	JSONTO_IGNORE		(" \t\r\n")
 # define	JSONTO_REMOVE		("\t\r\n")
-
-# include	"JSONstate.h"
-# include	"JSONtree_type.h"
 
 struct		s_JSONtree_parser
 {

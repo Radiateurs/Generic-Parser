@@ -5,6 +5,8 @@ void		ParserInit()
   g_nb_spacer = 0;
   g_human_readable = 0;
   g_spacer = '\t';
+  g_attribut = '@';
+  g_text = '#';
 }
 
 void		setHumanReadable(char spacer, int nb)	// tab is here to specifies the number of

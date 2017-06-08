@@ -1,5 +1,27 @@
 #include	"XMLParser.h"
 
+int		segmentHasNoText(segment *seg)
+{
+  element	*tmp;
+
+  if (seg == NULL)
+    return (0);
+  if (seg->element == NULL)
+    return (1);
+  tmp = seg->element;
+  while (tmp->prev != NULL)
+    tmp = tmp->prev;
+  while (tmp)
+    {
+      if (tmp->name[0] == g_text)
+	return (0);
+      if (tmp->next == NULL)
+	return (1);
+      tmp = tmp->next;
+    }
+  return (1);
+}
+
 void		XMLidentify_token_type(const char *fragment, XMLtree_parser *info)
 {
   if (fragment[0] == '\"')
@@ -57,10 +79,10 @@ void		XMLadd_chunk_to_tree(XMLtree_parser *info, message **msg)
       XMLadd_segment(info, msg);
       break;
     case ELEMENT:
-      if ((*info).elem_name[0] != (*info).textChar)
+      if ((*info).elem_name[0] != g_text)
 	{
 	  (*info).seg_name = malloc(sizeof(char) * 2);
-	  (*info).seg_name[0] = (*info).attrChar;
+	  (*info).seg_name[0] = g_attribut;
 	  (*info).seg_name[1] = '\0';
 	  tmp = mconcat((*info).seg_name, (*info).elem_name);
 	  free((*info).elem_name);

@@ -30,6 +30,8 @@ int		deleteMessages(message **old)
 {
   message	*tmp;
 
+  if (*old == NULL)
+    return (0);
   while ((*old)->prev != NULL)
     *old = (*old)->prev;
   tmp = *old;

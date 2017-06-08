@@ -12,9 +12,11 @@
 /*
 ** Global variables declarations
 */
-int		g_nb_spacer;
-int		g_human_readable;
-char		g_spacer;
+int		g_human_readable;	// Specify if the output file should be human readable
+int		g_nb_spacer;		// Specify the number of spacer for the indentation
+char		g_spacer;		// Specify the char spacer ( SPACE or \t ) (default '\t')
+char		g_attribut;		// Specify the char used to define an attribut (default '@')
+char		g_text;			// Specify the char used to define a text data (defualt '#')
 
 /*
 ** Main prototypes
