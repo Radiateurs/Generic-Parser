@@ -1,5 +1,8 @@
-#include	"JSONParser.h"
-#include	<stdio.h>
+#ifndef		__JSON_SERIALIZE_C__
+# define	__JSON_SERIALIZE_C__
+
+# include	"JSONParser.h"
+# include	<stdio.h>
 
 void		JSONDumpAttribut(int fd, attribut *attr)
 {
@@ -154,3 +157,4 @@ void		JSONwriting(int fd, message *msg)
   JSONDumpAllSegment(fd, msg->segment);
 }
 
+#endif		/* __JSON_SERIALIZE_C__ */

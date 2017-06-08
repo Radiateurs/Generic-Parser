@@ -1,8 +1,11 @@
-#include	"JSONParser.h"
-#include	<stdio.h>
-#include	<sys/types.h>
-#include	<sys/stat.h>
-#include	<fcntl.h>
+#ifndef		__JSONPARSE_C__
+# define	__JSONPARSE_C__
+
+# include	"JSONParser.h"
+# include	<stdio.h>
+# include	<sys/types.h>
+# include	<sys/stat.h>
+# include	<fcntl.h>
 
 /*
 ** Parse and create a tree from the given file (path).
@@ -56,3 +59,5 @@ void		JSONserializeMode(const char *path, message *msg, int flags)
       JSONwriting(fd, msg);
     }
 }
+
+#endif		/* __JSONPARSE_C__ */

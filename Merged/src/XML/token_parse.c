@@ -1,8 +1,11 @@
-#include	"string_utils.h"
-#include	"generic_parser.h"
-#include	<sys/types.h>
-#include	<sys/stat.h>
-#include	<fcntl.h>
+#ifndef		__XML_TOKEN_PARSE_C__
+# define	__XML_TOKEN_PARSE_C__
+
+# include	"string_utils.h"
+# include	"generic_parser.h"
+# include	<sys/types.h>
+# include	<sys/stat.h>
+# include	<fcntl.h>
 
 int		XMLfirst_token_pos(const char *buff, const char *sep)
 {
@@ -70,3 +73,5 @@ char		**XMLtoken_parse(char *path, const char *separator, const char *to_ignore,
   free(file);
   return (ret);
 }
+
+#endif		/* __XML_TOKEN_PARSE_C__ */

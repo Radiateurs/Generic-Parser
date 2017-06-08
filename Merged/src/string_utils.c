@@ -1,5 +1,13 @@
-#include	<string_utils.h>
+#ifndef		__STRING_UTILS_C__
+# define	__STRING_UTILS_C__
 
+# include	<string_utils.h>
+
+/*
+** Verify if 'c' is in 'str'
+** Return the position of 'c' in 'str' if it's in it
+** Return -1 if 'c' isn't in 'str'
+*/
 int		strcis(const char *str, char c)
 {
   int		i = 0;
@@ -13,6 +21,10 @@ int		strcis(const char *str, char c)
   return (-1);
 }
 
+/*
+** Earase every char in 'to_ignore' that are in 'src'
+** Return a new allocated char *
+*/
 char		*clean(const char *src, const char *to_ignore)
 {
   int		i = 0;
@@ -42,6 +54,9 @@ char		*clean(const char *src, const char *to_ignore)
   return (dest);
 }
 
+/*
+** Acts like strcat but allocates a new string and concatatains the two strings ('saved' and 'buff').
+*/
 char		*mconcat(char *saved, char *buff)
 {
   char		*dest;
@@ -66,6 +81,11 @@ char		*mconcat(char *saved, char *buff)
   return (dest);
 }
 
+/*
+** Verify if the whole string 'str' contains number.
+** Retrun 0 if so
+** Return -1 if not
+*/
 int		str_is_num(const char *str)
 {
   int		i = 0;
@@ -79,6 +99,11 @@ int		str_is_num(const char *str)
   return (0);
 }
 
+/*
+** Acts like str_is_num but it will check 'max' bytes.
+** If 'max' is upper than the lenght of 'str' it will check the whole string
+** Return the exact same things as str_is_num
+*/
 int		str_n_is_num(const char *str, int max)
 {
   int		i = 0;
@@ -92,6 +117,12 @@ int		str_n_is_num(const char *str, int max)
   return (0);
 }
 
+/*
+** Verify if the 'fragment' string contains only 'sep' char.
+** The order isn't checked. As long that every bytes of 'fragment' are contained in sep it's okay.
+** Return -1 if not.
+** Retrun 0 if so.
+*/
 int		is_a_token(const char *fragment, const char *sep)
 {
   int		i = 0;
@@ -104,3 +135,5 @@ int		is_a_token(const char *fragment, const char *sep)
     }
   return (0);
 }
+
+#endif		/* __STRING_UTILS_C__ */

@@ -1,7 +1,10 @@
-#include	"string_utils.h"
-#include	<sys/types.h>
-#include	<sys/stat.h>
-#include	<fcntl.h>
+#ifndef		__TOKEN_PARSE_C__
+# define	__TOKEN_PARSE_C__
+
+# include	"string_utils.h"
+# include	<sys/types.h>
+# include	<sys/stat.h>
+# include	<fcntl.h>
 
 int		first_token_pos(const char *buff, const char *sep, int quote)
 {
@@ -22,6 +25,10 @@ int		first_token_pos(const char *buff, const char *sep, int quote)
   return (-1);
 }
 
+/*
+** Separates 'string' and cut it at 'pos' bytes.
+** Return a string allocated.
+*/
 char		*trunc_string(char *string, int pos)
 {
   char		*ret;
@@ -38,6 +45,9 @@ char		*trunc_string(char *string, int pos)
   return (ret);
 }
 
+/*
+** Read the whole file and retrun it in a char *
+*/
 char		*read_file(char *path, size_t *file_size)
 {
   struct stat	sstat;
@@ -57,6 +67,10 @@ char		*read_file(char *path, size_t *file_size)
   return (file);
 }
 
+/*
+** Counts how much space is needed to stock the file in separated token.
+** Return the number of separator counted added with none separators string also counted.
+*/
 unsigned int	count_element(char *file, const char *sep)
 {
   int		i, j;
@@ -84,6 +98,13 @@ unsigned int	count_element(char *file, const char *sep)
   return (token);
 }
 
+/*
+** Retrun the first separator string encountered in 'file'.
+** If the begining of the 'file' isn't a separator, all the data throught the next token is returned.
+** Takes count of quote.
+** Ex : data = "="
+** data is a basic string, the first '=' is a token/separator and "=" is considerated as a basic string
+*/
 char		*return_token_string(const char *file, const char *sep)
 {
   static unsigned int	i = 0;
@@ -113,6 +134,11 @@ char		*return_token_string(const char *file, const char *sep)
   return (to_ret);
 }
 
+/*
+** Basically a strcmp between segment and ign.
+** Should segment be ignored ? If every bytes of 'segment' are in sep, it should be.
+** Else it shouldn't.
+*/
 int		ignore_it(char *segment, const char *ign)
 {
   int		i;
@@ -127,6 +153,9 @@ int		ignore_it(char *segment, const char *ign)
   return (0);
 }
 
+/*
+** Add an element ('elem') in 'ret'. 'elem' is cleaned before being added in 'ret'
+*/
 char		**add_element(char **ret, char *elem, const char *to_remove)
 {
   int		i;
@@ -138,6 +167,9 @@ char		**add_element(char **ret, char *elem, const char *to_remove)
   return (ret);
 }
 
+/*
+** Do all the dirty job by calling upper functions.
+*/
 char		**token_parse(char *path, char *sep, const char *to_ignore, const char *to_remove)
 {
   char		**ret;
@@ -145,11 +177,14 @@ char		**token_parse(char *path, char *sep, const char *to_ignore, const char *to
   char		*file;
   size_t	file_size;
   
+  // Open and read the file.
   if (!(file = read_file(path, &file_size)))
     return (NULL);
+  // Allocat 'ret' to full it with every token and basic string.
   file_size = count_element(file, sep) + 2;
   if (!(ret = calloc(file_size, sizeof(*ret))))
     return (NULL);
+  // As long as it receive a string, stock it in 'ret'
   while ((segment = return_token_string(file, "\",{}[]:")) != NULL)
     {
       if (ignore_it(segment, to_ignore) == -1)
@@ -160,6 +195,9 @@ char		**token_parse(char *path, char *sep, const char *to_ignore, const char *to
   return (ret);
 }
 
+/*
+** free everything in a char **
+*/
 void		delete_tab(char **ptr)
 {
   int		i = 0;
@@ -175,3 +213,5 @@ void		delete_tab(char **ptr)
   ptr = NULL;
   return ;
 }
+
+#endif		/* __TOKEN_PARSE_C__ */

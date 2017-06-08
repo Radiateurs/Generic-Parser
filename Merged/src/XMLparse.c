@@ -1,9 +1,15 @@
-#include	"XMLParser.h"
-#include	<sys/types.h>
-#include	<sys/stat.h>
-#include	<fcntl.h>
-#include	<stdio.h>
+#ifndef		__XMLPARSE_C__
+# define	__XMLPARSE_C__
 
+# include	"XMLParser.h"
+# include	<sys/types.h>
+# include	<sys/stat.h>
+# include	<fcntl.h>
+# include	<stdio.h>
+
+/*
+** Parse the asked file to create the tree in XML.
+*/
 message		*XMLparse(char *path)
 {
   char		**tabToken;
@@ -19,8 +25,8 @@ message		*XMLparse(char *path)
 }
 
 /*
-** Serialize the tree (message) in the given file (path) in JSON format
-** Creates the file if needed. Use JSONserializeMode to specify the opening flag.
+** Serialize the tree (message) in the given file (path) in XML format
+** Creates the file if needed. Use XMLserializeMode to specify the opening flag.
 */
 void            XMLserialize(const char *path, message *msg)
 {
@@ -38,8 +44,8 @@ void            XMLserialize(const char *path, message *msg)
 }
 
 /*
-** Serialize the tree (message) in the given file (path) in JSON format
-** Creates the file if needed. Use JSONserializeMode to specify the opening flag.
+** Serialize the tree (message) in the given file (path) in XML format
+** Creates the file if needed with given flags (flags)
 */
 void            XMLserializeMode(const char *path, message *msg, int flags)
 {
@@ -56,3 +62,4 @@ void            XMLserializeMode(const char *path, message *msg, int flags)
     }
 }
 
+#endif		/* __XMLPARSE_C__ */

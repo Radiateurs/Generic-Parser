@@ -1,4 +1,7 @@
-#include	"XMLParser.h"
+#ifndef		__XML_STATE_PARSER_C__
+# define	__XML_STATE_PARSER_C__
+
+# include	"XMLParser.h"
 
 /*
 ** Get the text between to braces ( <xmpl> DATA GETED BY THIS FUNCTION </xmpl> )
@@ -101,3 +104,5 @@ void		XMLstate_token_fragment(const char *fragment, XMLtree_parser *info)
     break ;
   }
 }
+
+#endif		/* __XML_STATE_PARSER_C__ */

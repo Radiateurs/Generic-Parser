@@ -1,5 +1,8 @@
-#include	"XMLParser.h"
-#include	<stdio.h>
+#ifndef		__XML_SERIALIZE_C__
+# define	__XML_SERIALIZE_C__
+
+# include	"XMLParser.h"
+# include	<stdio.h>
 
 /*
 ** Dump just one Element(understand attribut) with its attribut
@@ -72,6 +75,9 @@ void		XMLDumpAllElement(int fd, element *elem, int depth)
     XMLDumpElement(fd, value, depth);
 }
 
+/*
+** Dump the segment name and the indentation if needed
+*/
 void		XMLDumpOpeningSegment(int fd, segment *seg)
 {
   int		depth = 0;
@@ -87,6 +93,16 @@ void		XMLDumpOpeningSegment(int fd, segment *seg)
 	}
       depth++;
     }
+  /*
+  ** The following if forest is made to print the opening segment's name (tag) 
+  ** depending on the available variable.
+  ** 1 - If no name and the segment is the first one (root) dump the tag as '<root>'
+  ** 2 - If has a name dump it simply
+  ** 3 - If no name but the parent has one and it's a tab (suggest that the current child is a list),
+  **     dump the parent name.
+  ** 4 - If no name and the parent neither and the parent is a tab, dump '<element[id]'.
+  **     [id] being the actual segment's id.
+  */
   if (seg->name == NULL && seg->parent == NULL)
     dprintf(fd, "<root");
   if (seg->name != NULL)
@@ -98,11 +114,15 @@ void		XMLDumpOpeningSegment(int fd, segment *seg)
     dprintf(fd, "<element%i", seg->id);
 }
 
+/*
+** Dump the end of a segment (closing tag) and indentation if needed
+*/
 void		XMLDumpClosingSegment(int fd, segment *seg)
 {
   int		depth = 0;
   int		nb_tab = 0;
 
+  // When the pointed segment do not contains childs and has no text element, dump the end of the tag has '/>'
   if (seg->child == NULL && segmentHasNoText(seg) == 1)
     {
       dprintf(fd, "/>");
@@ -120,6 +140,16 @@ void		XMLDumpClosingSegment(int fd, segment *seg)
 	}
       depth++;
     }
+  /*
+  ** The following if forest is made to print the closing segment's name (tag) 
+  ** depending on the available variable.
+  ** 1 - If no name and the segment is the first one (root) dump the tag as '</root>'
+  ** 2 - If has a name dump it simply
+  ** 3 - If no name but the parent has one and it's a tab (suggest that the current child is a list),
+  **     dump the parent name.
+  ** 4 - If no name and the parent neither and the parent is a tab, dump '</element[id]'.
+  **     [id] being the actual segment's id.
+  */
   if (seg->name == NULL && seg->parent == NULL)
     dprintf(fd, "</root>");
   if (seg->name != NULL)
@@ -133,10 +163,15 @@ void		XMLDumpClosingSegment(int fd, segment *seg)
     dprintf(fd, "%s", CRLF);
 }
 
+/*
+** Calls function to dump the pointed segment
+*/
 void		XMLDumpSegment(int fd, segment *seg)
 {
   if (seg == NULL)
     return ;
+  // As the segment is a tab and it's not the root, it shouldn't dump its name
+  // beacause of the multiplicity of childs
   if (seg->type == STAB && seg->parent != NULL)
     {
       XMLDumpAllSegment(fd, seg->child);
@@ -155,6 +190,9 @@ void		XMLDumpSegment(int fd, segment *seg)
   XMLDumpClosingSegment(fd, seg);
 }
 
+/*
+** Navigate trought the segments one by one to dump them
+*/
 void		XMLDumpAllSegment(int fd, segment *seg)
 {
   segment	*tmp;
@@ -173,6 +211,9 @@ void		XMLDumpAllSegment(int fd, segment *seg)
     }
 }
 
+/*
+** Go to the first segment node and dump all ones by hierarchical order in fd.
+*/
 void		XMLwriting(int fd, message *msg)
 {
   while (msg != NULL && msg->segment != NULL && msg->segment->parent != NULL)
@@ -181,3 +222,5 @@ void		XMLwriting(int fd, message *msg)
     msg->segment = msg->segment->prev;
   XMLDumpAllSegment(fd, msg->segment);
 }
+
+#endif		/* __XML_SERIALIZE_C__ */

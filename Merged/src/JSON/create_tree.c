@@ -1,5 +1,8 @@
-#include	"JSONParser.h"
-#include	<stdio.h>
+#ifndef		__JSON_CREATE_TREE_C__
+# define	__JSON_CREATE_TREE_C__
+
+# include	"JSONParser.h"
+# include	<stdio.h>
 
 
 JSONtree_parser	JSONinit_tree_parser()
@@ -53,3 +56,5 @@ message		*JSONcreate_tree(char **tokens)
     }
   return (ret);
 }
+
+#endif		/* __JSON_CREATE_TREE_C__ */

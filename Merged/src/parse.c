@@ -1,5 +1,11 @@
-#include	"generic_parser.h"
+#ifndef		__PARSE_C__
+# define	__PARSE_C__
 
+# include	"generic_parser.h"
+
+/*
+** Init the global variables
+*/
 void		ParserInit()
 {
   g_nb_spacer = 0;
@@ -9,9 +15,11 @@ void		ParserInit()
   g_text = '#';
 }
 
-void		setHumanReadable(char spacer, int nb)	// tab is here to specifies the number of
-							// tabulations to put into dependencies
-							// Call it once to set on human readable mode.
+/*
+** Call it once to set on human readable mode.
+** tab is here to specifies the number of tabulations to put into dependencies
+*/
+void		setHumanReadable(char spacer, int nb)
 {
   if (nb != 0)
     g_nb_spacer = nb;
@@ -22,3 +30,4 @@ void		setHumanReadable(char spacer, int nb)	// tab is here to specifies the numb
   g_human_readable = 1;
 }
 
+#endif		/* __PARSE_C__ */

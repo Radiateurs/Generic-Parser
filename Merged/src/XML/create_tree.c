@@ -1,5 +1,8 @@
-#include	"XMLParser.h"
-#include	<stdio.h>
+#ifndef		__XML_CREATE_TREE_C__
+# define	__XML_CREATE_TREE_C__
+
+# include	"XMLParser.h"
+# include	<stdio.h>
 
 XMLtree_parser	XMLinit_tree_parser()
 {
@@ -88,3 +91,5 @@ message		*XMLcreate_tree(char **tokens)
     free(info.elem_name);
   return (xmlParseTab(ret));
 }
+
+#endif		/* __XML_CREATE_TREE_C__ */

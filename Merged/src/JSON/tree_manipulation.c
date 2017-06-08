@@ -1,4 +1,7 @@
-#include	"JSONParser.h"
+#ifndef		__JSON_TREE_MANIPULATION_C__
+# define	__JSON_TREE_MANIPULATION_C__
+
+# include	"JSONParser.h"
 
 void		JSONidentify_token_type(const char *fragment, JSONtree_parser *info)
 {
@@ -122,3 +125,5 @@ void		JSONadd_chunk_to_tree(JSONtree_parser *info, message **msg)
       break;
     }
 }
+
+#endif		/* __JSON_TREE_MANIPULATION_C__ */

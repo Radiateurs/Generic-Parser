@@ -1,4 +1,7 @@
-#include	"XMLParser.h"
+#ifndef		__XML_TREE_MANIPULATION_C__
+# define	__XML_TREE_MANIPULATION_C__
+
+# include	"XMLParser.h"
 
 int		segmentHasNoText(segment *seg)
 {
@@ -237,3 +240,5 @@ void		XMLfindAndModifyListInTab(segment **seg)
       tmp = tmp->next;
     }
 }
+
+#define		/* __XML_TREE_MANIPULATION_C__ */

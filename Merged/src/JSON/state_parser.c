@@ -1,4 +1,7 @@
-#include	"JSONParser.h"
+#ifndef		__JSON_STATE_PARSER_C__
+# define	__JSON_STATE_PARSER_C__
+
+# include	"JSONParser.h"
 
 void		JSONstate_non_token_fragment(char **tokens, JSONtree_parser *info, int *i, message *msg)
 {
@@ -109,3 +112,5 @@ void		JSONstate_token_fragment(const char *fragment, JSONtree_parser *info, mess
     break ;
   }
 }
+
+#endif		/* __JSON_STATE_PARSER_C__ */
