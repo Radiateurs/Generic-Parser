@@ -5,13 +5,13 @@
 # include	<stdio.h>
 
 /*
-** Dump just one Element(understand attribut) with its attribut
+** Dump just one Element(understand attribut) with its content
 */
 void		XMLDumpElement(int fd, element *elem, int realDepth)
 {
   int		depth = 0;
   int		nb_tab = 0;
-
+  
   if (elem == NULL)
     return ;
   // If the element name contain a g_text char at first place (# by default) it will be printed
@@ -33,13 +33,13 @@ void		XMLDumpElement(int fd, element *elem, int realDepth)
 	    }
 	  depth++;
 	}
-      dprintf(fd, "%s", elem->attribut->content);
+      dprintf(fd, "%s", elem->content);
       if (g_human_readable == 1)
 	dprintf(fd, "%s", CRLF);
     }
   else
     dprintf(fd, " %s=\"%s\"", (elem->name[0] == g_attribut) ? elem->name + 1 : elem->name,
-	    (elem->attribut == NULL) ? "" : elem->attribut->content);
+	    (elem->content == NULL) ? "" : elem->content);
 }
 
 /*

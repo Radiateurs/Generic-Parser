@@ -91,7 +91,7 @@ void		JSONadd_chunk_to_tree(JSONtree_parser *info, message **msg)
       JSONadd_segment(info, msg);
       break;
     case ELEMENT:
-      newElement(&((*msg)->segment->element), (*info).elem_name, getNextID((*msg)->segment));
+      newElement(&((*msg)->segment->element), (*info).elem_name, getNextID((*msg)->segment), "", 10);
       if ((*info).elem_name != NULL)
 	free((*info).elem_name);
       (*info).last_tree_type = (*info).current_tree_type;
@@ -101,13 +101,11 @@ void		JSONadd_chunk_to_tree(JSONtree_parser *info, message **msg)
       if ((*info).content == NULL)
 	return ;
       if (newElement(&((*msg)->segment->element), (*info).elem_name,	\
-		     getNextID((*msg)->segment)) == 0)
+		     getNextID((*msg)->segment), (*info).content, (*info).value_type) == 0)
 	{
 	  (*info).current_state = ERROR;
 	  return ;
 	}
-      newAttribut(&((*msg)->segment->element->attribut), (*info).attr_name, \
-		  lastAttributID(((*msg)->segment->element->attribut)) + 1, (*info).content, (*info).value_type);
       if ((*info).attr_name != NULL)
 	free((*info).attr_name);
       (*info).attr_name = NULL;

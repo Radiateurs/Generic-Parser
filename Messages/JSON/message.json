@@ -14,7 +14,8 @@
 	    "nom":"Dupont",
 	    "prenom":"Michael",
 	    "age":20
-	}
+	},
+	"orange":"fruit"
     }
     "Thierry":{
 	"arme":"Fronde",

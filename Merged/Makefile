@@ -2,8 +2,7 @@ CC		= gcc
 
 NAME		= test
 
-TREESRC		= src/tree/attribut.c		\
-		  src/tree/element.c		\
+TREESRC		= src/tree/element.c		\
 		  src/tree/segment.c		\
 		  src/tree/message.c
 

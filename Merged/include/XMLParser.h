@@ -37,7 +37,6 @@ struct		s_XMLtree_parser
   int		is_in_tab;
   char		*seg_name;
   char		*elem_name;
-  char		*attr_name;
   char		*content;
   char		*error;
 };
@@ -60,6 +59,5 @@ void		XMLDumpAllSegment(int fd, segment *seg);
 void		XMLDumpSegment(int fd, segment *seg);
 void		XMLDumpAllElement(int fd, element *elem, int depth);
 void		XMLDumpElement(int fd, element *elem, int depth);
-void		XMLDumpAttribut(int fd, attribut *attr, int depth);
 
 #endif		/*__XMLPARSER_H__ */

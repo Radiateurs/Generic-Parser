@@ -63,6 +63,4 @@ void		JSONDumpSegment(int fd, segment *seg);
 void		JSONDumpAllElement(int fd, element *elem, int depth);
 void		JSONDumpElement(int fd, element *elem, int depth);
 
-
-
 #endif		/*__JSONPARSER_H__ */

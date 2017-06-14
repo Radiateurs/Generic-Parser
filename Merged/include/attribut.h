@@ -3,20 +3,6 @@
 
 typedef struct	s_att attribut;
 
-typedef enum    e_attr_type
-  {
-    ALPHA = 0,
-    NUM = 1,
-    ALNUM = 2,
-    STRING = 3,
-    INTEGER = 4,
-    DECIMAL = 5,
-    BOOL = 6,
-    DATE = 7,
-    TIME = 8,
-    NULLOBJ = 9,
-    UNKNOW = 10
-  }             type;
 
 typedef struct	s_att
 {

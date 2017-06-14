@@ -19,7 +19,8 @@ int		addElement(element **old, element *new)
   return (1);
 }
 
-int		newElement(element **old, const char *name, unsigned int id)
+int		newElement(element **old, const char *name, unsigned int id, \
+			   const char *content, enum e_attr_type type)
 {
   element	*new;
 
@@ -31,7 +32,8 @@ int		newElement(element **old, const char *name, unsigned int id)
     new->name = strndup(name, 32);
   else
     new->name = NULL;
-  new->attribut = NULL;
+  new->type = type;
+  new->content = strdup(content);
   while (*old != NULL && (*old)->next != NULL)
     *old = (*old)->next;
   if (*old == NULL)
@@ -55,7 +57,7 @@ int		deleteIDElement(element **old, unsigned int id)
   if ((*old)->id == id)
     {
       tmp = ((*old)->next != NULL) ? (*old)->next : ((*old)->prev != NULL) ? (*old)->prev : NULL;
-      deleteAttributs(&(tmp->attribut));
+      free(tmp->content);
       free(tmp->name);
       free(*old);
       *old = tmp;
@@ -83,7 +85,7 @@ int		deleteIDElement(element **old, unsigned int id)
       if (tmp->prev == NULL && tmp->next != NULL)
 	tmp->next->prev = NULL;
     }
-  deleteAttributs(&(tmp->attribut));
+  free(tmp->content);
   free(tmp->name);
   free(tmp);
   return (1);
@@ -101,7 +103,7 @@ int		deleteElements(element **old)
     {
       tmp = *old;
       *old = (*old)->next;
-      deleteAttributs(&(tmp->attribut));
+      free(tmp->content);
       free(tmp->name);
       free(tmp);
     }
@@ -127,8 +129,7 @@ void		dumpElement(element *elem, int depth)
 	  putchar('\t');
 	  i++;
 	}
-      printf("Element [id %d] [name %s]\n", tmp->id, tmp->name);
-      dumpAttribut(tmp->attribut, depth + 1);
+      printf("Element [id %d] [name %s] [type %d] [content %s]\n", tmp->id, tmp->name, tmp->type, tmp->content);
       tmp = tmp->next;
     }
 }

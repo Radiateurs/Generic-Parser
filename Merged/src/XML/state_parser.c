@@ -2,6 +2,7 @@
 # define	__XML_STATE_PARSER_C__
 
 # include	"XMLParser.h"
+# include	<stdio.h>
 
 /*
 ** Get the text between to braces ( <xmpl> DATA GETED BY THIS FUNCTION </xmpl> )
@@ -49,27 +50,35 @@ void		getTextData(int *i, char **tokens, XMLtree_parser *info)
 */
 void		XMLstate_non_token_fragment(char **tokens, XMLtree_parser *info, int *i)
 {
+  // last_state = DECLARATIONE means that the last token encountered was (>)
+  // Cause there isn't token currently encountered the following content is text data
   if ((*info).last_state == DECLARATIONE)
     getTextData(i, tokens, info);
+  // 
   if ((*info).last_state == ESNAME || (*info).last_state == TYPETOKENE)
     {
       (*info).current_state = ESNAME;
-      (*info).current_tree_type = ELEMENT;
       (*info).elem_name = strdup(tokens[*i]);
     }
+  // if the last token was DECLARATIONB (<) this means that it's the tag's name
   if ((*info).last_state == DECLARATIONB && (*info).seg_name == NULL)
     {
       (*info).current_state = ESNAME;
       (*info).current_tree_type = LIST;
       (*info).seg_name = strdup(tokens[*i]);
     }
-  if ((*info).last_state == TYPETOKENB)
+  // If the last token was an opening quote then it's obviously the value. 
+  // If content != NULL means that the value has been already haverested.
+  if ((*info).content == NULL && (*info).last_state == TYPETOKENB)
     {
       XMLidentify_token_type(tokens[((*info).last_state == TYPETOKENB && *i > 0) ? *i - 1 : *i], info);
       (*info).content = strdup(tokens[*i]);
       (*info).current_state = VALUE;
     }
-  if ((*info).last_state == ASSIGNEMENT)
+  // If the last token encountered was ASSIGNEMENT (=) and there's no token right after, it's an error.
+  // <example attr=value/> <--- this is wrong
+  // <example attr="value"/> <--- this is correct
+  if ((*info).last_state == ASSIGNEMENT && is_a_token(tokens[*i], "<>/\"=\'") != 0)
     (*info).current_state = ERROR;
 }
 
@@ -83,11 +92,26 @@ void		XMLstate_token_fragment(const char *fragment, XMLtree_parser *info)
     (*info).current_state = ASSIGNEMENT;
     break ;
   case '\"':
+    // If last_state = TYPETOKENB (opening quote) and the current one is another quote 
+    // this means that the encountered quote is the closing one
+    if ((*info).last_state == TYPETOKENB)
+      {
+	(*info).current_state = TYPETOKENE;
+	(*info).current_tree_type = ATTRIBUT;
+	(*info).content = strdup("");
+	(*info).value_type = STRING;
+      }
+    // If last_state = VALUE means that the current token (") is a closing quote
     if ((*info).last_state == VALUE)
-      (*info).current_state = TYPETOKENE;
+      {
+	(*info).current_state = TYPETOKENE;
+	(*info).current_tree_type = ATTRIBUT;
+      }
+    // If last_state = ASSIGNEMENT (=) means that the current token (") is an opening quote
     if ((*info).last_state == ASSIGNEMENT)
       (*info).current_state = TYPETOKENB;
-    if ((*info).last_state != VALUE && (*info).last_state != ASSIGNEMENT)
+    // If last_state doesn't match the previous if it's an error.
+    if ((*info).last_state != VALUE && (*info).last_state != ASSIGNEMENT && (*info).last_state != TYPETOKENB)
       (*info).current_state = ERROR;
     break ;
   case '<':
@@ -97,10 +121,12 @@ void		XMLstate_token_fragment(const char *fragment, XMLtree_parser *info)
     (*info).current_state = DECLARATIONE;
     break ;
   case '/':
+    // If the current token encountered is (/) it means that a tag is closed
     (*info).current_state = LISTE;
     (*info).current_tree_type = CLOSEGROUP;
     break ;
   default :
+    // Will never go there.
     break ;
   }
 }

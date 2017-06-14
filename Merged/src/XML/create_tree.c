@@ -10,7 +10,6 @@ XMLtree_parser	XMLinit_tree_parser()
 
   info.seg_name = NULL;
   info.elem_name = NULL;
-  info.attr_name = NULL;
   info.content = NULL;
   info.current_state = NONE;
   info.last_state = NONE;
@@ -64,7 +63,7 @@ message		*XMLcreate_tree(char **tokens)
       // Must work on that
       if (info.current_state == ERROR)
 	{
-	  dprintf(2, "SYNTAX ERROR\n");
+	  dprintf(2, "SYNTAX ERROR\nAt %s %s %s", tokens[i - 1], tokens[i], tokens[i + 1]);
 	  deleteMessages(&ret);
 	  return (NULL);
 	}

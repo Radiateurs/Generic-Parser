@@ -4,16 +4,6 @@
 # include	"JSONParser.h"
 # include	<stdio.h>
 
-void		JSONDumpAttribut(int fd, attribut *attr)
-{
-  if (attr == NULL)
-    return ;
-  if (attr->type == ALPHA || attr->type == STRING || attr->type == ALNUM)
-    dprintf(fd, "\"%s\"", attr->content);
-  else
-    dprintf(fd, "%s", attr->content);
-}
-
 void		JSONDumpElement(int fd, element *elem, int seg_depth)
 {
   int		depth = 0;
@@ -33,7 +23,10 @@ void		JSONDumpElement(int fd, element *elem, int seg_depth)
     return ;
   if (elem->name != NULL)
     dprintf(fd, "\"%s\":", elem->name);
-  JSONDumpAttribut(fd, elem->attribut);
+  if (elem->type == ALPHA || elem->type == STRING || elem->type == ALNUM)
+    dprintf(fd, "\"%s\"", elem->content);
+  else
+    dprintf(fd, "%s", elem->content);
 }
 
 void		JSONDumpAllElement(int fd, element *elem, int seg_depth)
@@ -67,6 +60,7 @@ void		JSONDumpSegment(int fd, segment *seg) // Will dump only the pointed segmen
 
   if (seg == NULL)
     return ;
+  // print indentation
   while (g_human_readable == 1 && depth < seg->depth)
     {
       nb_of_tab = 0;
@@ -96,17 +90,25 @@ void		JSONDumpSegment(int fd, segment *seg) // Will dump only the pointed segmen
       dprintf(fd, "[");
       if (g_human_readable == 1)
 	dprintf(fd, "%s", CRLF);
+      // Get All the ID and print it by id order
       current_id = 1;
-      max_id = countSegment(seg) + countElement(seg->element) + 1;
+      max_id = countSegment(seg->child) + countElement(seg->element) + 1;
       while (current_id != max_id)
 	{
+	  // If ID is found as an element, print it
 	  if ((elem_in_tab = getIDElement(seg->element, current_id)) != NULL)
 	    JSONDumpElement(fd, elem_in_tab, seg->depth + 1);
+	  // If ID is found as a segment, print it
 	  else if ((seg_in_tab = getIDSegment(seg->child, current_id)) != NULL)
-	    JSONDumpAllSegment(fd, seg_in_tab);
+	    JSONDumpSegment(fd, seg_in_tab);
 	  current_id++;
+	  if (current_id != max_id)
+	    dprintf(fd, ",");
+	  if (g_human_readable == 1)
+	    dprintf(fd, "%s", CRLF);
 	}
     }
+  // print indentation
   depth = 0;
   while (g_human_readable == 1 && depth < seg->depth)
     {

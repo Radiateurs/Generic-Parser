@@ -1,9 +1,10 @@
 #include	"generic_parser.h"
+#include	<stdio.h>
 
 int		main(int ac, char **av)
 {
   message	*msg;
-  
+
   if (ac < 5)
     return (-1);
   ParserInit();
