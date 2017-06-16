@@ -1,4 +1,4 @@
-#include	"message.h"
+#include	"tree/message.h"
 #include	<unistd.h>
 #include	<stdlib.h>
 #include	<string.h>

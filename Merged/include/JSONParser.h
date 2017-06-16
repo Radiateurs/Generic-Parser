@@ -7,7 +7,7 @@
 
 # include	"generic_parser.h"
 # include	"string_utils.h"
-# include	"message.h"
+# include	"tree/message.h"
 
 # ifndef	__JSONTREE_PARSER__
 #  define	__JSONTREE_PARSER__
@@ -17,8 +17,8 @@ typedef	struct	s_JSONtree_parser	JSONtree_parser;// Need to be first declarated 
 
 # endif		/* __JSONTREE_PARSER__ */
 
-# include	"JSONstate.h"
-# include	"JSONtree_type.h"
+# include	"JSON/JSONstate.h"
+# include	"JSON/JSONtree_type.h"
 
 /*
 ** Defining string that won't change.

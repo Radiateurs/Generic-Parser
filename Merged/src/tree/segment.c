@@ -1,4 +1,4 @@
-#include	"segment.h"
+#include	"tree/segment.h"
 #include	<unistd.h>
 #include	<stdlib.h>
 #include	<string.h>

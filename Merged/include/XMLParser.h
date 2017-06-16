@@ -7,7 +7,7 @@
 
 # include	"generic_parser.h"
 # include	"string_utils.h"
-# include	"message.h"
+# include	"tree/message.h"
 
 # ifndef	__XMLTREE_PARSER__
 #  define	__XMLTREE_PARSER__
@@ -16,8 +16,8 @@ typedef	struct	s_XMLtree_parser	XMLtree_parser; // Need to be first declarated f
 
 # endif		/* __XMLTREE_PARSER__ */
 
-# include	"XMLstate.h"
-# include	"XMLtree_type.h"
+# include	"XML/XMLstate.h"
+# include	"XML/XMLtree_type.h"
 
 /*
 ** Defining string that won't change.
