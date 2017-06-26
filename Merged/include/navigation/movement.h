@@ -16,15 +16,14 @@
 /*
 ** Segment and parent movement functions :
 */
-int             nfGoToRoot()
+int             nfGoToRoot();
 int             nfGoToParent();
-int             nfGoToFirstSegment()
-int             nfGoToLastSegment()
-int             nfGoToNextSegment()
-int             nfGoToPreviousSegment()
+int             nfGoToFirstSegment();
+int             nfGoToLastSegment();
+int             nfGoToNextSegment();
+int             nfGoToPreviousSegment();
 int             nfGoToIDSegment(int id);
 int             nfGoToNameSegment(const char *name);
-int             nfGoToNameChild(const char *name);
 int             nfGoToFirstTab();
 int             nfGoToFirstList();
 
@@ -36,6 +35,7 @@ int             nfGoToLastChild();
 int             nfGoToNextChild();
 int             nfGoToPreviousChild();
 int             nfGoToIDChild(int id);
+int             nfGoToNameChild(const char *name);
 
 /*
 ** Element movement functions :

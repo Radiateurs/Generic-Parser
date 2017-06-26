@@ -1,30 +1,9 @@
-#include	"tree/message.h"
-#include	<unistd.h>
-#include	<stdlib.h>
-#include	<string.h>
-#include	<stdio.h>
+#ifndef		__DELETE_MESSAGE_C__
+# define	__DELETE_MESSAGE_C__
 
-int		newMessage(message **old, unsigned int id)
-{
-  message	*new;
-
-  if (!(new = malloc(sizeof(*new))))
-    return (0);
-  new->id = id;
-  new->next = NULL;
-  new->segment = NULL;
-  while (*old != NULL && (*old)->next != NULL)
-    *old = (*old)->next;
-  if (*old == NULL)
-    new->prev = NULL;
-  else
-    {
-      (*old)->next = new;
-      new->prev = *old;
-    }
-  *old = new;
-  return (1);
-}
+# include	"tree/message.h"
+# include	<unistd.h>
+# include	<stdlib.h>
 
 int		deleteMessages(message **old)
 {
@@ -88,39 +67,4 @@ int		deleteIDmessage(message **old, unsigned int id)
   return (1);
 }
 
-int		switchToIDMessage(message **old, double id)
-{
-  message	*tmp;
-
-  if (*old == NULL)
-    return (0);
-  tmp = *old;
-  while ((*old)->prev != NULL && (*old)->id != id)
-    *old = (*old)->prev;
-  if ((*old)->id == id)
-    return (1);
-  *old = tmp;
-  while ((*old)->next != NULL && (*old)->id != id)
-    *old = (*old)->next;
-  if ((*old)->id == id)
-    return (1);
-  *old = tmp;
-  return (0);  
-}
-
-void		dumpMessage(message *msg)
-{
-  message	*tmp;
-
-  if (msg == NULL)
-    return ;
-  tmp = msg;
-  while (tmp->prev != NULL)
-    tmp = tmp->prev;
-  while (tmp)
-    {
-      printf("Message [id %d]\n", tmp->id);
-      dumpSegment(tmp->segment);
-      tmp = tmp->next;
-    }
-}
+#endif		/* __DELETE_MESSAGE_C__ */

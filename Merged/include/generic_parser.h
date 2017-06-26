@@ -17,6 +17,7 @@ int		g_nb_spacer;		// Specify the number of spacer for the indentation
 char		g_spacer;		// Specify the char spacer ( SPACE or \t ) (default '\t')
 char		g_attribut;		// Specify the char used to define an attribut (default '@')
 char		g_text;			// Specify the char used to define a text data (defualt '#')
+message		*g_msg;			// Global tree.
 
 /*
 ** Main prototypes

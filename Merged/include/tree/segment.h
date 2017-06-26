@@ -24,26 +24,32 @@ typedef struct	s_seg
 }		segment;
 
 /* Intern functions */
-segment		*getIDSegment(segment *seg, unsigned int id);
-void		increaseChildDepth(segment **old);
+// CONSTRUCTOR
 segment		*initSegment(const char *name, unsigned int id, int is_a_group,	\
 			     int depth, int seg_type);
 segment		*copySegment(segment *to_copy);
-void		dumpSegment(segment *seg);
-void		dumpSegmentChild(segment *seg);
-unsigned int	lastGroupID(segment *seg);
-unsigned int	lastSegmentID(segment *seg);
-unsigned int	getNextID(segment *seg);
-void		removeIDChild(segment **old_parent, unsigned int id);
-void		removeIDSegment(segment **old, unsigned int id);
-int		deleteIDSegment(segment **old, unsigned int id);
-int		deleteSegments(segment **old);
 int		addChild(segment **old_parent, segment *child);
 int		addSegment(segment **old, segment *to_add, int is_a_child);
 int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group, int is_a_child, \
 			   int depth, int type);
+// DESTRUCTOR
+void		removeIDChild(segment **old_parent, unsigned int id);
+void		removeIDSegment(segment **old, unsigned int id);
+int		deleteIDSegment(segment **old, unsigned int id);
+int		deleteChildSegment(segment **old);
+int		deleteSegments(segment **old);
+int		deleteListSegments(segment **old);
 void		closeGroupSegment(segment **old);
+// GETTER
+segment		*getIDSegment(segment *seg, unsigned int id);
+unsigned int	lastGroupID(segment *seg);
+unsigned int	lastSegmentID(segment *seg);
+unsigned int	getNextID(segment *seg);
 int		countSegment(segment *seg);
+void		increaseChildDepth(segment **old);
+// Serializer
+void		dumpSegment(segment *seg);
+void		dumpSegmentChild(segment *seg);
 
 /* RTE callable functions */
 double		nfLastGroupID();
