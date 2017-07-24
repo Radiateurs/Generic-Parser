@@ -1,11 +1,6 @@
 #ifndef		__ACCESS_H__
 # define	__ACCESS_H__
 
-// if included by navigation.h doesn't need message.h
-# ifndef	__NAVIGATION_H__
-#  include	"tree/message.h"
-# endif		/* __NAVIGATION_H__ */
-
 /*
 ** Every functions presented here help you to get access to every information
 ** inside a node of the tree. Segment, Child, Element, content, Everything.
@@ -15,6 +10,19 @@
 **		the current pointed node (depending if you ask for a segment / child or element
 **		this won't be a problem). You have to move to the wanted node then ask for the data.
 */
+
+/*
+** Message access functions :
+*/
+double		nfGetMessageID();
+double		nfGetMessageType();
+char		*tfGetMessageName();
+double		nfGetIDMessageType(int id);
+char		*tfGetIDMessageName(int id);
+double		nfGetTypeMessageID(int type);
+char		*tfGetTypeMessageName(int type);
+double		nfGetNameMessageID(char *name);
+double		nfGetNameMessageType(char *name);
 
 /*
 ** Segment acces functions :
@@ -47,7 +55,6 @@ char		*tfGetPreviousChildName();
 char		*tfGetFirstChildName();
 char		*tfGetLastChildName();
 double		nfGetChildID();
-int		*nafGetAllChildID();
 double		nfGetNextChildID();
 double		nfGetPreviousChildID();
 double		nfGetFirstChildID();
@@ -72,9 +79,9 @@ char		*tfGetPreviousElementContent();
 char		*tfGetFirstElementContent();
 char		*tfGetLastElementContent();
 double		nfGetElementType();
-double		nfGetElementType();
-double		nfGetElementType();
-double		nfGetElementType();
-double		nfGetElementType();
+double		nfGetFirstElementType();
+double		nfGetLastElementType();
+double		nfGetNextElementType();
+double		nfGetPrevElementType();
 
 #endif		/* __ACCESS_H__ */

@@ -5,6 +5,8 @@
 ** JSON Section
 */
 double		nfJSONParseFile(char *path);
+double		nfJSONParseFlux(int fd);
+double		nfJSONFeedFlux();
 
 /*
 ** XML Section

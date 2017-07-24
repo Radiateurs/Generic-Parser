@@ -53,6 +53,7 @@ char		*read_file(char *path, size_t *file_size)
   struct stat	sstat;
   int		fd;
   char		*file;
+  int		return_read;
 
   if (stat(path, &sstat) == -1)
     return (NULL);
@@ -61,8 +62,10 @@ char		*read_file(char *path, size_t *file_size)
     return (NULL);
   if (!(file = malloc(sizeof(*file) * (*file_size + 1))))
     return (NULL);
-  if (read(fd, file, *file_size) == -1)
+  if ((return_read = read(fd, file, *file_size)) == -1)
     return (NULL);
+  if (return_read == 0)
+    path = NULL;
   file[*file_size] = '\0';
   return (file);
 }
@@ -170,7 +173,7 @@ char		**add_element(char **ret, char *elem, const char *to_remove)
 /*
 ** Do all the dirty job by calling upper functions.
 */
-char		**token_parse(char *path, char *sep, const char *to_ignore, const char *to_remove)
+char		**token_parse(char *path, const char *sep, const char *to_ignore, const char *to_remove)
 {
   char		**ret;
   char		*segment;
@@ -185,11 +188,47 @@ char		**token_parse(char *path, char *sep, const char *to_ignore, const char *to
   if (!(ret = calloc(file_size, sizeof(*ret))))
     return (NULL);
   // As long as it receive a string, stock it in 'ret'
-  while ((segment = return_token_string(file, "\",{}[]:")) != NULL)
+  while ((segment = return_token_string(file, sep)) != NULL)
     {
       if (ignore_it(segment, to_ignore) == -1)
 	ret = add_element(ret, segment, to_remove);
       free(segment);
+    }
+  free(file);
+  return (ret);
+}
+
+/*
+** Separate the readen flux in token.
+*/
+char		**token_parse_flux(int *fd, char *sep, const char *to_ignore, const char *to_remove)
+{
+  char		**ret;
+  char		*file;
+  char		*tmp;
+  int		nb_read;
+
+  if (!(file = malloc(sizeof(*file) * getpagesize())))
+    return (NULL);
+  while ((nb_read = read(*fd, file, getpagesize() - 1)) > 0)
+    {
+      file[nb_read] = '\0';
+      tmp = mconcat(tmp, file);
+      if (nb_read < getpagesize() - 1)
+	break ;
+    }
+  if (nb_read == 0)
+    *fd = -1;
+  free(file);
+  file = tmp;
+  nb_read = count_element(file, sep) + 2;
+  if (!(ret = calloc(nb_read, sizeof(*ret))))
+    return (NULL);
+  while ((tmp = return_token_string(file, sep)) != NULL)
+    {
+      if (ignore_it(tmp, to_ignore) == -1)
+	ret = add_element(ret, tmp, to_remove);
+      free(tmp);
     }
   free(file);
   return (ret);

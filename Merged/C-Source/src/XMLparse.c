@@ -19,9 +19,11 @@ message		*XMLparse(char *path)
     return (NULL);
   msg = XMLcreate_tree(tabToken);
   delete_tab(tabToken);
-  if (msg != NULL)
-    return (msg);
-  return (NULL);
+  if (msg == NULL)
+    return (NULL);
+  msg->type = XML;
+  msg->name = strdup(path);
+  return (msg);
 }
 
 /*

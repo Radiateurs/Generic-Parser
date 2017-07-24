@@ -1,11 +1,6 @@
 #ifndef		__MOVEMENT_H__
 # define	__MOVEMENT_H__
 
-// if included by navigation.h doesn't need message.h
-# ifndef	__NAVIGATION_H__
-#  include	"tree/message.h"
-# endif		/* __NAVIGATION_H__ */
-
 /*
 ** The following functions allows you to move inside the tree
 ** created after the parsing time.
@@ -15,6 +10,17 @@
 ** You can move to the next or the previous one. 
 ** You can also move to a sepcifyed ID or specifyed name.
 */
+
+/*
+** Message movement functions :
+*/
+double		nfGoToFirstMessage();
+double		nfGoToLastMessage();
+double		nfGoToPreviousMessage();
+double		nfGoToNextMessage();
+double		nfGoToIDMessage(int id);
+double		nfGoToTypeMessage(int type);
+double		nfGoToNameMessage(char *name);
 
 /*
 ** Segment and parent movement functions :

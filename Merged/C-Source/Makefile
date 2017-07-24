@@ -32,17 +32,21 @@ XMLSRC		= src/XML/serialize.c		\
 		  src/XML/create_tree.c		\
 		  src/XML/rte_callable.c
 
-NAVSRC		= src/navigation/access/access_segment.c	\
+NAVSRC		= src/navigation/access/access_message.c	\
+		  src/navigation/access/access_segment.c	\
 		  src/navigation/access/access_child.c		\
 		  src/navigation/access/access_element.c	\
+		  src/navigation/modification/modify_message.c	\
 		  src/navigation/modification/modify_segment.c	\
 		  src/navigation/modification/modify_child.c	\
 		  src/navigation/modification/modify_element.c	\
+		  src/navigation/movement/move_in_message.c	\
 		  src/navigation/movement/move_in_segment.c	\
 		  src/navigation/movement/move_in_child.c	\
 		  src/navigation/movement/move_in_element.c
 
 SRC		= src/string_utils.c		\
+		  src/global.c			\
 		  src/parse.c			\
 		  src/JSONparse.c		\
 		  src/XMLparse.c		\

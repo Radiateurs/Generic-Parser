@@ -28,6 +28,7 @@ typedef struct	s_seg
 segment		*initSegment(const char *name, unsigned int id, int is_a_group,	\
 			     int depth, int seg_type);
 segment		*copySegment(segment *to_copy);
+segment		*cloneSegment(segment *origin);
 int		addChild(segment **old_parent, segment *child);
 int		addSegment(segment **old, segment *to_add, int is_a_child);
 int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group, int is_a_child, \

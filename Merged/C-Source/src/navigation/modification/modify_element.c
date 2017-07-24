@@ -45,12 +45,10 @@ double		nfDeleteNameElement(const char *name)
   return (0);
 }
 
-double		nfModifyElement(int new_id, const char *new_name, const char *new_content)
+double		nfModifyElement(const char *new_name, const char *new_content)
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
     return (-1);
-  if (new_id > 0)
-    g_msg->segment->element->id = new_id;
   if (new_name != NULL && strcmp(new_name, "") != 0)
     {
       free(g_msg->segment->element->name);
@@ -200,7 +198,7 @@ double		nfModifyNameElementContent(const char *name, const char *new_content, in
 // If its value is already in the list of element, it will be modifyed and will receive an available ID.
 // Content can't be empty. Type can be UNKNOWN (10) (see more in include/tree/element.h)
 // name can be empty.
-double		nfAddElementInSegment(int new_id, const char *name, const char *content, int type)
+double		nfAddElementInSegment(const char *name, const char *content, int type)
 {
   element	*new;
 
@@ -214,10 +212,7 @@ double		nfAddElementInSegment(int new_id, const char *name, const char *content,
   // If malloc failed
   if (!(new = malloc(sizeof(*new))))
     return (-1); // Verify Error Code
-  if (new_id == 0 || getIDElement(g_msg->segment->element, new_id))
-    new->id = lastElementID(g_msg->segment->element) + 1;
-  else
-    new->id = new_id;
+  new->id = lastElementID(g_msg->segment->element) + 1;
   if (strcmp(name, "") != 0)
     new->name = strdup(name);
   else
@@ -235,7 +230,7 @@ double		nfAddElementInSegment(int new_id, const char *name, const char *content,
 // If its value is already in the list of element, it will be modifyed and will receive an available ID.
 // Content can't be empty. Type can be UNKNOWN (10) (see more in include/tree/element.h)
 // name can be empty.
-double		nfAddElementInChild(int new_id, const char *name, const char *content, int type)
+double		nfAddElementInChild(const char *name, const char *content, int type)
 {
   element	*new;
 
@@ -249,10 +244,7 @@ double		nfAddElementInChild(int new_id, const char *name, const char *content, i
   // If malloc failed
   if (!(new = malloc(sizeof(*new))))
     return (-1); // Verify Error Code
-  if (new_id == 0 || getIDElement(g_msg->segment->child->element, new_id))
-    new->id = lastElementID(g_msg->segment->child->element) + 1;
-  else
-    new->id = new_id;
+  new->id = lastElementID(g_msg->segment->child->element) + 1;
   if (strcmp(name, "") != 0)
     new->name = strdup(name);
   else
@@ -273,15 +265,16 @@ double		nfAddElementInSegmentID(int id, int new_id, const char *name, const char
   last_pos = g_msg->segment->id;
   if ((error_code = nfGoToIDSegment(id)) != 0)
     return (error_code);
-  if ((error_code = nfAddElementInSegment(new_id, name, content, type)) != 0)
+  if ((error_code = nfAddElementInSegment(name, content, type)) != 0)
     {
       nfGoToIDSegment(last_pos);
       return (error_code);
     }
+  g_msg->segment->element->id = new_id;
   return (0);
 }
 
-double		nfAddElementInSegmentName(const char *name, int new_id, const char *new_name, \
+double		nfAddElementInSegmentName(const char *name, const char *new_name, \
 					  const char *content, int type)
 {
   int		error_code;
@@ -292,7 +285,7 @@ double		nfAddElementInSegmentName(const char *name, int new_id, const char *new_
   last_pos_name = g_msg->segment->name;
   if ((error_code = nfGoToNameSegment(name)) != 0)
     return (error_code);
-  if ((error_code = nfAddElementInSegment(new_id, new_name, content, type)) != 0)
+  if ((error_code = nfAddElementInSegment(new_name, content, type)) != 0)
     {
       nfGoToNameSegment(last_pos_name);
       return (error_code);
@@ -310,15 +303,16 @@ double		nfAddElementInChildID(int id, int new_id, const char *name, const char *
   last_pos = g_msg->segment->child->id;
   if ((error_code = nfGoToIDChild(id)) != 0)
     return (error_code);
-  if ((error_code = nfAddElementInChild(new_id, name, content, type)) != 0)
+  if ((error_code = nfAddElementInChild(name, content, type)) != 0)
     {
       nfGoToIDChild(last_pos);
       return (error_code);
     }
+  g_msg->segment->child->element->id = new_id;
   return (0);
 }
 
-double		nfAddElementInChildName(const char *name , int new_id, const char *new_name, \
+double		nfAddElementInChildName(const char *name, const char *new_name, \
 					const char *content, int type)
 {
   int		error_code;
@@ -329,12 +323,83 @@ double		nfAddElementInChildName(const char *name , int new_id, const char *new_n
   last_pos_name = g_msg->segment->child->name;
   if ((error_code = nfGoToNameChild(name)) != 0)
     return (error_code);
-  if ((error_code = nfAddElementInChild(new_id, new_name, content, type)) != 0)
+  if ((error_code = nfAddElementInChild(new_name, content, type)) != 0)
     {
       nfGoToNameChild(last_pos_name);
       return (error_code);
     }
   return (0);  
+}
+
+double		nfAddNumeric(const char *name, int value)
+{
+  char		*int_converted;
+
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  int_converted = int_to_string(value);
+  if (!newElement(&(g_msg->segment->element), name, lastElementID(g_msg->segment->element) + 1, int_converted, NUM))
+    return (-1);
+  free(int_converted);
+  return (0);
+}
+
+double		nfAddString(const char *name, const char *value)
+{
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  if (!newElement(&(g_msg->segment->element), name, lastElementID(g_msg->segment->element) + 1, value, STRING))
+    return (-1);
+  return (0);
+}
+
+double		nfAddNullObject(const char *name)
+{
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  if (!newElement(&(g_msg->segment->element), name, lastElementID(g_msg->segment->element) + 1, "null", NULLOBJ))
+    return (-1);
+  return (0);
+}
+
+double		nfAddBoolean(const char *name, int boolean)
+{
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  if (boolean == 1)
+    {
+      if (!newElement(&(g_msg->segment->element), name,			\
+		      lastElementID(g_msg->segment->element) + 1, "true", BOOL))
+	return (-1);
+      return (0);
+    }
+  if (boolean == 0)
+    {
+      if (!newElement(&(g_msg->segment->element), name,			\
+		      lastElementID(g_msg->segment->element) + 1, "false", BOOL))
+	return (-1);
+      return (0);
+    }
+  return (-1);
+}
+
+double		nfAddDate(const char *name, const char *date)
+{
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  if (!newElement(&(g_msg->segment->element), name, lastElementID(g_msg->segment->element) + 1, date, DATE))
+    return (-1);
+  return (0);
+}
+
+
+double		nfAddTime(const char *name, const char *time)
+{
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  if (!newElement(&(g_msg->segment->element), name, lastElementID(g_msg->segment->element) + 1, time, TIME))
+    return (-1);
+  return (0);
 }
 
 #endif		/* __MODIFY_ELEMENT_C__ */

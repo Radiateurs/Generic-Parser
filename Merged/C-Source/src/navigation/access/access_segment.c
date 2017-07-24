@@ -142,4 +142,54 @@ double		nfGetLastSegmentID()
   return (tmp->id);
 }
 
+// Return the pointed segment's id
+double		nfGetSegmentDepth()
+{
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  return (g_msg->segment->depth);
+}
+
+// Return the next segment's id on the pointed segment
+double		nfGetNextSegmentDepth()
+{
+  if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->next == NULL)
+    return (-1);
+  return (g_msg->segment->next->depth);
+}
+
+// Return the previous segment's id on the pointed segment
+double		nfGetPreviousSegmentDepth()
+{
+  if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->prev == NULL)
+    return (-1);
+  return (g_msg->segment->prev->depth);
+}
+
+// Return the first segment's id on the pointed segment
+double		nfGetFirstSegmentDepth()
+{
+  segment	*tmp;
+
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  tmp = g_msg->segment;
+  while (tmp->prev != NULL)
+    tmp = tmp->prev;
+  return (tmp->depth);
+}
+
+// Return the last segment's id on the pointed segment
+double		nfGetLastSegmentDepth()
+{
+  segment	*tmp;
+
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  tmp = g_msg->segment;
+  while (tmp->next != NULL)
+    tmp = tmp->next;
+  return (tmp->depth);
+}
+
 #endif		/* __ACCESS_SEGMENT_C__ */

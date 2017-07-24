@@ -75,6 +75,8 @@ int		addSegment(segment **old, segment *to_add, int is_a_child)
 	{
 	  to_add->parent = (*old)->parent;
 	  to_add->depth = (*old)->depth;
+	  while ((*old)->next != NULL)
+	    *old = (*old)->next;
 	  (*old)->next = to_add;
 	  to_add->prev = *old;
 	  to_add->next = NULL;
@@ -143,7 +145,12 @@ segment		*copySegment(segment *to_copy)
 
   if (!(copy = malloc(sizeof(*copy))))
     return (NULL);
-  copy->name = strdup(to_copy->name);
+  if (to_copy == NULL)
+    return (NULL);
+  if (to_copy->name != NULL)
+    copy->name = strdup(to_copy->name);
+  if (to_copy->name == NULL)
+    copy->name = NULL;
   copy->next = NULL;
   copy->prev = NULL;
   copy->depth = to_copy->depth;
@@ -161,6 +168,56 @@ void		closeGroupSegment(segment **seg)
     return ;
   *seg = (*seg)->parent;
   return ;
+}
+
+// Old is the one that will contains the cloned segments from origin
+void		cloneChild(segment **old, segment *origin)
+{
+  segment	*tmp;
+
+  while (origin != NULL && origin->prev != NULL)
+    origin = origin->prev;
+  while (origin != NULL)
+    {
+      tmp = copySegment(origin);
+      tmp->child = NULL;
+      tmp->element = NULL;
+      tmp->parent = NULL;
+      tmp->element = cloneElement(origin->element);
+      addChild(old, tmp);
+      cloneChild(&((*old)->child), origin->child);
+      if (origin->next == NULL)
+	return ;
+      origin = origin->next;
+    }
+  return ;
+}
+
+segment		*cloneSegment(segment *origin)
+{
+  segment	*to_return;
+  segment	*tmp;
+
+  to_return = NULL;
+  while (origin != NULL && origin->parent != NULL)
+    origin = origin->parent;
+  while (origin != NULL && origin->prev != NULL)
+    origin = origin->prev;
+  while (origin != NULL)
+    {
+      tmp = copySegment(origin);
+      if (tmp == NULL)
+	return (NULL);
+      tmp->parent = NULL;
+      tmp->child = NULL;
+      tmp->element = cloneElement(origin->element);
+      cloneChild(&tmp, origin);
+      addSegment(&to_return, tmp, 0);
+      if (origin->next == NULL)
+	return (to_return);
+      origin = origin->next;
+    }
+  return (to_return);
 }
 
 #endif		/* __CREATE_SEGMENT_C__ */

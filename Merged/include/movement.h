@@ -12,6 +12,17 @@
 */
 
 /*
+** Message movement functions :
+*/
+double		nfGoToFirstMessage();
+double		nfGoToLastMessage();
+double		nfGoToPreviousMessage();
+double		nfGoToNextMessage();
+double		nfGoToIDMessage(int id);
+double		nfGoToTypeMessage(int type);
+double		nfGoToNameMessage(char *name);
+
+/*
 ** Segment and parent movement functions :
 */
 double		nfGoToRoot();
@@ -28,7 +39,6 @@ double		nfGoToFirstList();
 /*
 ** Child movement functions :
 */
-double		nfGoToChild();
 double		nfGoToFirstChild();
 double		nfGoToLastChild();
 double		nfGoToNextChild();

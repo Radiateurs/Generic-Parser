@@ -73,15 +73,6 @@ double		nfModifyNameChildName(const char *name, const char *new_name)
   return (0);
 }
 
-double		nfModifyChildName(const char *new_name)
-{
-  if (g_msg == NULL || g_msg->segment == NULL)
-    return (-1); // Verify error code
-  free(g_msg->segment->child->name);
-  g_msg->segment->child->name = strdup(new_name);
-  return (0);
-}
-
 double		nfModifyIDChildID(int id, int new_id)
 {
   int		error_return;
@@ -91,6 +82,15 @@ double		nfModifyIDChildID(int id, int new_id)
   if ((error_return = nfGoToIDChild(id)) != 0)
     return (error_return);
   g_msg->segment->child->id = new_id;
+  return (0);
+}
+
+double		nfModifyChildName(const char *new_name)
+{
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1); // Verify error code
+  free(g_msg->segment->child->name);
+  g_msg->segment->child->name = strdup(new_name);
   return (0);
 }
 
@@ -116,18 +116,14 @@ double		nfModifyChildID(int new_id)
 }
 
 // Add a segment (child) at the end of list of the pointed / ID / Name segment.
-double		nfAddChildInSegment(int new_id, const char *name)
+double		nfAddChildInSegment(const char *name)
 {
   segment	*new;
   int		real_id;
 
   if (g_msg == NULL || g_msg->segment == NULL)
     return (-1);
-  if (new_id == 0 || getIDSegment(g_msg->segment->child, new_id) != NULL ||
-      getIDElement(g_msg->segment->element, new_id) != NULL)
-    real_id = getNextID(g_msg->segment);
-  else
-    real_id = new_id;
+  real_id = getNextID(g_msg->segment->child);
   // If creation failed
   if (!(new = initSegment(name, real_id, 1, g_msg->segment->depth + 1, 0)))
     return (-1); //Verify error code
@@ -136,7 +132,7 @@ double		nfAddChildInSegment(int new_id, const char *name)
   return (0);
 }
 
-double		nfAddChildInSegmentID(int id, int new_id, const char *new_name)
+double		nfAddChildInSegmentID(int id, const char *new_name)
 {
   int		error_code;
   int		last_pos_id;
@@ -146,15 +142,18 @@ double		nfAddChildInSegmentID(int id, int new_id, const char *new_name)
   last_pos_id = g_msg->segment->id;
   if ((error_code = nfGoToIDSegment(id)) != 0)
     return (error_code);
-  if ((error_code = nfAddChildInSegment(new_id, new_name)) != 0)
+  if ((error_code = nfAddChildInSegment(new_name)) != 0)
     {
       nfGoToIDSegment(last_pos_id);
       return (error_code);
     }
   return (0);
 }
-
-double		nfAddChildInSegmentName(const char *name, int new_id, const char *new_name)
+ 
+/*
+** Add a child in the first segment that has the same name as requested.
+*/
+double		nfAddChildInSegmentName(const char *name, const char *new_name)
 {
   int		error_code;
   char		*last_pos_name;
@@ -164,7 +163,7 @@ double		nfAddChildInSegmentName(const char *name, int new_id, const char *new_na
   last_pos_name = g_msg->segment->name;
   if ((error_code = nfGoToNameSegment(name)) != 0)
     return (error_code);
-  if ((error_code = nfAddChildInSegment(new_id, new_name)) != 0)
+  if ((error_code = nfAddChildInSegment(new_name)) != 0)
     {
       nfGoToNameSegment(last_pos_name);
       return (error_code);
@@ -173,18 +172,14 @@ double		nfAddChildInSegmentName(const char *name, int new_id, const char *new_na
 }
 
 // Add a segment (child) at the end of list of the pointed / ID / Name child.
-double		nfAddChildInChild(int new_id, const char *new_name)
+double		nfAddChildInChild(const char *new_name)
 {
   segment	*new;
   int		real_id;
 
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->child == NULL)
     return (-1);
-  if (new_id == 0 || getIDSegment(g_msg->segment->child->child, new_id) != NULL ||
-      getIDElement(g_msg->segment->child->element, new_id) != NULL)
-    real_id = getNextID(g_msg->segment->child);
-  else
-    real_id = new_id;
+  real_id = getNextID(g_msg->segment->child->child);
   // If creation failed
   if (!(new = initSegment(new_name, real_id, 1, g_msg->segment->depth + 1, 0)))
     return (-1); //Verify error code
@@ -193,7 +188,7 @@ double		nfAddChildInChild(int new_id, const char *new_name)
   return (0);
 }
 
-double		nfAddChildInChildID(int id, int new_id, const char *new_name)
+double		nfAddChildInChildID(int id, const char *new_name)
 {
   int		error_code;
   int		last_pos_id;
@@ -203,7 +198,7 @@ double		nfAddChildInChildID(int id, int new_id, const char *new_name)
   last_pos_id = g_msg->segment->child->id;
   if ((error_code = nfGoToIDChild(id)) != 0)
     return (error_code);
-  if ((error_code = nfAddChildInChild(new_id, new_name)) != 0)
+  if ((error_code = nfAddChildInChild(new_name)) != 0)
     {
       nfGoToIDChild(last_pos_id);
       return (error_code);
@@ -211,7 +206,7 @@ double		nfAddChildInChildID(int id, int new_id, const char *new_name)
   return (0);
 }
 
-double		nfAddChildInChildName(const char *name, int new_id, const char *new_name)
+double		nfAddChildInChildName(const char *name, const char *new_name)
 {
   int		error_code;
   char		*last_pos_name;
@@ -221,11 +216,35 @@ double		nfAddChildInChildName(const char *name, int new_id, const char *new_name
   last_pos_name = g_msg->segment->child->name;
   if ((error_code = nfGoToNameChild(name)) != 0)
     return (error_code);
-  if ((error_code = nfAddChildInChild(new_id, new_name)) != 0)
+  if ((error_code = nfAddChildInChild(new_name)) != 0)
     {
       nfGoToNameChild(last_pos_name);
       return (error_code);
     }
+  return (0);
+}
+
+double		nfAddChildList(const char *name)
+{
+  segment	*new;
+
+  if (!(new = initSegment(name, lastSegmentID(g_msg->segment) + 1, 1,	\
+			  ((g_msg->segment == NULL) ? 0 : g_msg->segment->depth), SLIST)))
+    return (-1);
+  if (addSegment(&(g_msg->segment), new, 1) != 1)
+    return (-1);
+  return (0);
+}
+
+double		nfAddChildTab(const char *name)
+{
+  segment	*new;
+
+  if (!(new = initSegment(name, lastSegmentID(g_msg->segment) + 1, 1,	\
+			  ((g_msg->segment == NULL) ? 0 : g_msg->segment->depth), STAB)))
+    return (-1);
+  if (addSegment(&(g_msg->segment), new, 1) != 1)
+    return (-1);
   return (0);
 }
 

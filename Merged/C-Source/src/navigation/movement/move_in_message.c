@@ -1,9 +1,10 @@
 #ifndef		__MOVE_IN_MESSAGE_C__
 # define	__MOVE_IN_MESSAGE_C__
 
+# include	<string.h>
 # include	"generic_parser.h"
 
-int		nfGoToFirstMessage()
+double		nfGoToFirstMessage()
 {
   if (g_msg == NULL)
     return (-1); // verify error code
@@ -12,7 +13,7 @@ int		nfGoToFirstMessage()
   return (0);
 }
 
-int		nfGoToLastMessage()
+double		nfGoToLastMessage()
 {
   if (g_msg == NULL)
     return (-1); // verify error code
@@ -21,15 +22,15 @@ int		nfGoToLastMessage()
   return (0);
 }
 
-int		nfGoToPreviousMessage()
+double		nfGoToPreviousMessage()
 {
   if (g_msg == NULL || g_msg->prev != NULL)
     return (-1); // verify error code
-  g_msg = g_msg->previous;
+  g_msg = g_msg->prev;
   return (0);
 }
 
-int		nfGoToNextMessage()
+double		nfGoToNextMessage()
 {
   if (g_msg == NULL || g_msg->next != NULL)
     return (-1); // verify error code
@@ -37,18 +38,52 @@ int		nfGoToNextMessage()
   return (0);
 }
 
-int		nfGoToIDMessage(int id)
+double		nfGoToIDMessage(int id)
 {
   message	*tmp;
 
   if (g_msg == NULL)
     return (-1); // Verify error code
   tmp = g_msg;
-  while (tmp->next != NULL && tmp->id != id)
+  while (tmp->next != NULL && tmp->id != (unsigned int)id)
     tmp = tmp->next;
-  while (tmp->prev != NULL && tmp->id != id)
+  while (tmp->prev != NULL && tmp->id != (unsigned int)id)
     tmp = tmp->prev;
-  if (tmp->id != id)
+  if (tmp->id != (unsigned int)id)
+    return (-1); // verify error code
+  g_msg = tmp;
+  return (0);
+}
+
+double		nfGoToTypeMessage(int type)
+{
+  message	*tmp;
+
+  if (g_msg == NULL)
+    return (-1); // Verify error code
+  tmp = g_msg;
+  while (tmp->next != NULL && tmp->type != (enum e_msg_type)type)
+    tmp = tmp->next;
+  while (tmp->prev != NULL && tmp->type != (enum e_msg_type)type)
+    tmp = tmp->prev;
+  if (tmp->type != (enum e_msg_type)type)
+    return (-1); // verify error code
+  g_msg = tmp;
+  return (0);
+}
+
+double		nfGoToNameMessage(char *name)
+{
+  message	*tmp;
+
+  if (g_msg == NULL)
+    return (-1); // Verify error code
+  tmp = g_msg;
+  while (tmp->next != NULL && strcmp(g_msg->name, name) != 0)
+    tmp = tmp->next;
+  while (tmp->prev != NULL && strcmp(g_msg->name, name) != 0)
+    tmp = tmp->prev;
+  if (strcmp(g_msg->name, name) != 0)
     return (-1); // verify error code
   g_msg = tmp;
   return (0);

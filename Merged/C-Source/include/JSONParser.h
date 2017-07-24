@@ -47,15 +47,17 @@ struct		s_JSONtree_parser
 /*
 ** Prototypes
 */
-
-message		*JSONparse(char *path);
-message		*JSONcreate_tree(char **tabToken);
-void		JSONserialize(const char *path, message *msg);
-void		JSONserializeMode(const char *path, message *msg, int flags);
-void	        JSONwriting(int fd, message *msg);
+message		*JSONparse(char *path); // In JSONparse.c
+message		*JSONparseFlux(int *fd, int id); // In JSONparse.c
+void		JSONfeedFlux(int *fd, message *msg, int id); // In JSONparse.c
+message		*JSONcreate_tree(char **tabToken); // In JSON/create_tree.c
+void		JSONfeed_tree(message *msg, char **tokens, int id, int reset);
+void		JSONserialize(const char *path, message *msg); // In JSONparse.c
+void		JSONserializeMode(const char *path, message *msg, int flags); // In JSONparse.c
+void	        JSONwriting(int fd, message *msg); // In JSON/serialize.c
 
 /*
-** Dump functions
+** Dump functions (all in JSON/serialize.c)
 */
 void		JSONwriting(int fd, message *msg);
 void		JSONDumpAllSegment(int fd, segment *seg);
@@ -64,9 +66,11 @@ void		JSONDumpAllElement(int fd, element *elem, int depth);
 void		JSONDumpElement(int fd, element *elem, int depth);
 
 /*
-** RTE callable
+** RTE callable (all in JSON/rte_callable.c)
 */
 double		nfJSONParseFile(char *path);
+double		nfJSONParseFlux(int fd);
+double		nfJSONFeedFlux();
 double		nfJSONSerialize(char *path);
 double		nfJSONSerializeMode(char *path, int flags);
 

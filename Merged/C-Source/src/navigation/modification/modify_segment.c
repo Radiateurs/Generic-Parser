@@ -117,57 +117,42 @@ double		nfModifySegmentID(int new_id)
 }
 
 // Add a segment at the end of list of the pointed / ID / Name segment.
-double		nfAddSegmentInSegment(int new_id, const char *name)
+double		nfAddSegment(const char *name)
 {
   segment	*new;
   int		real_id;
 
   if (g_msg == NULL)
     return (-1);
-  if (new_id == 0 || getIDSegment(g_msg->segment, new_id) != NULL)
-    real_id = lastSegmentID(g_msg->segment);
-  else
-    real_id = new_id;
-  if (!(new = initSegment(name, real_id, 1, ((g_msg->segment == NULL) ? 0 : g_msg->segment->id), 0)))
+  real_id = lastSegmentID(g_msg->segment) + 1;
+  if (!(new = initSegment(name, real_id, 1, ((g_msg->segment == NULL) ? 0 : g_msg->segment->depth), 0)))
     return (-1); // Verify error code
   if (addSegment(&(g_msg->segment), new, 0) != 1)
     return (-1); // Verify error code
   return (0);
 }
 
-double		nfAddSegmentInSegmentID(int id, int new_id, const char *name)
+double		nfAddList(const char *name)
 {
-  int		error_code;
-  int		last_pos_id;
+  segment	*new;
 
-  if (g_msg == NULL || g_msg->segment == NULL)
+  if (!(new = initSegment(name, lastSegmentID(g_msg->segment) + 1, 1,	\
+			  ((g_msg->segment == NULL) ? 0 : g_msg->segment->depth), SLIST)))
     return (-1);
-  last_pos_id = g_msg->segment->id;
-  if ((error_code = nfGoToIDSegment(id)) != 0)
-    return (error_code);
-  if ((error_code = nfAddSegmentInSegment(new_id, name)) != 0)
-    {
-      nfGoToIDSegment(last_pos_id);
-      return (error_code);
-    }
+  if (addSegment(&(g_msg->segment), new, 0) != 1)
+    return (-1);
   return (0);
 }
 
-double		nfAddSegmentInSegmentName(const char *name, int new_id, const char *new_name)
+double		nfAddTab(const char *name)
 {
-  int		error_code;
-  char		*last_pos_name;
+  segment	*new;
 
-  if (g_msg == NULL || g_msg->segment == NULL)
+  if (!(new = initSegment(name, lastSegmentID(g_msg->segment) + 1, 1,	\
+			  ((g_msg->segment == NULL) ? 0 : g_msg->segment->depth), STAB)))
     return (-1);
-  last_pos_name = g_msg->segment->name;
-  if ((error_code = nfGoToNameSegment(name)) != 0)
-    return (error_code);
-  if ((error_code = nfAddSegmentInSegment(new_id, new_name)) != 0)
-    {
-      nfGoToNameSegment(last_pos_name);
-      return (error_code);
-    }
+  if (addSegment(&(g_msg->segment), new, 0) != 1)
+    return (-1);
   return (0);
 }
 

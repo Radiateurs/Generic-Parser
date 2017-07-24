@@ -49,6 +49,37 @@ int		newElement(element **old, const char *name, unsigned int id, \
   return (1);
 }
 
+element		*copyElement(element *origin)
+{
+  element	*to_return;
+
+  if (!(to_return = malloc(sizeof(*to_return))))
+    return (NULL);
+  to_return->next = NULL;
+  to_return->prev = NULL;
+  to_return->id = origin->id;
+  to_return->name = strdup(origin->name);
+  to_return->type = origin->type;
+  to_return->content = strdup(origin->content);
+  return (to_return);
+}
+
+element		*cloneElement(element *origin)
+{
+  element	*to_return;
+
+  to_return = NULL;
+  while (origin != NULL && origin->prev != NULL)
+    origin = origin->prev;
+  while (origin != NULL)
+    {
+      addElement(&to_return, copyElement(origin));
+      if (origin->next == NULL)
+	return (to_return);
+      origin = origin->next;
+    }
+  return (to_return);
+}
 
 #endif		/* __CREATE_ELLEMENT_C__ */
 

@@ -6,13 +6,32 @@
 # include	<stdlib.h>
 # include	<string.h>
 
+int		addMessage(message **old, message *new)
+{
+  if (new == NULL)
+    return (-1);
+  new->next = NULL;
+  if (*old == NULL)
+    {
+      new->prev = NULL;
+      *old = new;
+      return (0);
+    }
+  while ((*old)->next != NULL)
+    *old = (*old)->next;
+  (*old)->next = new;
+  new->prev = *old;
+  *old = new;
+  return (0);
+}
+
 // Should had file type and file name
 int		newMessage(message **old, unsigned int id)
 {
   message	*new;
 
   if (!(new = malloc(sizeof(*new))))
-    return (0);
+    return (-1);
   new->id = id;
   new->next = NULL;
   new->segment = NULL;
@@ -26,7 +45,7 @@ int		newMessage(message **old, unsigned int id)
       new->prev = *old;
     }
   *old = new;
-  return (1);
+  return (0);
 }
 
 #endif		/* __CREATE_MESSAGE_C__*/

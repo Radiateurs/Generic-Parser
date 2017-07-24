@@ -7,13 +7,26 @@
 unsigned int	lastElementID(element *elem)
 {
   element	*tmp;
+  unsigned int	max;
 
+  max = 1;
   if (elem == NULL)
     return (0);
   tmp = elem;
   while (tmp->next != NULL)
-    tmp = tmp->next;
-  return (tmp->id);
+    {
+      if (tmp->id > max)
+	max = tmp->id;
+      tmp = tmp->next;
+    }
+  tmp = elem;
+  while (tmp->prev != NULL)
+    {
+      if (tmp->id > max)
+	max = tmp->id;
+      tmp = tmp->prev;
+    }
+  return (max);
 }
 
 element         *getIDElement(element *elem, unsigned int id)

@@ -21,6 +21,11 @@ void		ParserInit()
 */
 void		setHumanReadable(char spacer, int nb)
 {
+  if (nb == 0)
+    {
+      g_human_readable = 0;
+      return ;
+    }
   if (nb != 0)
     g_nb_spacer = nb;
   if (spacer != '\t' && spacer != ' ')

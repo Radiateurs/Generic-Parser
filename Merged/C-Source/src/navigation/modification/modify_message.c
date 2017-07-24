@@ -16,26 +16,27 @@ double		nfDeleteMessage()
 {
   if (g_msg == NULL)
     return (-1); // verify error code
-  deleteIDMessage(&g_msg, g_msg->id);
+  deleteIDmessage(&g_msg, g_msg->id);
   return (0);
 }
 
 double		nfDeleteIDMessage(int id)
 {
-  if (deleteIDMessage(&g_msg, (unsigned int)id) == 0)
+  if (deleteIDmessage(&g_msg, (unsigned int)id) == 0)
     return (-1);
   return (0);
 }
 
-double		nfCloneMessage()
+double		nfCopyMessage()
 {
-  message	*new;
+  message	*tmp;
 
   if (g_msg == NULL)
     return (-1);
-  new = NULL;
-  newMessage(&new, getLastIDMessage(g_msg) + 1);
-  
+  tmp = g_msg; 
+  newMessage(&g_msg, getLastIDMessage(g_msg) + 1);
+  g_msg->segment = cloneSegment(tmp->segment);
+  return (0);
 }
 
 // Create a new message that contain the same segment's adress.
@@ -50,6 +51,15 @@ double		nfMirrorMessage()
   if (newMessage(&g_msg, getLastIDMessage(g_msg) + 1) == 0)
     return (-1);
   g_msg->segment = tmp->segment;
+  return (0);
+}
+
+double		nfAddMessage(const char *name, int type)
+{
+  if (newMessage(&g_msg, getLastIDMessage(g_msg)) == -1)
+    return (-1);
+  g_msg->name = strdup(name);
+  g_msg->type = (enum e_msg_type)type;
   return (0);
 }
 

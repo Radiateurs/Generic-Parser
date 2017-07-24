@@ -12,6 +12,19 @@
 */
 
 /*
+** Message access functions :
+*/
+double		nfGetMessageID();
+double		nfGetMessageType();
+char		*tfGetMessageName();
+double		nfGetIDMessageType(int id);
+char		*tfGetIDMessageName(int id);
+double		nfGetTypeMessageID(int type);
+char		*tfGetTypeMessageName(int type);
+double		nfGetNameMessageID(char *name);
+double		nfGetNameMessageType(char *name);
+
+/*
 ** Segment acces functions :
 */
 char		*tfGetRootName();
@@ -67,9 +80,9 @@ char		*tfGetPreviousElementContent();
 char		*tfGetFirstElementContent();
 char		*tfGetLastElementContent();
 double		nfGetElementType();
-double		nfGetElementType();
-double		nfGetElementType();
-double		nfGetElementType();
-double		nfGetElementType();
+double		nfGetFirstElementType();
+double		nfGetLastElementType();
+double		nfGetNextElementType();
+double		nfGetPrevElementType();
 
 #endif		/* __ACCESS_H__ */

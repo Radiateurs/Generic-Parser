@@ -3,7 +3,6 @@
 
 # include	"segment.h"
 
-// For beta 1.2 or 1.3
 enum		e_msg_type
   {
     JSON = 0,
@@ -20,15 +19,18 @@ typedef struct	s_msg
   message	*next;
   message	*prev;
   unsigned int	id;
+  enum e_msg_type	type;
+  char		*name;
   segment	*segment;
 }		message;
 
 /* Intern functions */
 int		deleteMessages(message **old);
 int		deleteIDmessage(message **old, unsigned int id);
+int		addMessage(message **old, message *new);
 int		newMessage(message **old, unsigned int id);
 int		switchToIDMessage(message **msg, unsigned int id);
-int		getLastIDMessage(message *msg);
+unsigned int	getLastIDMessage(message *msg);
 void		dumpMessage(message *old);
 
 /* RTE callable functions */

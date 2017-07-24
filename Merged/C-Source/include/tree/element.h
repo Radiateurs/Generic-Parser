@@ -32,12 +32,15 @@ typedef struct	s_elem
 int		addElement(element **old, element *new); // CONSTRUCTOR
 int		newElement(element **old, const char *name, unsigned int id, \
 			   const char *content, enum e_attr_type type); // CONSTRUCTOR
+element		*cloneElement(element *origin); //CONSTRUCTOR
+
 int		deleteIDElement(element **old, unsigned int id); // DESTRUCTOR
 int		deleteElements(element **old); // DESTRUCTOR
+
 element		*getIDElement(element *elem, unsigned int id); // GETTER
-int		countElement(element *elem);
-unsigned int	lastElementID(element *elem);
-void		dumpElement(element *elem, int depth);
+int		countElement(element *elem); // GETTER
+unsigned int	lastElementID(element *elem); // GETTER
+void		dumpElement(element *elem, int depth); // PRINTER
 
 /* RTE callable functions */
 double		nfLastElementID();

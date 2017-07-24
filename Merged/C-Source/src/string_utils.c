@@ -63,21 +63,60 @@ char		*mconcat(char *saved, char *buff)
   int		i = 0;
   int		size = 0;
 
+  // Count the final size
   size = ((saved != NULL) ? strlen(saved) : 0) + ((buff != NULL) ? strlen(buff) : 0) + 1;
   if (!(dest = malloc(sizeof(*dest) * size)))
     return (NULL);
   size = 0;
+  // copy the saved in dest.
   while (saved != NULL && saved[i] != '\0')
     {
       dest[i] = saved[i];
       i++;
     }
+  // copy buff in dest.
   while (buff != NULL && buff[size] != '\0')
     {
       dest[i + size] = buff[size];
       size++;
     }
   dest[i + size] = '\0';
+  return (dest);
+}
+
+/*
+** Acts like mconcat but for tab (char **)
+*/
+char		**mtab_concat(char **first, char **second)
+{
+  char		**dest;
+  int		i, j;
+
+  i = 0;
+  j = 0;
+  // Count the finale size for dest.
+  while (first != NULL && first[i]!= NULL)
+    i++;
+  while (second != NULL && second[j] != NULL)
+    j++;
+  // Memory allocation and verification
+  if (!(dest = malloc(sizeof(*dest) * (i + j + 1))))
+    return (NULL);
+  i = 0;
+  j = 0;
+  // copy first in dest
+  while (first != NULL && first[i] != NULL)
+    {
+      dest[i] = strdup(first[i]);
+      i++;
+    }
+  // copy second in dest
+  while (second != NULL && second[j] != NULL)
+    {
+      dest[i + j] = strdup(second[j]);
+      j++;
+    }
+  dest[i + j] = NULL;
   return (dest);
 }
 
@@ -134,6 +173,46 @@ int		is_a_token(const char *fragment, const char *sep)
       i++;
     }
   return (0);
+}
+
+char		*int_to_string(int value)
+{
+  char		*ret;
+  int		div;
+  int		nb;
+  int		neg;
+
+  div = 1;
+  nb = 1;
+  neg = 0;
+  if (value < 0)
+    {
+      neg = 1;
+      nb++;
+      value *= -1;
+    }
+  while (value / div > 9)
+    {
+      div *= 10;
+      nb++;
+    }
+  if (!(ret = malloc(sizeof(*ret) * (nb + 1))))
+    return (NULL);
+  nb = 0;
+  if (neg == 1)
+    {
+      ret[0] = '-';
+      nb++;
+    }
+  while (div >= 1)
+    {
+      ret[nb] = value / div;
+      value = value % div;
+      div /= 10;
+      nb++;
+    }
+  ret[nb] = '\0';
+  return (ret);
 }
 
 #endif		/* __STRING_UTILS_C__ */
