@@ -16,7 +16,7 @@ double		nfDeleteIDMessage(int id);
 double		nfCopyMessage();
 double		nfMirrorMessage();
 // Add part
-double		nfAddMessage();
+double		nfAddMessage(const char *name, int type);
 // Modify part
 /* TO DO */
 
@@ -35,6 +35,8 @@ double		nfModifySegmentName(const char *new_name);
 double		nfModifyIDSegmentID(int id, int new_id);
 double		nfModifyNameSegmentID(const char *name, int new_id);
 double		nfModifySegmentID(int new_id);
+double		nfModifySegmentType(int new_type);
+double		nfModifyNameSegmentType(const char *name, int new_type);
 // Add part
 double		nfAddSegment(const char *new_name);
 double		nfAddList(const char *name);
@@ -55,6 +57,8 @@ double		nfModifyChildName(const char *new_name);
 double		nfModifyIDChildID(int id, int new_id);
 double		nfModifyNameChildID(const char *name, int new_id);
 double		nfModifyChildID(int new_id);
+double		nfModifyChildType(int new_type);
+double		nfModifyNameChildType(const char *name, int new_type);
 // Add part
 double		nfAddChildInSegment(const char *new_name);
 double		nfAddChildInSegmentID(int id, int new_id, const char *name);
@@ -62,8 +66,10 @@ double		nfAddChildInSegmentName(const char *name, const char *new_name);
 double		nfAddChildInChild(int new_id, const char *new_name);
 double		nfAddChildInChildID(int id, int new_id, const char *name);
 double		nfAddChildInChildName(const char *name, const char *new_name);
+double		nfAddChildListInSegmentName(const char *name);
+double		nfAddChildTabInSegmentName(const char *name);
 double		nfAddChildList(const char *name);
-double		nfAddChildList(const char *name);
+double		nfAddChildTab(const char *name);
 
 /*
 ** Element Modifying functions
@@ -74,7 +80,7 @@ double		nfDeleteAllElement();
 double		nfDeleteIDElement(int id);
 double		nfDeleteNameElement(const char *name);
 // Modify part
-double		nfModifyElement(const char *new_name, const char *new_content);
+double		nfModifyElement(const char *new_name, const char *new_content, int type);
 double		nfModifyElementContent(const char *new_content, int type);
 double		nfModifyElementID(int new_id);
 double		nfModifyElementName(const char *new_name);

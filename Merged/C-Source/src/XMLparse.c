@@ -27,6 +27,70 @@ message		*XMLparse(char *path)
 }
 
 /*
+** Create a flux handling message.
+** Set g_file_flux and g_flux_id
+** They can't be modifyed until closed.
+** Once closed cannot be reopened.
+*/
+message		*XMLparseFlux(int *fd, int id)
+{
+  char		**tabToken;
+  message	*msg;
+  
+  if (*fd >= 0)
+    g_fd = *fd;
+  else
+    return (NULL);
+  if (!(tabToken = XMLtoken_parse_flux(fd, JSONSEPARATOR, JSONTO_IGNORE, JSONTO_REMOVE)))
+    return (NULL);
+  if (!(msg = malloc(sizeof(*msg))))
+    return (NULL);
+  msg->id = id;
+  msg->next = NULL;
+  msg->prev = NULL;
+  XMLfeed_tree(msg, tabToken, id, 1);
+  if (msg == NULL)
+    return (NULL);
+  msg->type = XML;
+  msg->name = NULL;
+  g_flux_id = msg->id;
+  return (msg);
+}
+
+/*
+** 
+*/
+void		XMLfeedFlux(int *fd, message *msg, int id)
+{
+  char		**tabToken;
+  char		**tmp;
+
+  if (msg != NULL && (msg->type != JSON || msg->name != NULL))
+    return ;
+  if (!(tabToken = XMLtoken_parse_flux(fd, JSONSEPARATOR, JSONTO_IGNORE, JSONTO_REMOVE)))
+    {
+      g_fd = -1;
+      return ;
+    }
+  if (msg == NULL)
+    {
+      msg = XMLparseFlux(fd, id);
+      return ;
+    }
+  if (!(tmp = mtab_concat(g_file_flux, tabToken)))
+    {
+      free(g_file_flux);
+      free(tabToken);
+      return ;
+    }
+  free(g_file_flux);
+  free(tabToken);
+  g_file_flux = tmp;
+  XMLfeed_tree(msg, g_file_flux, id, 0);
+  return ;
+}
+
+/*
 ** Serialize the tree (message) in the given file (path) in XML format
 ** Creates the file if needed. Use XMLserializeMode to specify the opening flag.
 */

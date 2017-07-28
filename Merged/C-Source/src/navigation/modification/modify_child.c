@@ -115,6 +115,27 @@ double		nfModifyChildID(int new_id)
   return (0);
 }
 
+double		nfModifyNameChildType(const char *name, int new_type)
+{
+  int		error_return;
+
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1); // Verify error code
+  if ((error_return = nfGoToNameChild(name)) != 0)
+    return (error_return);
+  g_msg->segment->child->type = new_type;
+  return (0);
+}
+
+// Modify the pointed segment's ID by new_id
+double		nfModifyChildType(int new_type)
+{
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1); // Verify error code
+  g_msg->segment->child->type = new_type;
+  return (0);
+}
+
 // Add a segment (child) at the end of list of the pointed / ID / Name segment.
 double		nfAddChildInSegment(const char *name)
 {
@@ -247,5 +268,48 @@ double		nfAddChildTab(const char *name)
     return (-1);
   return (0);
 }
+
+/*
+** Add a child Tab in the first segment that has the same name as requested.
+*/
+double		nfAddChildTabInSegmentName(const char *name, const char *new_name)
+{
+  int		error_code;
+  char		*last_pos_name;
+
+  if (g_msg != NULL || g_msg->segment == NULL)
+    return (-1);
+  last_pos_name = g_msg->segment->name;
+  if ((error_code = nfGoToNameSegment(name)) != 0)
+    return (error_code);
+  if ((error_code = nfAddChildTab(new_name)) != 0)
+    {
+      nfGoToNameSegment(last_pos_name);
+      return (error_code);
+    }
+  return (0);
+}
+
+/*
+** Add a child in the first segment that has the same name as requested.
+*/
+double		nfAddChildListInSegmentName(const char *name, const char *new_name)
+{
+  int		error_code;
+  char		*last_pos_name;
+
+  if (g_msg != NULL || g_msg->segment == NULL)
+    return (-1);
+  last_pos_name = g_msg->segment->name;
+  if ((error_code = nfGoToNameSegment(name)) != 0)
+    return (error_code);
+  if ((error_code = nfAddChildList(new_name)) != 0)
+    {
+      nfGoToNameSegment(last_pos_name);
+      return (error_code);
+    }
+  return (0);
+}
+
 
 #endif		/* __MODIFY_CHILD_C__ */

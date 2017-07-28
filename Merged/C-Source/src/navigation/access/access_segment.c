@@ -142,7 +142,7 @@ double		nfGetLastSegmentID()
   return (tmp->id);
 }
 
-// Return the pointed segment's id
+// Return the pointed segment's depth
 double		nfGetSegmentDepth()
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -150,7 +150,7 @@ double		nfGetSegmentDepth()
   return (g_msg->segment->depth);
 }
 
-// Return the next segment's id on the pointed segment
+// Return the next segment's depth on the pointed segment
 double		nfGetNextSegmentDepth()
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->next == NULL)
@@ -158,7 +158,7 @@ double		nfGetNextSegmentDepth()
   return (g_msg->segment->next->depth);
 }
 
-// Return the previous segment's id on the pointed segment
+// Return the previous segment's depth on the pointed segment
 double		nfGetPreviousSegmentDepth()
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->prev == NULL)
@@ -166,7 +166,7 @@ double		nfGetPreviousSegmentDepth()
   return (g_msg->segment->prev->depth);
 }
 
-// Return the first segment's id on the pointed segment
+// Return the first segment's depth on the pointed segment
 double		nfGetFirstSegmentDepth()
 {
   segment	*tmp;
@@ -179,7 +179,7 @@ double		nfGetFirstSegmentDepth()
   return (tmp->depth);
 }
 
-// Return the last segment's id on the pointed segment
+// Return the last segment's depth on the pointed segment
 double		nfGetLastSegmentDepth()
 {
   segment	*tmp;
@@ -190,6 +190,77 @@ double		nfGetLastSegmentDepth()
   while (tmp->next != NULL)
     tmp = tmp->next;
   return (tmp->depth);
+}
+
+// Return the pointed segment's type
+double		nfGetSegmentType()
+{
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  return (g_msg->segment->type);
+}
+
+// Return the next segment's type on the pointed segment
+double		nfGetNextSegmentType()
+{
+  if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->next == NULL)
+    return (-1);
+  return (g_msg->segment->next->type);
+}
+
+// Return the previous segment's type on the pointed segment
+double		nfGetPreviousSegmentType()
+{
+  if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->prev == NULL)
+    return (-1);
+  return (g_msg->segment->prev->type);
+}
+
+// Return the first segment's type on the pointed segment
+double		nfGetFirstSegmentType()
+{
+  segment	*tmp;
+
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  tmp = g_msg->segment;
+  while (tmp->prev != NULL)
+    tmp = tmp->prev;
+  return (tmp->type);
+}
+
+// Return the last segment's type on the pointed segment
+double		nfGetLastSegmentType()
+{
+  segment	*tmp;
+
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1);
+  tmp = g_msg->segment;
+  while (tmp->next != NULL)
+    tmp = tmp->next;
+  return (tmp->type);
+}
+
+double		bfIsSegmentSeg()
+{
+  if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->type != SSEG)
+    return (0);
+  return (1);
+}
+
+double		bfIsSegmentTab()
+{
+  if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->type != STAB)
+    return (0);
+  return (1);
+}
+
+double		bfIsSegmentList()
+{
+  if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->type != SLIST)
+    return (0);
+  return (1);
 }
 
 #endif		/* __ACCESS_SEGMENT_C__ */

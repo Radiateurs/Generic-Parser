@@ -116,6 +116,27 @@ double		nfModifySegmentID(int new_id)
   return (0);
 }
 
+double		nfModifyNameSegmentType(const char *name, int new_type)
+{
+  int		error_return;
+
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1); // Verify error code
+  if ((error_return = nfGoToNameSegment(name)) != 0)
+    return (error_return);
+  g_msg->segment->type = new_type;
+  return (0);
+}
+
+// Modify the pointed segment's ID by new_id
+double		nfModifySegmentType(int new_type)
+{
+  if (g_msg == NULL || g_msg->segment == NULL)
+    return (-1); // Verify error code
+  g_msg->segment->id = new_type;
+  return (0);
+}
+
 // Add a segment at the end of list of the pointed / ID / Name segment.
 double		nfAddSegment(const char *name)
 {

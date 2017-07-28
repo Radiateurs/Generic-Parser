@@ -40,11 +40,19 @@ double		nfGetNextSegmentID();
 double		nfGetPreviousSegmentID();
 double		nfGetFirstSegmentID();
 double		nfGetLastSegmentID();
-double		nfGetSegmentID();
-double		nfGetNextSegmentID();
-double		nfGetPreviousSegmentID();
-double		nfGetFirstSegmentID();
-double		nfGetLastSegmentID();
+double		nfGetSegmentDepth();
+double		nfGetNextSegmentDepth();
+double		nfGetPreviousSegmentDepth();
+double		nfGetFirstSegmentDepth();
+double		nfGetLastSegmentDepth();
+double		nfGetSegmentType();
+double		nfGetNextSegmentType();
+double		nfGetPreviousSegmentType();
+double		nfGetFirstSegmentType();
+double		nfGetLastSegmentType();
+double		bfIsSegmentSeg();
+double		bfIsSegmentTab();
+double		bfIsSegmentList();
 
 /*
 ** Child access functions :

@@ -32,8 +32,8 @@ void		setHumanReadable(char spacer, int nb_tab);
 /*
 ** Token parser prototypes
 */
-char		**token_parse(char *path, char *sep, const char *to_ignore, const char *to_remove);
-char		**token_parse_flux(int *fd, char *sep, const char *to_ignore, const char *to_remove);
+char		**token_parse(char *path, const char *sep, const char *to_ignore, const char *to_remove);
+char		**token_parse_flux(int *fd, const char *sep, const char *to_ignore, const char *to_remove);
 void		delete_tab(char **ptr);
 unsigned int	count_element(char *file, const char *sep);
 char		*read_file(char *path, size_t *file_size);

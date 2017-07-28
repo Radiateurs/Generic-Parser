@@ -42,6 +42,7 @@ int		deleteSegments(segment **old);
 int		deleteListSegments(segment **old);
 void		closeGroupSegment(segment **old);
 // GETTER
+int		getSegmentType(segment *seg);
 segment		*getIDSegment(segment *seg, unsigned int id);
 unsigned int	lastGroupID(segment *seg);
 unsigned int	lastSegmentID(segment *seg);

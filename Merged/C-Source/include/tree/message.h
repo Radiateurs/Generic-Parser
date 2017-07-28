@@ -8,7 +8,7 @@ enum		e_msg_type
     JSON = 0,
     XML = 1,
     CSV = 2,
-    EDI = 3,
+    EDIFACT = 3,
     UNKNOWN = 4
   };
 

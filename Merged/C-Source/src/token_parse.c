@@ -6,6 +6,9 @@
 # include	<sys/stat.h>
 # include	<fcntl.h>
 
+/*
+** Return the first position of the begin of a token
+*/
 int		first_token_pos(const char *buff, const char *sep, int quote)
 {
   int		i = 0;
@@ -201,7 +204,7 @@ char		**token_parse(char *path, const char *sep, const char *to_ignore, const ch
 /*
 ** Separate the readen flux in token.
 */
-char		**token_parse_flux(int *fd, char *sep, const char *to_ignore, const char *to_remove)
+char		**token_parse_flux(int *fd, const char *sep, const char *to_ignore, const char *to_remove)
 {
   char		**ret;
   char		*file;

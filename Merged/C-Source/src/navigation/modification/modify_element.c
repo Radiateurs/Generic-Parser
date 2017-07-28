@@ -45,7 +45,7 @@ double		nfDeleteNameElement(const char *name)
   return (0);
 }
 
-double		nfModifyElement(const char *new_name, const char *new_content)
+double		nfModifyElement(const char *new_name, const char *new_content, int type)
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
     return (-1);
@@ -54,10 +54,11 @@ double		nfModifyElement(const char *new_name, const char *new_content)
       free(g_msg->segment->element->name);
       g_msg->segment->element->name = strdup(new_name);
     }
-  if (new_content != NULL && strcmp(new_content, "") != 0)
+  if (new_content != NULL && strcmp(new_content, "") != 0 && type != UNKNOW)
     {
       free(g_msg->segment->element->content);
       g_msg->segment->element->content = strdup(new_content);
+      g_msg->segment->element->type = type;
     }
   return (0);
 }

@@ -60,6 +60,9 @@ segment		*getParent(segment *seg)
   return (seg->parent);
 }
 
+/*
+** Count how much segment are in this list.
+*/
 int		countSegment(segment *seg)
 {
   int		i = 0;
@@ -100,5 +103,11 @@ segment		*getIDSegment(segment *seg, unsigned int id)
   return (NULL);
 }
 
+int		getSegmentType(segment *seg)
+{
+  if (seg == NULL)
+    return (-1);
+  return (seg->type);
+}
 
 #endif		/* __GETTER_SEGMENT_C__ */

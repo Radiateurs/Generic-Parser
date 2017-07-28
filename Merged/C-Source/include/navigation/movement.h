@@ -27,6 +27,7 @@ double		nfGoToNameMessage(char *name);
 */
 double		nfGoToRoot();
 double		nfGoToParent();
+double		nfGoToChild();
 double		nfGoToFirstSegment();
 double		nfGoToLastSegment();
 double		nfGoToNextSegment();

@@ -46,9 +46,13 @@ struct		s_XMLtree_parser
 */
 message		*XMLparse(char *path);
 message		*XMLcreate_tree(char **tabToken);
+void		XMLfeed_tree(message *msg, char **tokens, int id, int reset);
+message		*XMLparseFlux(int *fd, int id); // In JSONparse.c
+void		XMLfeedFlux(int *fd, message *msg, int id); // In JSONparse.c
 void		XMLserialize(const char *path, message *msg);
 void		XMLserializeMode(const char *path, message *msg, int flags);
 char		**XMLtoken_parse(char *path, const char *separator, const char *to_ignore, const char *to_remove);
+char		**XMLtoken_parse_flux(int *fd, const char *separator, const char *to_ignore, const char *to_remove);
 int		segmentHasNoText(segment *seg);
 
 /*

@@ -74,4 +74,40 @@ char		**XMLtoken_parse(char *path, const char *separator, const char *to_ignore,
   return (ret);
 }
 
+/*
+** Separate the readen flux in token.
+*/
+char		**XMLtoken_parse_flux(int *fd, const char *sep, const char *to_ignore, const char *to_remove)
+{
+  char		**ret;
+  char		*file;
+  char		*tmp;
+  int		nb_read;
+
+  if (!(file = malloc(sizeof(*file) * getpagesize())))
+    return (NULL);
+  while ((nb_read = read(*fd, file, getpagesize() - 1)) > 0)
+    {
+      file[nb_read] = '\0';
+      tmp = mconcat(tmp, file);
+      if (nb_read < getpagesize() - 1)
+	break ;
+    }
+  if (nb_read == 0)
+    *fd = -1;
+  free(file);
+  file = tmp;
+  nb_read = count_element(file, sep) + 2;
+  if (!(ret = calloc(nb_read, sizeof(*ret))))
+    return (NULL);
+  while ((tmp = XMLreturn_token_string(file, sep)) != NULL)
+    {
+      if (ignore_it(tmp, to_ignore) == -1)
+	ret = add_element(ret, tmp, to_remove);
+      free(tmp);
+    }
+  free(file);
+  return (ret);
+}
+
 #endif		/* __XML_TOKEN_PARSE_C__ */
