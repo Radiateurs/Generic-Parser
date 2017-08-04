@@ -5,6 +5,7 @@
 #include	<unistd.h>
 #include	<stdlib.h>
 
+// Delete  the ID that have the matching ID
 int		deleteIDElement(element **old, unsigned int id)
 {
   element  	*tmp;
@@ -49,6 +50,7 @@ int		deleteIDElement(element **old, unsigned int id)
   return (1);
 }
 
+// Delete every Elements
 int		deleteElements(element **old)
 {
   element	*tmp;

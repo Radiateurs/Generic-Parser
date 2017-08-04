@@ -4,6 +4,7 @@
 # include	"XMLParser.h"
 # include	<stdio.h>
 
+// Init the XMLtree_parser structure's variable.
 XMLtree_parser	XMLinit_tree_parser()
 {
   XMLtree_parser	info;
@@ -42,6 +43,7 @@ message		*xmlParseTab(message *msg)
   return (msg);
 }
 
+// Compte the graph from a flux
 void		XMLfeed_tree(message *msg, char **tokens, int msg_id, int reset)
 {
   static int	i = 0;

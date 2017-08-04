@@ -4,8 +4,8 @@
 # include	"generic_parser.h"
 # include	"navigation/movement.h"
 
-// V.0.1 Low level verification
-// TODO : Error code + ID verification
+// V.0.4 Low level verification
+// TODO : Error code verification
 double		nfDeleteIDSegment(int id)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -15,6 +15,7 @@ double		nfDeleteIDSegment(int id)
   return (0);
 }
 
+// Delete a specifyed segment by its name.
 double		nfDeleteNameSegment(const char *name)
 {
   int		error_return;
@@ -48,6 +49,7 @@ double		nfDeleteAllSegment()
   return (0);
 }
 
+// Modify the name of a specifyed segment by its id.
 double		nfModifyIDSegmentName(int id, const char *new_name)
 {
   int		error_return;
@@ -61,6 +63,7 @@ double		nfModifyIDSegmentName(int id, const char *new_name)
   return (0);
 }
 
+// Modify the name of a specifyed segment by its name.
 double		nfModifyNameSegmentName(const char *name, const char *new_name)
 {
   int		error_return;
@@ -74,6 +77,7 @@ double		nfModifyNameSegmentName(const char *name, const char *new_name)
   return (0);
 }
 
+// Modify the pointed segment's name
 double		nfModifySegmentName(const char *new_name)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -83,6 +87,7 @@ double		nfModifySegmentName(const char *new_name)
   return (0);
 }
 
+// Modify the id of a specifyed segment by its id.
 double		nfModifyIDSegmentID(int id, int new_id)
 {
   int		error_return;
@@ -95,6 +100,7 @@ double		nfModifyIDSegmentID(int id, int new_id)
   return (0);
 }
 
+// Modify the id of a specifyed segment by its name.
 double		nfModifyNameSegmentID(const char *name, int new_id)
 {
   int		error_return;
@@ -116,6 +122,7 @@ double		nfModifySegmentID(int new_id)
   return (0);
 }
 
+// Modify the type of a specifyed segment by its name.
 double		nfModifyNameSegmentType(const char *name, int new_type)
 {
   int		error_return;
@@ -153,6 +160,7 @@ double		nfAddSegment(const char *name)
   return (0);
 }
 
+// Add a segment of type List at the end of the list
 double		nfAddList(const char *name)
 {
   segment	*new;
@@ -165,6 +173,7 @@ double		nfAddList(const char *name)
   return (0);
 }
 
+// Add a segment of type TAB (ordered array) at the end of the list.
 double		nfAddTab(const char *name)
 {
   segment	*new;

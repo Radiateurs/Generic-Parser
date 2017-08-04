@@ -5,6 +5,7 @@
 # include	<unistd.h>
 # include	<stdlib.h>
 
+// Delete every messages
 int		deleteMessages(message **old)
 {
   message	*tmp;
@@ -25,6 +26,7 @@ int		deleteMessages(message **old)
   return (1);
 }
 
+// Delete a unique message. THe one that match the given ID
 int		deleteIDmessage(message **old, unsigned int id)
 {
   message	*tmp;
@@ -49,7 +51,8 @@ int		deleteIDmessage(message **old, unsigned int id)
     tmp = tmp->next;
   if (tmp == NULL || tmp->id != id)
     return (1);
-  if (tmp->prev != NULL && tmp->next != NULL)
+  if (tmp->prev != NULL && tmp->next != NULL) // If both of the next and prev pointer aren't NULL then it assign their pointer to the new value. 
+    //Prev->next point to Next and Next->prev point to Prev
     {
       tmp2 = tmp->prev;
       tmp2->next = tmp->next;

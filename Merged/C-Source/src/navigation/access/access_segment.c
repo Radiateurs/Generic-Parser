@@ -242,6 +242,7 @@ double		nfGetLastSegmentType()
   return (tmp->type);
 }
 
+// Return true if the segment is a segment. False if not.
 double		bfIsSegmentSeg()
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->type != SSEG)
@@ -249,6 +250,7 @@ double		bfIsSegmentSeg()
   return (1);
 }
 
+// Return true if the segment is an array / Tab. False if not.
 double		bfIsSegmentTab()
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->type != STAB)
@@ -256,6 +258,7 @@ double		bfIsSegmentTab()
   return (1);
 }
 
+// Return true if the segment is a list. False if not.
 double		bfIsSegmentList()
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->type != SLIST)

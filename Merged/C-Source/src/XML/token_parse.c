@@ -7,6 +7,7 @@
 # include	<sys/stat.h>
 # include	<fcntl.h>
 
+// Return the first position of a token or if the last position was already a token, give the position of the first non token
 int		XMLfirst_token_pos(const char *buff, const char *sep)
 {
   int		i = 0;
@@ -28,6 +29,7 @@ int		XMLfirst_token_pos(const char *buff, const char *sep)
   return (-1);
 }
 
+// Return the value of the token. according to the XMLfirst_token_pos function
 char		*XMLreturn_token_string(const char *file, const char *sep)
 {
   static unsigned int	i = 0;
@@ -54,6 +56,7 @@ char		*XMLreturn_token_string(const char *file, const char *sep)
   return (to_ret);
 }
 
+// Get all the token from a the file and stock it in an array of string
 char		**XMLtoken_parse(char *path, const char *separator, const char *to_ignore, const char *to_remove)
 {
   char		**ret;
@@ -62,10 +65,12 @@ char		**XMLtoken_parse(char *path, const char *separator, const char *to_ignore,
   size_t	file_size;
 
   file = read_file(path, &file_size);
+  // Construct the space needed to stock all the informations
   if (!(ret = calloc(count_element(file, separator) + 1, sizeof(*ret))))
     return (NULL);
   while ((segment = XMLreturn_token_string(file, separator)) != NULL)
     {
+      // stock the string if they're valid
       if (ignore_it(segment, to_ignore) == -1)
 	ret = add_element(ret, segment, to_remove);
       free(segment);
@@ -86,6 +91,7 @@ char		**XMLtoken_parse_flux(int *fd, const char *sep, const char *to_ignore, con
 
   if (!(file = malloc(sizeof(*file) * getpagesize())))
     return (NULL);
+  // While it can read something, stocks it.
   while ((nb_read = read(*fd, file, getpagesize() - 1)) > 0)
     {
       file[nb_read] = '\0';
@@ -100,8 +106,10 @@ char		**XMLtoken_parse_flux(int *fd, const char *sep, const char *to_ignore, con
   nb_read = count_element(file, sep) + 2;
   if (!(ret = calloc(nb_read, sizeof(*ret))))
     return (NULL);
+  // While the container isn't empty
   while ((tmp = XMLreturn_token_string(file, sep)) != NULL)
     {
+      // stock it in an array of string the string if it's valid
       if (ignore_it(tmp, to_ignore) == -1)
 	ret = add_element(ret, tmp, to_remove);
       free(tmp);

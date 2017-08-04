@@ -113,6 +113,7 @@ int		deleteIDSegment(segment **old, unsigned int id)
   return (1);
 }
 
+// Delete every child in the pointed segment.
 int		deleteChildSegment(segment **old)
 {
   segment	*tmp;
@@ -134,6 +135,7 @@ int		deleteChildSegment(segment **old)
   return (1);
 }
 
+// Delete every segments. (delete the list and everything in it.)
 int		deleteSegments(segment **old)
 {
   segment	*tmp;
@@ -157,6 +159,7 @@ int		deleteSegments(segment **old)
   return (0);
 }
 
+// Delete the list of segment. (only the list, doesn't go to the higest segment).
 int		deleteListSegments(segment **old)
 {
   segment	*tmp;

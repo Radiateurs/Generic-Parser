@@ -6,6 +6,7 @@
 # include	<stdlib.h>
 # include	<string.h>
 
+// Add a message at the end of old's list
 int		addMessage(message **old, message *new)
 {
   if (new == NULL)

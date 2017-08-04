@@ -4,6 +4,7 @@
 # include	"generic_parser.h"
 # include	"navigation/movement.h"
 
+// Returns message's ID
 double		nfGetMessageID()
 {
   if (g_msg == NULL)
@@ -11,6 +12,7 @@ double		nfGetMessageID()
   return ((double)g_msg->id);
 }
 
+// Returns message's type
 double		nfGetMessageType()
 {
   if (g_msg == NULL)
@@ -18,6 +20,7 @@ double		nfGetMessageType()
   return (g_msg->type);
 }
 
+// Returns message's name
 char		*tfGetMessageName()
 {
   if (g_msg == NULL)
@@ -27,6 +30,7 @@ char		*tfGetMessageName()
   return (g_msg->name);
 }
 
+// Returns the specifyed id message's type 
 double		nfGetIDMessageType(int id)
 {
   int		error;
@@ -43,6 +47,7 @@ double		nfGetIDMessageType(int id)
   return (real_type);
 }
 
+// Returns the specifyed id message's name 
 char		*tfGetIDMessageName(int id)
 {
   int		error;
@@ -61,6 +66,7 @@ char		*tfGetIDMessageName(int id)
   return (real_name);
 }
 
+// Returns the specifyed type message's id 
 double		nfGetTypeMessageID(int type)
 {
   int		error;
@@ -77,6 +83,7 @@ double		nfGetTypeMessageID(int type)
   return (real_id);
 }
 
+// Returns the specifyed id message's name 
 char		*tfGetTypeMessageName(int type)
 {
   int		error;
@@ -95,6 +102,7 @@ char		*tfGetTypeMessageName(int type)
   return (real_name);
 }
 
+// Returns the specifyed name message's id 
 double		nfGetNameMessageID(char *name)
 {
   int		error;
@@ -111,6 +119,7 @@ double		nfGetNameMessageID(char *name)
   return (real_id);
 }
 
+// Returns the specifyed name message's type 
 double		nfGetNameMessageType(char *name)
 {
   int		error;

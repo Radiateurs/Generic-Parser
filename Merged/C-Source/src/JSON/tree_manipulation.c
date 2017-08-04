@@ -3,6 +3,9 @@
 
 # include	"JSONParser.h"
 
+/*
+** Identify every type of the conent of an element.
+*/
 void		JSONidentify_token_type(const char *fragment, JSONtree_parser *info)
 {
   int		decimal_pos;
@@ -47,6 +50,9 @@ void		JSONidentify_token_type(const char *fragment, JSONtree_parser *info)
   return ;
 }
 
+/*
+** Functions that allow to add a segment in the graph depending on the info variable.
+*/
 void		JSONadd_segment(JSONtree_parser *info, message **msg)
 {
   int		is_a_group;
@@ -68,11 +74,15 @@ void		JSONadd_segment(JSONtree_parser *info, message **msg)
     (*info).is_in_tab++;
 }
 
+/*
+** Once a tree_state has been set, the flow goes to this function
+** This function help to add chunks of information and modify them to feet the graph.
+*/
 void		JSONadd_chunk_to_tree(JSONtree_parser *info, message **msg)
 {
   switch ((*info).current_tree_type)
     {
-    case CLOSEGROUP:
+    case CLOSEGROUP: // CLOSING A GROUP
       closeGroupSegment(&((*msg)->segment));
       if ((*info).last_state == TABE || ((*msg)->segment != NULL && (*msg)->segment->type == STAB))
       	(*info).is_in_tab--;
@@ -81,23 +91,23 @@ void		JSONadd_chunk_to_tree(JSONtree_parser *info, message **msg)
       (*info).last_tree_type = (*info).current_tree_type;
       (*info).current_tree_type = NOPE;
       break;
-    case SEGMENT:
+    case SEGMENT: // ADD SEGMENT
       JSONadd_segment(info, msg);
       break;
-    case LIST:
+    case LIST: // ADD LIST
       JSONadd_segment(info, msg);
       break;
-    case TAB:
+    case TAB: // ADD TAB
       JSONadd_segment(info, msg);
       break;
-    case ELEMENT:
+    case ELEMENT: // ADD AN ELEMENT
       newElement(&((*msg)->segment->element), (*info).elem_name, getNextID((*msg)->segment), "", 10);
       if ((*info).elem_name != NULL)
 	free((*info).elem_name);
       (*info).last_tree_type = (*info).current_tree_type;
       (*info).current_tree_type = NOPE;
       break;
-    case ATTRIBUT:
+    case ATTRIBUT: // ADD AN ATTRIBUT (the value of an element)
       if ((*info).content == NULL)
 	return ;
       if (newElement(&((*msg)->segment->element), (*info).elem_name,	\

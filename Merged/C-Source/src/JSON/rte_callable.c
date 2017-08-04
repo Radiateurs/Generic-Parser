@@ -4,6 +4,10 @@
 # include	"generic_parser.h"
 # include	"JSONParser.h"
 
+/*
+** Called by RTE.
+** Create a graph from a file.
+*/
 double		nfJSONParseFile(char *path)
 {
   message	*tmp;
@@ -16,6 +20,10 @@ double		nfJSONParseFile(char *path)
   return (0);
 }
 
+/*
+** Called by RTE.
+** Create a graph from a flux.
+*/
 double		nfJSONParseFlux(int fd)
 {
   message	*tmp;
@@ -31,6 +39,10 @@ double		nfJSONParseFlux(int fd)
   return (0);
 }
 
+/*
+** Called by RTE.
+** Complete a graph from a flux.
+*/
 double		nfJSONFeedFlux()
 {
   if (g_fd == -1)
@@ -41,6 +53,10 @@ double		nfJSONFeedFlux()
   return (0);
 }
 
+/*
+** Called by RTE.
+** Serialize any graph in JSON.
+*/
 double		nfJSONSerialize(char *path)
 {
   if (g_msg == NULL)
@@ -49,6 +65,10 @@ double		nfJSONSerialize(char *path)
   return (0);
 }
 
+/*
+** Called by RTE.
+** Serialize any graph in JSON in a specialized creation mode.
+*/
 double		nfJSONSerializeMode(char *path, int flags)
 {
   if (g_msg == NULL)

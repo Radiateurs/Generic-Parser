@@ -5,6 +5,8 @@
 #include	<unistd.h>
 #include	<stdio.h>
 
+// Dump the segment child on the standard output in a generic form.
+// Could be used as log or debug.
 void		dumpSegmentChild(segment *seg)
 {
   segment	*tmp;
@@ -39,6 +41,8 @@ void		dumpSegmentChild(segment *seg)
     }
 }
 
+// Dump the segment on the standard output in a generic form.
+// Could ne use as log or debug.
 void		dumpSegment(segment *seg)
 {
   segment	*tmp;

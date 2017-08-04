@@ -14,6 +14,7 @@ double		nfDeleteElement()
   return (0);
 }
 
+// Delete evey element
 double		nfDeleteAllElement()
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
@@ -23,6 +24,7 @@ double		nfDeleteAllElement()
   return (0);
 }
 
+// Delete the specifyed element by its id
 double		nfDeleteIDElement(int id)
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
@@ -32,6 +34,7 @@ double		nfDeleteIDElement(int id)
   return (0);
 }
 
+// Delete the specifyed element by its Name
 double		nfDeleteNameElement(const char *name)
 {
   int		error_return;
@@ -45,6 +48,7 @@ double		nfDeleteNameElement(const char *name)
   return (0);
 }
 
+// Modify the pointed element
 double		nfModifyElement(const char *new_name, const char *new_content, int type)
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
@@ -63,6 +67,7 @@ double		nfModifyElement(const char *new_name, const char *new_content, int type)
   return (0);
 }
 
+// Modify the pointed element's id
 double		nfModifyElementID(int new_id)
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
@@ -72,6 +77,7 @@ double		nfModifyElementID(int new_id)
   return (0);
 }
 
+// Modify the id of the specified element by its id
 double		nfModifyIDElementID(int id, int new_id)
 {
   int		error_return;
@@ -85,6 +91,7 @@ double		nfModifyIDElementID(int id, int new_id)
   return (0);
 }
 
+// Modify the id of the specified element by its name
 double		nfModifyNameElementID(const char *name, int new_id)
 {
   int		error_return;
@@ -98,6 +105,7 @@ double		nfModifyNameElementID(const char *name, int new_id)
   return (0);
 }
 
+// Modify the pointed element's name
 double		nfModifyElementName(const char *new_name)
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
@@ -110,6 +118,7 @@ double		nfModifyElementName(const char *new_name)
   return (0);
 }
 
+// Modify the name of the specified element by its id
 double		nfModifyIDElementName(int id, const char *new_name)
 {
   int		error_return;
@@ -126,6 +135,7 @@ double		nfModifyIDElementName(int id, const char *new_name)
   return (0);
 }
 
+// Modify the name of the specified element by its name
 double		nfModifyNameElementName(const char *name, const char *new_name)
 {
   int		error_return;
@@ -142,6 +152,7 @@ double		nfModifyNameElementName(const char *name, const char *new_name)
   return (0);
 }
 
+// Modify the pointed element's content
 double		nfModifyElementContent(const char *new_content, int type)
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
@@ -156,6 +167,7 @@ double		nfModifyElementContent(const char *new_content, int type)
   return (0);
 }
 
+// Modify the content of the specified element by its id
 double		nfModifyIDElementContent(int id, const char *new_content, int type)
 {
   int		error_return;
@@ -174,6 +186,7 @@ double		nfModifyIDElementContent(int id, const char *new_content, int type)
   return (0);
 }
 
+// Modify the content of the specified element by its name
 double		nfModifyNameElementContent(const char *name, const char *new_content, int type)
 {
   int		error_return;
@@ -256,6 +269,7 @@ double		nfAddElementInChild(const char *name, const char *content, int type)
   return (0);
 }
 
+// Add an element in the specifyed segment by its od
 double		nfAddElementInSegmentID(int id, int new_id, const char *name, const char *content, int type)
 {
   int		error_code;
@@ -275,6 +289,7 @@ double		nfAddElementInSegmentID(int id, int new_id, const char *name, const char
   return (0);
 }
 
+// Add an element in the specifyed Segment by its name
 double		nfAddElementInSegmentName(const char *name, const char *new_name, \
 					  const char *content, int type)
 {
@@ -294,6 +309,7 @@ double		nfAddElementInSegmentName(const char *name, const char *new_name, \
   return (0);
 }
 
+// Add an element in the specified child by its id
 double		nfAddElementInChildID(int id, int new_id, const char *name, const char *content, int type)
 {
   int		error_code;
@@ -313,6 +329,7 @@ double		nfAddElementInChildID(int id, int new_id, const char *name, const char *
   return (0);
 }
 
+// Add an element in the specified child by its name
 double		nfAddElementInChildName(const char *name, const char *new_name, \
 					const char *content, int type)
 {
@@ -332,6 +349,7 @@ double		nfAddElementInChildName(const char *name, const char *new_name, \
   return (0);  
 }
 
+// Add an element of type numeric. the value is converted in string.
 double		nfAddNumeric(const char *name, int value)
 {
   char		*int_converted;
@@ -345,6 +363,7 @@ double		nfAddNumeric(const char *name, int value)
   return (0);
 }
 
+// Add an element of type string.
 double		nfAddString(const char *name, const char *value)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -354,6 +373,7 @@ double		nfAddString(const char *name, const char *value)
   return (0);
 }
 
+// Add an element of type NULL OBJECT. No need of value because it will be "NULL" in any case
 double		nfAddNullObject(const char *name)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -363,6 +383,7 @@ double		nfAddNullObject(const char *name)
   return (0);
 }
 
+// Add an element of type boolean. The value is either TRUE (1) or FALSE (0).
 double		nfAddBoolean(const char *name, int boolean)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -384,6 +405,10 @@ double		nfAddBoolean(const char *name, int boolean)
   return (-1);
 }
 
+// Add an element of type Date. THe format of the date must be : dd-mm-yyyy
+// dd : Digit for the day.
+// mm : digit for the month.
+// yy : Full year.
 double		nfAddDate(const char *name, const char *date)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -393,7 +418,10 @@ double		nfAddDate(const char *name, const char *date)
   return (0);
 }
 
-
+// Add an element of type time. The format of the time must be : hh:mm:ss
+// hh : Digit for hours.
+// mm : digit for minutes.
+// ss : digit for seconds.
 double		nfAddTime(const char *name, const char *time)
 {
   if (g_msg == NULL || g_msg->segment == NULL)

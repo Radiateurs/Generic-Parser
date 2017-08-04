@@ -5,6 +5,7 @@
 # include	<unistd.h>
 # include	<stdlib.h>
 
+// Returns the last segment ID of the list
 unsigned int	lastSegmentID(segment *seg)
 {
   segment	*tmp;
@@ -17,6 +18,7 @@ unsigned int	lastSegmentID(segment *seg)
   return (tmp->id);
 }
 
+// Unused. Return the last group ID (List / TAB)
 unsigned int	lastGroupID(segment *seg)
 {
   segment	*tmp;
@@ -29,6 +31,7 @@ unsigned int	lastGroupID(segment *seg)
   return (tmp->id);
 }
 
+// Returns the next ID. Get the max ID and add one to it. Count the max ID for element and Segment
 unsigned int	getNextID(segment *seg)
 {
   element	*etmp; // Element temp
@@ -55,6 +58,7 @@ unsigned int	getNextID(segment *seg)
   return (eid + sid + 1);
 }
 
+// return the segment's parent
 segment		*getParent(segment *seg)
 {
   return (seg->parent);
@@ -84,6 +88,7 @@ int		countSegment(segment *seg)
   return (i);
 }
 
+// Return the segment that match the given ID
 segment		*getIDSegment(segment *seg, unsigned int id)
 {
   segment	*ret;
@@ -103,6 +108,7 @@ segment		*getIDSegment(segment *seg, unsigned int id)
   return (NULL);
 }
 
+// Return the segment type
 int		getSegmentType(segment *seg)
 {
   if (seg == NULL)

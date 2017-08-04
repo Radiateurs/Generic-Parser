@@ -4,6 +4,7 @@
 # include	"generic_parser.h"
 # include	"navigation/movement.h"
 
+// Move the pointed segment for the hightest one (root - parent of all segment, first of the segment)
 double		nfGoToRoot()
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -13,6 +14,7 @@ double		nfGoToRoot()
   return (0);
 }
 
+// Move the pointed segment for the upper one, its parent.
 double		nfGoToParent()
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -23,6 +25,7 @@ double		nfGoToParent()
   return (0);
 }
 
+// Move the pointed segment for the first of the list
 double		nfGoToFirstSegment()
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -32,6 +35,7 @@ double		nfGoToFirstSegment()
   return (0);
 }
 
+// Move the pointed segment for the last of the list
 double		nfGoToLastSegment()
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -41,6 +45,7 @@ double		nfGoToLastSegment()
   return (0);
 }
 
+// Move the pointed segment for the next one in the list
 double		nfGoToNextSegment()
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -51,6 +56,7 @@ double		nfGoToNextSegment()
   return (0);
 }
 
+// Move the pointed segment for the previous one in the list
 double		nfGoToPreviousSegment()
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -61,6 +67,7 @@ double		nfGoToPreviousSegment()
   return (0);
 }
 
+// Move the pointed segment to the segment that match the specifyed ID
 double		nfGoToIDSegment(int id)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -84,6 +91,7 @@ double		nfGoToIDSegment(int id)
   return (0);
 }
 
+// Move the pointed segment to the segment that match the specifyed Name
 double		nfGoToNameSegment(const char *name)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -101,6 +109,7 @@ double		nfGoToNameSegment(const char *name)
   return (0);
 }
 
+// Move the pointed segment to the first TAB encountered
 double		nfGoToFirstTab()
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -114,6 +123,7 @@ double		nfGoToFirstTab()
   return (0);  
 }
 
+// Move the pointed segment to the first list encountered
 double		nfGoToFirstList()
 {
   if (g_msg == NULL || g_msg->segment == NULL)

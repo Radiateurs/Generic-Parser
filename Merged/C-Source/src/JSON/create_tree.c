@@ -4,22 +4,24 @@
 # include	"JSONParser.h"
 # include	<stdio.h>
 
-
+/*
+** Init variable in the JSONtree_parser struture
+*/
 JSONtree_parser	JSONinit_tree_parser()
 {
   JSONtree_parser	info;
 
-  info.seg_name = NULL;
-  info.elem_name = NULL;
-  info.attr_name = NULL;
-  info.content = NULL;
-  info.current_state = NONE;
-  info.last_state = NONE;
-  info.current_tree_type = NOPE;
-  info.last_tree_type = NOPE;
-  info.is_in_list = 0;
-  info.is_in_tab = 0;
-  info.list_in_tab = 0;
+  info.seg_name = NULL; // Needed for the name of a segment
+  info.elem_name = NULL; // needed for the name of an element
+  info.attr_name = NULL; // needed for the name of an attribut
+  info.content = NULL; // needed for the value of a content
+  info.current_state = NONE; // needed for the current state during parsing.
+  info.last_state = NONE; // needed for the lastest state during parsing.
+  info.current_tree_type = NOPE; // needed for the current tree state during parsing. If during the parsing the graph is in a List, an array or anything else
+  info.last_tree_type = NOPE; // needed for the lastest tree state during parsing. If during the parsing the graph was in a List, an array or anything else
+  info.is_in_list = 0; // needed to know if during the process of parsing, the graph has been through a list.
+  info.is_in_tab = 0; // needed to know if during the process of parsing, the graph has been through a tab.
+  info.list_in_tab = 0;  // used as a boolean, needed to know if the graph has been through a tab and a list.
   return (info);
 }
 

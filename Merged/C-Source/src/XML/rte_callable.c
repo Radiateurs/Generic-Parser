@@ -3,6 +3,7 @@
 
 # include	"generic_parser.h"
 
+// Create a graph from the given file
 double		nfXMLParseFile(char *path)
 {
   ParserInit();
@@ -11,6 +12,7 @@ double		nfXMLParseFile(char *path)
   return (0);
 }
 
+// Open a message and create it from a flux
 double		nfXMLParseFlux(int fd)
 {
   message	*tmp;
@@ -26,6 +28,7 @@ double		nfXMLParseFlux(int fd)
   return (0);
 }
 
+// Compete the flux message
 double		nfXMLFeedFlux()
 {
   if (g_fd == -1)
@@ -36,6 +39,7 @@ double		nfXMLFeedFlux()
   return (0);
 }
 
+// Serialize the message in XML structure
 double		nfXMLSerialize(char *path)
 {
   if (g_msg == NULL)
@@ -44,6 +48,7 @@ double		nfXMLSerialize(char *path)
   return (0);
 }
 
+// Serialize the message in XML and create the file with certains mode
 double		nfXMLSerializeMode(char *path, int flags)
 {
   if (g_msg == NULL)

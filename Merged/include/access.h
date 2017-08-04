@@ -67,6 +67,11 @@ double		nfGetNextChildID();
 double		nfGetPreviousChildID();
 double		nfGetFirstChildID();
 double		nfGetLastChildID();
+double		nfGetChildDepth();
+double		nfGetNextChildDepth();
+double		nfGetPreviousChildDepth();
+double		nfGetFirstChildDepth();
+double		nfGetLastChildDepth();
 
 /*
 ** Element acces functions

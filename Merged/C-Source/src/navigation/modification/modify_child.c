@@ -4,6 +4,7 @@
 # include	"generic_parser.h"
 # include	"navigation/movement.h"
 
+// Delete the specidyed id child.
 double		nfDeleteIDChild(int id)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -13,6 +14,7 @@ double		nfDeleteIDChild(int id)
   return (0);
 }
 
+// Delete the specifyed name child
 double		nfDeleteNameChild(const char *name)
 {
   int		error_return;
@@ -47,6 +49,7 @@ double		nfDeleteAllChild()
   return (0);  
 }
 
+// Modify the name of the specifyed id child
 double		nfModifyIDChildName(int id, const char *new_name)
 {
   int		error_return;
@@ -60,6 +63,7 @@ double		nfModifyIDChildName(int id, const char *new_name)
   return (0);
 }
 
+// Modify the name of the specifyed name child
 double		nfModifyNameChildName(const char *name, const char *new_name)
 {
   int		error_return;
@@ -73,6 +77,7 @@ double		nfModifyNameChildName(const char *name, const char *new_name)
   return (0);
 }
 
+// Modify the id of the specifyed id child
 double		nfModifyIDChildID(int id, int new_id)
 {
   int		error_return;
@@ -85,6 +90,7 @@ double		nfModifyIDChildID(int id, int new_id)
   return (0);
 }
 
+// Modify the name of the child
 double		nfModifyChildName(const char *new_name)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -94,6 +100,7 @@ double		nfModifyChildName(const char *new_name)
   return (0);
 }
 
+// Modify the id of the specifyed name child
 double		nfModifyNameChildID(const char *name, int new_id)
 {
   int		error_return;
@@ -115,6 +122,7 @@ double		nfModifyChildID(int new_id)
   return (0);
 }
 
+// Modify the type of the specifyed name child
 double		nfModifyNameChildType(const char *name, int new_type)
 {
   int		error_return;
@@ -153,6 +161,7 @@ double		nfAddChildInSegment(const char *name)
   return (0);
 }
 
+// Add a child in the specifyed segment id
 double		nfAddChildInSegmentID(int id, const char *new_name)
 {
   int		error_code;
@@ -209,6 +218,7 @@ double		nfAddChildInChild(const char *new_name)
   return (0);
 }
 
+// Add a child in the specifyed id child
 double		nfAddChildInChildID(int id, const char *new_name)
 {
   int		error_code;
@@ -227,6 +237,7 @@ double		nfAddChildInChildID(int id, const char *new_name)
   return (0);
 }
 
+// Add a child in the specifyed name child
 double		nfAddChildInChildName(const char *name, const char *new_name)
 {
   int		error_code;
@@ -245,6 +256,7 @@ double		nfAddChildInChildName(const char *name, const char *new_name)
   return (0);
 }
 
+// Add a child in the first encountered list
 double		nfAddChildList(const char *name)
 {
   segment	*new;
@@ -257,6 +269,7 @@ double		nfAddChildList(const char *name)
   return (0);
 }
 
+// Add a child in the first encountered tab
 double		nfAddChildTab(const char *name)
 {
   segment	*new;

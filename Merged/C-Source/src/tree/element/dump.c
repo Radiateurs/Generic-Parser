@@ -6,6 +6,8 @@
 #include	<stdlib.h>
 #include	<stdio.h>
 
+// Print the element on the standard output. Can be used has a log or a debug.
+// It's printed in a generic way
 void		dumpElement(element *elem, int depth)
 {
   element	*tmp;

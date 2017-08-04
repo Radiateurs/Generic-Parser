@@ -4,7 +4,7 @@
 # include	"generic_parser.h"
 # include	"navigation/movement.h"
 
-// Delete Part
+// Delete All the messages
 double		nfDeleteMessages()
 {
   if (deleteMessages(&g_msg) == 0)
@@ -12,6 +12,7 @@ double		nfDeleteMessages()
   return (0);
 }
 
+// Delete the pointed message and all inside.
 double		nfDeleteMessage()
 {
   if (g_msg == NULL)
@@ -27,6 +28,7 @@ double		nfDeleteIDMessage(int id)
   return (0);
 }
 
+// Copy the pointed message into a new one.
 double		nfCopyMessage()
 {
   message	*tmp;
@@ -54,12 +56,24 @@ double		nfMirrorMessage()
   return (0);
 }
 
+// Create a new message
 double		nfAddMessage(const char *name, int type)
 {
   if (newMessage(&g_msg, getLastIDMessage(g_msg)) == -1)
     return (-1);
   g_msg->name = strdup(name);
   g_msg->type = (enum e_msg_type)type;
+  return (0);
+}
+
+// Modify the pointed message's name
+double		nfModifyMessageName(const char *new_name)
+{
+  if (g_msg == NULL)
+    return (-1); // Verify error code.
+  if (g_msg->name != NULL)
+    free(g_msg->name);
+  g_msg->name = strdup(new_name);
   return (0);
 }
 

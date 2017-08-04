@@ -4,6 +4,7 @@
 # include	<string.h>
 # include	"generic_parser.h"
 
+// Move the pointed message to the first message of the list
 double		nfGoToFirstMessage()
 {
   if (g_msg == NULL)
@@ -13,6 +14,7 @@ double		nfGoToFirstMessage()
   return (0);
 }
 
+// Move the pointed message to the last message of the list
 double		nfGoToLastMessage()
 {
   if (g_msg == NULL)
@@ -22,6 +24,7 @@ double		nfGoToLastMessage()
   return (0);
 }
 
+// Move the pointed message to the previous message in the list
 double		nfGoToPreviousMessage()
 {
   if (g_msg == NULL || g_msg->prev != NULL)
@@ -30,6 +33,7 @@ double		nfGoToPreviousMessage()
   return (0);
 }
 
+// Move the pointed message to the next message in the list
 double		nfGoToNextMessage()
 {
   if (g_msg == NULL || g_msg->next != NULL)
@@ -38,6 +42,7 @@ double		nfGoToNextMessage()
   return (0);
 }
 
+// Move the pointed message to the first message that match the specifyed ID
 double		nfGoToIDMessage(int id)
 {
   message	*tmp;
@@ -55,6 +60,7 @@ double		nfGoToIDMessage(int id)
   return (0);
 }
 
+// Move the pointed message to the first message that match the specifyed type
 double		nfGoToTypeMessage(int type)
 {
   message	*tmp;
@@ -72,6 +78,7 @@ double		nfGoToTypeMessage(int type)
   return (0);
 }
 
+// Move the pointed message to the first message that match the specifyed name.
 double		nfGoToNameMessage(char *name)
 {
   message	*tmp;

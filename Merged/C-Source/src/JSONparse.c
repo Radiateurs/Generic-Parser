@@ -60,7 +60,8 @@ message		*JSONparseFlux(int *fd, int id)
 }
 
 /*
-** 
+** Complete the flux message.
+** Read until possible, then complete the graph.
 */
 void		JSONfeedFlux(int *fd, message *msg, int id)
 {

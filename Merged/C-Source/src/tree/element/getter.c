@@ -4,6 +4,7 @@
 #include	"tree/element.h"
 #include	<unistd.h>
 
+// Returns the highest ID in the list of element.
 unsigned int	lastElementID(element *elem)
 {
   element	*tmp;
@@ -29,6 +30,7 @@ unsigned int	lastElementID(element *elem)
   return (max);
 }
 
+// Returns the element that match the ID
 element         *getIDElement(element *elem, unsigned int id)
 {
   element       *ret;
@@ -48,6 +50,7 @@ element         *getIDElement(element *elem, unsigned int id)
   return (NULL);
 }
 
+// Count how much element are present in the list
 int             countElement(element *elem)
 {
   element       *tmp;

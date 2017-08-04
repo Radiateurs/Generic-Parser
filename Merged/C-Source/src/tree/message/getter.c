@@ -5,6 +5,7 @@
 # include	<unistd.h>
 # include	<stdlib.h>
 
+// Move the pointed message to the one that match the given ID
 int		switchToIDMessage(message **old, unsigned int id)
 {
   message	*tmp;
@@ -25,6 +26,7 @@ int		switchToIDMessage(message **old, unsigned int id)
   return (0);  
 }
 
+// Return the highest ID in message's list
 unsigned int	getLastIDMessage(message *msg)
 {
   message	*tmp;

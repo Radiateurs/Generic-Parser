@@ -3,12 +3,18 @@
 
 # include	"generic_parser.h"
 
+/*
+** Set the output mode to "Human Readable"
+*/
 double		nfSetHumanReadable(char *sep, int nb_spacer)
 {
   setHumanReadable(sep[0], nb_spacer);
   return (0);
 }
 
+/*
+** Clean every global allocated variable
+*/
 double		nfCleanMemory()
 {
   int		i;

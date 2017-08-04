@@ -6,6 +6,7 @@
 # include	<stdlib.h>
 # include	<string.h>
 
+// Create a segment and initialize every variable with the matching given ones.
 segment		*initSegment(const char *name, unsigned int id, int is_a_group, int depth, int segType)
 {
   segment	*new;
@@ -122,6 +123,7 @@ int		newSegment(segment **old, const char *name, unsigned int id, int is_a_group
   return (1);
 }
 
+// Increase the depth of +1 value from the given segment through the end of the depth. (Left to right, top to bottom)
 void		increaseChildDepth(segment **seg)
 {
   segment	*tmp;
@@ -139,6 +141,7 @@ void		increaseChildDepth(segment **seg)
     }
 }
 
+// Create a copy of the segment (only the node)
 segment		*copySegment(segment *to_copy)
 {
   segment	*copy;
@@ -162,6 +165,7 @@ segment		*copySegment(segment *to_copy)
   return (copy);
 }
 
+// Close the group. Goes the parent.
 void		closeGroupSegment(segment **seg)
 {
   if ((*seg)->parent == NULL)
@@ -193,6 +197,7 @@ void		cloneChild(segment **old, segment *origin)
   return ;
 }
 
+// copy the enitre list. Not like copySegement that copy only a node.
 segment		*cloneSegment(segment *origin)
 {
   segment	*to_return;

@@ -4,6 +4,9 @@
 # include	"JSONParser.h"
 # include	<stdio.h>
 
+/*
+** Serialize an Element in JSON
+*/
 void		JSONDumpElement(int fd, element *elem, int seg_depth)
 {
   int		depth = 0;
@@ -21,7 +24,7 @@ void		JSONDumpElement(int fd, element *elem, int seg_depth)
     }
   if (elem == NULL)
     return ;
-  if (elem->name != NULL)
+  if (elem->name != NULL) // If an element doesn't have a name, it's obviously in a tab.
     dprintf(fd, "\"%s\":", elem->name);
   if (elem->type == ALPHA || elem->type == STRING || elem->type == ALNUM)
     dprintf(fd, "\"%s\"", elem->content);
@@ -29,6 +32,9 @@ void		JSONDumpElement(int fd, element *elem, int seg_depth)
     dprintf(fd, "%s", elem->content);
 }
 
+/*
+** Serialize the element's list in JSON
+*/
 void		JSONDumpAllElement(int fd, element *elem, int seg_depth)
 {
   element	*tmp;
@@ -50,6 +56,9 @@ void		JSONDumpAllElement(int fd, element *elem, int seg_depth)
     }
 }
 
+/*
+** Serialize a segment in JSON
+*/
 void		JSONDumpSegment(int fd, segment *seg) // Will dump only the pointed segment
 {
   int		depth = 0;
@@ -73,7 +82,7 @@ void		JSONDumpSegment(int fd, segment *seg) // Will dump only the pointed segmen
     }
   if (seg->name != NULL)
     dprintf(fd, "\"%s\":", seg->name);
-  if (seg->type == SLIST)
+  if (seg->type == SLIST) // Serialize all the element in passing order. And then its child
     {
       dprintf(fd, "{");
       if (g_human_readable == 1)
@@ -85,7 +94,7 @@ void		JSONDumpSegment(int fd, segment *seg) // Will dump only the pointed segmen
 	dprintf(fd, "%s", CRLF);
       JSONDumpAllSegment(fd, seg->child);
     }
-  if (seg->type == STAB)
+  if (seg->type == STAB) // Serialize every Element in ID's order
     {
       dprintf(fd, "[");
       if (g_human_readable == 1)
@@ -123,6 +132,9 @@ void		JSONDumpSegment(int fd, segment *seg) // Will dump only the pointed segmen
   dprintf(fd, "%c", (seg->type == STAB) ? ']' : '}');
 }
 
+/*
+** Serialize the segment's list
+*/
 void		JSONDumpAllSegment(int fd, segment *seg) // Will dump all element and child in the current segment
 {
   segment	*tmp;
@@ -148,6 +160,9 @@ void		JSONDumpAllSegment(int fd, segment *seg) // Will dump all element and chil
     }
 }
 
+/*
+** Serialize the message.
+*/
 void		JSONwriting(int fd, message *msg)
 {
   if (msg == NULL)

@@ -6,6 +6,7 @@
 #include	<stdlib.h>
 #include	<string.h>
 
+// Add an element at the end of the old's list
 int		addElement(element **old, element *new)
 {
   while (*old != NULL && (*old)->next != NULL)
@@ -21,6 +22,7 @@ int		addElement(element **old, element *new)
   return (1);
 }
 
+// Create an element and add it at the end of old's list
 int		newElement(element **old, const char *name, unsigned int id, \
 			   const char *content, enum e_attr_type type)
 {
@@ -49,6 +51,7 @@ int		newElement(element **old, const char *name, unsigned int id, \
   return (1);
 }
 
+// Creates a copy of the origin element.
 element		*copyElement(element *origin)
 {
   element	*to_return;
@@ -64,6 +67,7 @@ element		*copyElement(element *origin)
   return (to_return);
 }
 
+// Copy the list of element. The difference with CopyElement is that it doesn't copy a node, it copy the entire list.
 element		*cloneElement(element *origin)
 {
   element	*to_return;

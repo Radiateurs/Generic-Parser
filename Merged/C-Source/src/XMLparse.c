@@ -58,7 +58,8 @@ message		*XMLparseFlux(int *fd, int id)
 }
 
 /*
-** 
+** Complete the flux message.
+** Read until possible, then complete the graph.
 */
 void		XMLfeedFlux(int *fd, message *msg, int id)
 {

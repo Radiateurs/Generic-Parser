@@ -6,6 +6,7 @@
 # include	<stdlib.h>
 # include	<stdio.h>
 
+// Dump message variable in a generic form on the standard output
 void		dumpMessage(message *msg)
 {
   message	*tmp;
@@ -17,7 +18,7 @@ void		dumpMessage(message *msg)
     tmp = tmp->prev;
   while (tmp)
     {
-      printf("Message [id %d]\n", tmp->id);
+      printf("Message [id %d] [Name %] [Type %i]\n", tmp->id, (tmp->name == NULL) ? "" : tmp->name, tmp->type);
       dumpSegment(tmp->segment);
       tmp = tmp->next;
     }

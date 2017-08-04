@@ -4,6 +4,7 @@
 # include	"generic_parser.h"
 # include	"navigation/movement.h"
 
+// Move the pointed element for the first one of the list
 double		nfGoToFirstElement()
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
@@ -13,6 +14,7 @@ double		nfGoToFirstElement()
   return (0);
 }
 
+// Move the pointed element for the last one of the list
 double		nfGoToLastElement()
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
@@ -22,6 +24,7 @@ double		nfGoToLastElement()
   return (0);
 }
 
+// Move the pointed element for the next one of the list
 double		nfGoToNextElement()
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
@@ -32,6 +35,7 @@ double		nfGoToNextElement()
   return (0);
 }
 
+// Move the pointed element for the previous one of the list
 double		nfGoToPreviousElement()
 {
   if (g_msg == NULL || g_msg->segment == NULL || g_msg->segment->element == NULL)
@@ -42,6 +46,7 @@ double		nfGoToPreviousElement()
   return (0);
 }
 
+// Move the pointed element for the one that match the speciifyed ID
 double		nfGoToIDElement(int id)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
@@ -65,6 +70,7 @@ double		nfGoToIDElement(int id)
   return (0);
 }
 
+// Move the pointed element for the one that match the speciifyed Name
 double		nfGoToNameElement(const char *name)
 {
   if (g_msg == NULL || g_msg->segment == NULL)
